@@ -1,0 +1,417 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "dp-dashboard/snapshot.schema.json",
+  "title": "Snapshot",
+  "description": "One signed-off (or draft) weekly snapshot. The only contract between the pipeline and the app. Version 1.0.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "weekId",
+    "asOfDate",
+    "quarter",
+    "generatedAt",
+    "signOff",
+    "domains",
+    "sources",
+    "registry",
+    "metrics",
+    "products",
+    "trend",
+    "changes",
+    "dataQuality"
+  ],
+  "properties": {
+    "schemaVersion": { "type": "string", "enum": ["1.0"] },
+    "weekId": { "type": "string", "pattern": "^[0-9]{4}-W[0-9]{2}$", "description": "ISO week, e.g. 2026-W41" },
+    "asOfDate": { "type": "string", "format": "date", "description": "Reporting date; defaults to the Friday of weekId" },
+    "quarter": { "type": "string", "pattern": "^[0-9]{4}-Q[1-4]$", "description": "Calendar quarter containing asOfDate" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "signOff": { "$ref": "#/definitions/SignOff" },
+    "domains": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/DomainInfo" },
+      "description": "Domains in display order"
+    },
+    "sources": { "type": "array", "items": { "$ref": "#/definitions/SourceInfo" } },
+    "registry": { "$ref": "#/definitions/RegistryInfo" },
+    "metrics": { "type": "array", "items": { "$ref": "#/definitions/MetricValue" } },
+    "products": { "type": "array", "items": { "$ref": "#/definitions/ProductRow" } },
+    "trend": { "type": "array", "items": { "$ref": "#/definitions/TrendPoint" } },
+    "changes": { "type": "array", "items": { "type": "string" }, "maxItems": 3 },
+    "dataQuality": { "type": "array", "items": { "$ref": "#/definitions/DataQualityItem" } },
+    "reporting": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/ReportingItem" },
+      "description": "Data coverage: how many products have the data each metric needs, per scope. Added 2026-10-07."
+    },
+    "health": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/HealthItem" },
+      "description": "Whether each domain, and the organisation, is on track for its quarterly target, per trend quarter. Added 2026-10-08."
+    },
+    "weekly": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/WeeklyPoint" },
+      "description": "Certified so far in the quarter at the end of each week, per trend quarter. Added 2026-10-08."
+    },
+    "quarters": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/QuarterView" },
+      "description": "The closed trend quarters, each as it stood on its last day, for the quarter selector. Added 2026-10-08."
+    }
+  },
+  "definitions": {
+    "SignOff": {
+      "title": "SignOff",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": { "type": "string", "enum": ["draft", "approved"] },
+        "approvedBy": { "type": "string" },
+        "approvedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "DomainInfo": {
+      "title": "DomainInfo",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "area"],
+      "properties": {
+        "id": { "type": "string", "description": "URL-safe id, e.g. market-access" },
+        "name": { "type": "string", "description": "Display name, e.g. Market access" },
+        "area": { "type": "string", "description": "The level above the domain: Commercial, TechOps, R&D, G&A (or Unassigned). Added 2026-10-08." }
+      }
+    },
+    "SourceInfo": {
+      "title": "SourceInfo",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "file", "asOf", "status", "rows"],
+      "properties": {
+        "name": { "type": "string" },
+        "file": { "type": "string" },
+        "asOf": { "type": "string", "description": "ISO date-time the file was last modified, or empty when missing" },
+        "status": { "type": "string", "enum": ["ok", "missing"] },
+        "rows": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "RegistryInfo": {
+      "title": "RegistryInfo",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["metrics", "flags"],
+      "properties": {
+        "metrics": { "type": "array", "items": { "$ref": "#/definitions/MetricDefinition" } },
+        "flags": { "type": "array", "items": { "$ref": "#/definitions/FlagDefinition" } }
+      }
+    },
+    "MetricDefinition": {
+      "title": "MetricDefinition",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "shortLabel", "definition", "levels", "unit", "execTile", "order"],
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "shortLabel": { "type": "string" },
+        "definition": { "type": "string" },
+        "levels": { "type": "array", "items": { "type": "string", "enum": ["org", "domain"] } },
+        "unit": { "type": "string", "enum": ["count", "days", "share", "people"] },
+        "compareTo": { "type": "string", "enum": ["target"] },
+        "minN": { "type": "integer", "minimum": 1 },
+        "execTile": { "type": "boolean" },
+        "order": { "type": "integer" },
+        "coverage": { "type": "string", "enum": ["gates", "plans", "reviewed", "dpo", "usage", "consumers", "validation", "nextdata"], "description": "The reporting item that says how complete this metric's inputs are" }
+      }
+    },
+    "FlagDefinition": {
+      "title": "FlagDefinition",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "label", "level", "definition", "signal"],
+      "properties": {
+        "code": { "type": "string" },
+        "label": { "type": "string" },
+        "level": { "type": "string", "enum": ["domain", "product"] },
+        "definition": { "type": "string" },
+        "signal": { "type": "string", "enum": ["red", "orange", "yellow"], "description": "Health signal the flag raises" }
+      }
+    },
+    "MetricValue": {
+      "title": "MetricValue",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "scope", "value", "source"],
+      "properties": {
+        "id": { "type": "string", "description": "Registry id, e.g. certified_qtd" },
+        "scope": { "type": "string", "description": "\"org\" or a domain id" },
+        "value": { "type": ["number", "null"] },
+        "n": { "type": "integer", "minimum": 0, "description": "Sample size for medians and shares" },
+        "values": { "type": "array", "items": { "type": "number" }, "description": "Raw values, present for medians when n < minN" },
+        "target": { "type": ["number", "null"] },
+        "source": { "type": "string", "enum": ["register", "self-reported", "snowflake", "nextdata", "validation"] },
+        "flag": { "type": ["string", "null"], "enum": ["BEHIND", null] },
+        "reason": { "type": "string", "description": "Why the value is null, or why the flag is raised" },
+        "urns": { "type": "array", "items": { "type": "string" }, "description": "Products behind the value; the list the number links to" }
+      }
+    },
+    "GateRecord": {
+      "title": "GateRecord",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gate", "date", "iteration"],
+      "properties": {
+        "gate": { "type": "string", "enum": ["G1", "G2", "G3", "G4", "G5", "G6"] },
+        "date": { "type": "string", "format": "date" },
+        "iteration": { "type": "integer", "minimum": 1 },
+        "g5Path": { "type": "string", "enum": ["scope change", "bug fix"] },
+        "evidenceUrl": { "type": "string" }
+      }
+    },
+    "PlannedGate": {
+      "title": "PlannedGate",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gate", "plannedDate", "baselineDate", "slips", "overdueDays"],
+      "properties": {
+        "gate": { "type": "string", "enum": ["G1", "G2", "G3", "G4", "G5", "G6"] },
+        "plannedDate": { "type": "string", "format": "date" },
+        "baselineDate": { "type": "string", "format": "date" },
+        "slips": { "type": "integer", "minimum": 0 },
+        "overdueDays": { "type": "integer", "description": "Days past plannedDate at asOfDate; 0 or negative when not yet due" }
+      }
+    },
+    "PlannedGA": {
+      "title": "PlannedGA",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["plannedDate", "baselineDate", "slips"],
+      "properties": {
+        "plannedDate": { "type": "string", "format": "date" },
+        "baselineDate": { "type": "string", "format": "date" },
+        "slips": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "SourcedNumber": {
+      "title": "SourcedNumber",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "source"],
+      "properties": {
+        "value": { "type": "number" },
+        "source": { "type": "string", "enum": ["self-reported", "snowflake"] }
+      }
+    },
+    "SourcedDate": {
+      "title": "SourcedDate",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "source"],
+      "properties": {
+        "value": { "type": "string", "format": "date" },
+        "source": { "type": "string", "enum": ["self-reported", "snowflake"] }
+      }
+    },
+    "ValidationSummary": {
+      "title": "ValidationSummary",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lastRun"],
+      "properties": {
+        "lastRun": { "type": "string", "format": "date" },
+        "p1Findings": { "type": "integer", "minimum": 0 },
+        "score": { "type": "number", "minimum": 0, "maximum": 1, "description": "Finish-spec completeness, priority-weighted share of applicable checks" },
+        "components": { "type": "array", "items": { "$ref": "#/definitions/ComponentScore" } },
+        "ownerStatus": { "type": "string", "description": "How the repository declares the owner: Declared, Drift, Unconfirmed, Unresolved, Partial, Suspect, Missing" },
+        "keyids": { "type": "array", "items": { "type": "string" }, "description": "Validation keyids reported for this product" }
+      }
+    },
+    "ComponentScore": {
+      "title": "ComponentScore",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "score"],
+      "properties": {
+        "label": { "type": "string" },
+        "score": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "NextDataSummary": {
+      "title": "NextDataSummary",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["names", "runtime", "deployments"],
+      "properties": {
+        "names": { "type": "array", "items": { "type": "string" }, "description": "NextData names of the product, its key first" },
+        "runtime": { "type": "string", "description": "Started if any deployment is Started, else Failed, else Unreachable; Not deployed when there is none" },
+        "env": { "type": "string", "description": "Best environment among running deployments" },
+        "url": { "type": "string", "description": "Link to the product in NextData: the best deployment's base URL" },
+        "team": { "type": "string", "description": "EDP team layer from the name prefix, e.g. Source systems" },
+        "deployments": { "type": "array", "items": { "$ref": "#/definitions/NextDataDeployment" } }
+      }
+    },
+    "NextDataDeployment": {
+      "title": "NextDataDeployment",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "env", "version", "state"],
+      "properties": {
+        "name": { "type": "string" },
+        "env": { "type": "string" },
+        "version": { "type": "string" },
+        "state": { "type": "string" },
+        "url": { "type": "string", "description": "Base URL of this deployment in NextData" }
+      }
+    },
+    "ReportingItem": {
+      "title": "ReportingItem",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "scope", "have", "of", "missing"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["gates", "plans", "reviewed", "dpo", "usage", "consumers", "validation", "nextdata"] },
+        "scope": { "type": "string", "description": "\"org\" or a domain id" },
+        "have": { "type": "integer", "minimum": 0 },
+        "of": { "type": "integer", "minimum": 0 },
+        "missing": { "type": "array", "items": { "type": "string" }, "description": "Products without the data; the list the item links to" }
+      }
+    },
+    "ProductFlag": {
+      "title": "ProductFlag",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "reason"],
+      "properties": {
+        "code": { "type": "string", "enum": ["OVERDUE", "SLIPPING", "NO_DPO", "NOT_UPDATED", "UNUSED", "PENDING_URN"] },
+        "reason": { "type": "string" }
+      }
+    },
+    "ProductRow": {
+      "title": "ProductRow",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "urn", "name", "domain", "stage", "status", "lifecycle", "signal", "iteration", "gates", "daysInStage",
+        "inputProducts", "consumedByProducts", "namedConsumers", "flags"
+      ],
+      "properties": {
+        "urn": { "type": "string" },
+        "name": { "type": "string" },
+        "domain": { "type": "string", "description": "Domain id" },
+        "dpo": { "type": "string" },
+        "stage": { "type": "string", "enum": ["Inception", "Discovery", "Design/Develop", "Test/Launch", "Operate/Support", "Retire"] },
+        "status": { "type": "string", "enum": ["In design", "In build", "In certification", "Live", "Live · in revision", "Retired", "Cancelled"] },
+        "lifecycle": { "type": "string", "enum": ["Ideation", "In design", "In development", "In testing", "Live", "Failed / retired"], "description": "Business stage shown on the executive views instead of gate codes. Added 2026-10-08." },
+        "signal": { "type": "string", "enum": ["red", "orange", "yellow", "green", "grey", "unreported"], "description": "grey when Retired or Cancelled; else the most severe flag signal; unreported when active with no flags and never reviewed by its DPO; green when active, reviewed and with no flags" },
+        "iteration": { "type": "integer", "minimum": 1, "description": "1 until the first G5; each G5 starts a new iteration" },
+        "gates": { "type": "array", "items": { "$ref": "#/definitions/GateRecord" } },
+        "lastGate": { "$ref": "#/definitions/GateRecord" },
+        "firstG4Date": { "type": "string", "format": "date" },
+        "daysInStage": { "type": "integer", "minimum": 0 },
+        "nextGate": { "$ref": "#/definitions/PlannedGate" },
+        "plannedGA": { "$ref": "#/definitions/PlannedGA" },
+        "inputProducts": { "type": "array", "items": { "type": "string" } },
+        "consumedByProducts": { "type": "array", "items": { "type": "string" }, "description": "Active products that declare this product as an input" },
+        "namedConsumers": { "type": "integer", "minimum": 0 },
+        "activeUsers30d": { "$ref": "#/definitions/SourcedNumber" },
+        "firstConsumerDate": { "$ref": "#/definitions/SourcedDate" },
+        "validation": { "$ref": "#/definitions/ValidationSummary" },
+        "nextdata": { "$ref": "#/definitions/NextDataSummary" },
+        "platformDomain": { "type": "string", "description": "Domain the product is registered under in NextData, e.g. EDP/OPS" },
+        "flags": { "type": "array", "items": { "$ref": "#/definitions/ProductFlag" } },
+        "dpoComment": { "type": "string" },
+        "reviewedOn": { "type": "string", "format": "date" },
+        "cancelledOn": { "type": "string", "format": "date" }
+      }
+    },
+    "TrendPoint": {
+      "title": "TrendPoint",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["quarter", "domain", "certified", "target"],
+      "properties": {
+        "quarter": { "type": "string", "pattern": "^[0-9]{4}-Q[1-4]$" },
+        "domain": { "type": "string", "description": "Domain id" },
+        "certified": { "type": "integer", "minimum": 0 },
+        "target": { "type": ["integer", "null"] }
+      }
+    },
+    "HealthItem": {
+      "title": "HealthItem",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["quarter", "scope", "status", "certified", "target", "expected", "pace", "elapsed", "forecast", "late", "lateUrns"],
+      "properties": {
+        "quarter": { "type": "string", "pattern": "^[0-9]{4}-Q[1-4]$" },
+        "scope": { "type": "string", "description": "\"org\" or a domain id" },
+        "status": {
+          "type": "string",
+          "enum": ["ahead", "on-track", "at-risk", "off-track", "above-target", "met-target", "below-target", "no-target"],
+          "description": "Current quarter, by pace = certified / expected: ahead >= 110%, on-track 90-109%, at-risk (shown as Behind) 70-89%, off-track < 70% (on-track or ahead while expected is 0). Closed quarter: above-target, met-target or below-target. no-target: no target set."
+        },
+        "certified": { "type": "integer", "minimum": 0 },
+        "expected": { "type": ["integer", "null"], "description": "target x elapsed, to the nearest whole product (halves up): what should be certified by the as-of date" },
+        "pace": { "type": ["number", "null"], "description": "certified / expected; null while expected is 0" },
+        "elapsed": { "type": "number", "minimum": 0, "maximum": 1, "description": "Share of the quarter elapsed at the as-of date (1 for a closed quarter)" },
+        "forecast": { "type": "integer", "minimum": 0, "description": "Context: on plan to go live by the quarter end (the g4_forecast metric); 0 once the quarter is closed" },
+        "late": { "type": "integer", "minimum": 0, "description": "Context: not yet live, go-live due by the quarter end, but not on plan (next gate overdue, or go-live date passed); 0 once the quarter is closed" },
+        "target": { "type": ["integer", "null"] },
+        "lateUrns": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "WeeklyPoint": {
+      "title": "WeeklyPoint",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["quarter", "week", "end", "certified", "byDomain"],
+      "properties": {
+        "quarter": { "type": "string", "pattern": "^[0-9]{4}-Q[1-4]$" },
+        "week": { "type": "string", "pattern": "^[0-9]{4}-W[0-9]{2}$" },
+        "end": { "type": "string", "format": "date", "description": "Last day counted: the Sunday, or the quarter end or as-of date when earlier" },
+        "certified": { "type": "integer", "minimum": 0, "description": "Certified in the quarter up to and including end" },
+        "byDomain": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 }, "description": "The same per domain id; domains with none are left out" }
+      }
+    },
+    "QuarterProduct": {
+      "title": "QuarterProduct",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["urn", "lifecycle", "status"],
+      "properties": {
+        "urn": { "type": "string" },
+        "lifecycle": { "type": "string", "enum": ["Ideation", "In design", "In development", "In testing", "Live", "Failed / retired"] },
+        "status": { "type": "string", "enum": ["In design", "In build", "In certification", "Live", "Live · in revision", "Retired", "Cancelled"] },
+        "lastGate": { "$ref": "#/definitions/GateRecord" },
+        "firstG4Date": { "type": "string", "format": "date" }
+      }
+    },
+    "QuarterView": {
+      "title": "QuarterView",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["quarter", "asOfDate", "metrics", "products"],
+      "properties": {
+        "quarter": { "type": "string", "pattern": "^[0-9]{4}-Q[1-4]$" },
+        "asOfDate": { "type": "string", "format": "date", "description": "The quarter's last day" },
+        "metrics": { "type": "array", "items": { "$ref": "#/definitions/MetricValue" } },
+        "products": { "type": "array", "items": { "$ref": "#/definitions/QuarterProduct" }, "description": "Products with a gate passed by the quarter end, from their gate history" }
+      }
+    },
+    "DataQualityItem": {
+      "title": "DataQualityItem",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["severity", "rule", "message"],
+      "properties": {
+        "severity": { "type": "string", "enum": ["blocker", "warning"] },
+        "rule": { "type": "string" },
+        "message": { "type": "string" },
+        "urn": { "type": "string" },
+        "file": { "type": "string" },
+        "row": { "type": "integer", "minimum": 1, "description": "1-based data row in the source table (header excluded)" }
+      }
+    }
+  }
+}

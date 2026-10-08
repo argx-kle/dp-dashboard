@@ -1,0 +1,64 @@
+# Which business domain each data product belongs to, by its product key (the NextData name, team-prefixed
+# where one exists). Grouped by name; Unknown where the name does not say. The relationship rarely changes:
+# edit it here. A product not listed falls back to the name rules in registry/platform.yaml, then Unknown.
+# The inbox crosswalk.csv can still override one product for one run.
+
+Patient:
+  - dp-patient-patient-engagement
+  - dp-patient-patient-journey
+  - dp-patient-patient-program-enrollment
+  - dp-patient-patient-treatment
+  - dp-patient-patient-universe
+  - dp-patient-indication-performance
+  - dp-patient-commercial-glossary
+  - patient-master
+  - patient-vs
+
+HCP:
+  - dp-hcp-call-interaction
+  - dp-hcp-hcp-hco-master
+  - dp-hcp-hcp-targeting
+  - dp-hcp-indication-and-product-master
+  - dp-hcp-media-interaction
+  - dp-hcp-survey-interaction
+  - dp-hcp-territory-and-alignment
+  - dp-ops-veeva-crm
+  - dp-ops-veeva-align
+  - dp-ops-veeva-network
+  - dp-ops-h1-data
+  - iqvia-ama-weekly
+  - iqvia-hpd-quarterly
+
+Market access:
+  - dp-claims-medical-claims
+  - dp-claims-payer-master
+  - dp-claims-payer-performance
+  - dp-claims-payer-policy-context
+  - dp-claims-pharmacy-claims
+  - dp-claims-product-market-activity
+  - dp-claims-iqvia
+  - mmit
+  - iqvia-medb
+  - iqvia-laad-mg-monthly
+  - iqvia-laad-mg-weekly
+
+Channel partner:
+  - channel-partner
+  - dp-claims-channel-partner
+
+Revenue / vials:
+  - dp-ops-buy-n-bill
+
+Medical affairs: []
+
+Logistics: []
+
+Unknown:
+  - dp-ops-artemis
+  - dp-ops-bayshore
+  - eversana-nxd
+  - anaplan
+  - dp-ops-oci-erp
+  - iqvia-product
+  - dp-ops-txhub
+  - dp-ops-ihub

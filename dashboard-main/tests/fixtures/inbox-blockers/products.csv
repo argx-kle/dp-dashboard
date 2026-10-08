@@ -1,0 +1,11 @@
+urn,name,domain,dpo,planned_next_gate_date,planned_ga_date,named_consumers,input_products,active_users_30d,first_consumer_date,dpo_comment,reviewed_on,cancelled_on
+urn:dp:rd:regulatory-submissions-tracker,Regulatory Submissions Tracker,Medical affairs,Omar Haddad,,2026-06-01,1,,4,,,2026-10-05,
+urn:dp:com:dup-product,Duplicate Product,HCP,Maya Okafor,2026-11-01,2026-12-01,0,,,,,2026-10-05,
+urn:dp:com:dup-product,Duplicate Product (again),HCP,Maya Okafor,2026-11-01,2026-12-01,0,,,,,2026-10-05,
+urn:dp:ga:future-gate,Future Gate,Revenue / vials,Tom Verbeke,2027-01-15,2027-03-01,0,,,,,2026-10-05,
+urn:dp:tq:out-of-order,Out Of Order,Logistics,Elena Rossi,2026-11-01,2026-12-01,0,,,,,2026-10-05,
+urn:dp:com:screened-comment,Screened Comment,HCP,Daniel Reyes,2026-11-01,2026-12-01,0,,,,Contact jane.doe@argenx.com for access,2026-10-05,
+urn:dp:rd:health-comment,Health Comment,Medical affairs,Hannah Weiss,2026-11-01,2026-12-01,0,,,,Cohort 3 patient diagnosed in March,2026-10-05,
+urn:dp:ga:bad-date,Bad Date,Revenue / vials,Sofia Lindqvist,2026-11-01,31/12/2026,0,,,,,2026-10-05,
+urn:dp:com:bad-domain,Bad Domain,Marketing,Priya Nair,2026-11-01,2026-12-01,0,,,,,2026-10-05,
+urn:dp:tq:early-g5,Early G5,Logistics,Jonas Pieters,2026-11-01,2026-12-01,0,,,,,2026-10-05,

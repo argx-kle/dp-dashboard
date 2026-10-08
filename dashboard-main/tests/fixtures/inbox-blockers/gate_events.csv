@@ -1,0 +1,9 @@
+urn,gate,date_passed,g5_path,evidence_url
+urn:dp:rd:regulatory-submissions-tracker,G4,2026-06-01,,https://evidence.example/regulatory-submissions-tracker/G4
+urn:dp:ga:future-gate,G1,2026-12-01,,https://evidence.example/future-gate/G1
+urn:dp:tq:out-of-order,G1,2026-05-01,,https://evidence.example/out-of-order/G1
+urn:dp:tq:out-of-order,G3,2026-06-01,,https://evidence.example/out-of-order/G3
+urn:dp:tq:out-of-order,G2,2026-07-01,,https://evidence.example/out-of-order/G2
+urn:dp:xx:ghost,G1,2026-05-01,,https://evidence.example/ghost/G1
+urn:dp:tq:early-g5,G1,2026-01-01,,https://evidence.example/early-g5/G1
+urn:dp:tq:early-g5,G5,2026-03-01,scope change,https://evidence.example/early-g5/G5

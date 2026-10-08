@@ -1,0 +1,6 @@
+source,name,product,include,reason,rule,domain,display_name,reviewed
+nextdata,dp-ops-crmsys,dp-ops-crmsys,yes,Data product,canonical,HCP,CRM system,yes
+nextdata,crmsys,dp-ops-crmsys,yes,Older name of dp-ops-crmsys,alias:team-prefix,,,yes
+nextdata,rxfeed-monthly,rxfeed-monthly,yes,Shipment feed,canonical,Logistics,,yes
+nextdata,demo-glossary,demo-glossary,yes,"Enterprise glossary, counted on purpose",canonical,,Demo glossary,
+validation,marketmix-jdoe,marketmix-monthly,yes,Personal copy of marketmix,keyid:clone,,,yes

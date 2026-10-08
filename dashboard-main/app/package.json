@@ -1,0 +1,35 @@
+{
+  "name": "dp-dashboard-app",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b",
+    "gen:types": "json2ts -i ../schema/snapshot.schema.json -o src/types/snapshot.ts --bannerComment \"/* Generated from schema/snapshot.schema.json by npm run gen:types. Do not edit. */\"",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "motion": "^12.23.12",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.0",
+    "@testing-library/jest-dom": "^6.6.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^4.5.0",
+    "axe-core": "^4.10.0",
+    "jsdom": "^26.0.0",
+    "json-schema-to-typescript": "^15.0.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "~5.8.0",
+    "vite": "^6.3.0",
+    "vite-plugin-singlefile": "^2.2.0",
+    "vitest": "^3.2.0"
+  }
+}

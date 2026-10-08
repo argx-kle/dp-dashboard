@@ -1,0 +1,60 @@
+# Domains in display order. `aliases` are matched case-insensitively against the inbox.
+# `area` is the level above the domain: Commercial (its business domains), TechOps, R&D and G&A. Areas show in
+# the order their first domain appears; the dashboard hides an area or a domain with no products.
+# TechOps, R&D and G&A have one domain each for now; give one more domains by adding entries with its area.
+# Which product belongs to which domain: registry/product-domains.yaml, then the rules in registry/platform.yaml.
+
+- id: patient
+  name: Patient
+  area: Commercial
+  aliases: [Patients, Patient services]
+
+- id: hcp
+  name: HCP
+  area: Commercial
+  aliases: [Healthcare professional, Healthcare professionals, HCPs]
+
+- id: market-access
+  name: Market access
+  area: Commercial
+  aliases: [Market Access, Payer, Access]
+
+- id: channel-partner
+  name: Channel partner
+  area: Commercial
+  aliases: [Channel partners, Channel]
+
+- id: revenue-vials
+  name: Revenue / vials
+  area: Commercial
+  aliases: [Revenue, Vials, Revenue and vials, "Revenue & vials", Revenue/vials]
+
+- id: medical-affairs
+  name: Medical affairs
+  area: Commercial
+  aliases: [Medical, Medical Affairs]
+
+- id: logistics
+  name: Logistics
+  area: Commercial
+  aliases: [Supply, Distribution]
+
+- id: techops
+  name: TechOps
+  area: TechOps
+  aliases: [Tech ops, Technical operations, TechOps & Quality, Quality]
+
+- id: r-and-d
+  name: R&D
+  area: R&D
+  aliases: [RnD, Research and development, "Research & development"]
+
+- id: g-and-a
+  name: G&A
+  area: G&A
+  aliases: [GnA, General and administrative, "General & administrative"]
+
+- id: unknown
+  name: Unknown
+  area: Unassigned
+  aliases: [Unassigned, Other, "-"]

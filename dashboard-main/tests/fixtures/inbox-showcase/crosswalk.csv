@@ -1,0 +1,108 @@
+source,name,product,include,reason,rule,domain,domain_by_rule,display_name,reviewed
+nextdata,advisory-boards,advisory-boards,yes,Data product,canonical,Medical affairs,Unknown (default),Advisory Boards,yes
+validation,advisory-boards,advisory-boards,yes,Validation results for advisory-boards,keyid:exact,Medical affairs,Unknown (default),Advisory Boards,yes
+nextdata,batch-genealogy,batch-genealogy,yes,Data product,canonical,TechOps,Unknown (default),Batch Genealogy,yes
+validation,batch-genealogy,batch-genealogy,yes,Validation results for batch-genealogy,keyid:exact,TechOps,Unknown (default),Batch Genealogy,yes
+nextdata,biomarker-discovery-feed,biomarker-discovery-feed,yes,Data product,canonical,R&D,Unknown (default),Biomarker Discovery Feed,yes
+validation,biomarker-discovery-feed,biomarker-discovery-feed,yes,Validation results for biomarker-discovery-feed,keyid:exact,R&D,Unknown (default),Biomarker Discovery Feed,yes
+nextdata,call-interaction,call-interaction,yes,Data product,canonical,HCP,HCP (name rule),Call Interaction,yes
+validation,call-interaction,call-interaction,yes,Validation results for call-interaction,keyid:exact,HCP,HCP (name rule),Call Interaction,yes
+validation,channel-inventory,channel-inventory,yes,Known only to the validation tool (not in NextData),validation-only,Channel partner,Logistics (name rule),Channel Inventory,yes
+nextdata,clinical-trial-enrollment,clinical-trial-enrollment,yes,Data product,canonical,R&D,Unknown (default),Clinical Trial Enrollment,yes
+validation,clinical-trial-enrollment,clinical-trial-enrollment,yes,Validation results for clinical-trial-enrollment,keyid:exact,R&D,Unknown (default),Clinical Trial Enrollment,yes
+nextdata,cold-chain-monitoring,cold-chain-monitoring,yes,Data product,canonical,TechOps,Unknown (default),Cold Chain Monitoring,yes
+validation,cold-chain-monitoring,cold-chain-monitoring,yes,Validation results for cold-chain-monitoring,keyid:exact,TechOps,Unknown (default),Cold Chain Monitoring,yes
+nextdata,deviation-and-capa,deviation-and-capa,yes,Data product,canonical,TechOps,Unknown (default),Deviation and CAPA,yes
+validation,deviation-and-capa,deviation-and-capa,yes,Validation results for deviation-and-capa,keyid:exact,TechOps,Unknown (default),Deviation and CAPA,yes
+nextdata,equipment-calibration,equipment-calibration,yes,Data product,canonical,TechOps,Unknown (default),Equipment Calibration,yes
+validation,equipment-calibration,equipment-calibration,yes,Validation results for equipment-calibration,keyid:exact,TechOps,Unknown (default),Equipment Calibration,yes
+nextdata,field-medical-insights,field-medical-insights,yes,Data product,canonical,Medical affairs,Unknown (default),Field Medical Insights,yes
+validation,field-medical-insights,field-medical-insights,yes,Validation results for field-medical-insights,keyid:exact,Medical affairs,Unknown (default),Field Medical Insights,yes
+nextdata,finance-close-tracker,finance-close-tracker,yes,Data product,canonical,G&A,Unknown (default),Finance Close Tracker,yes
+validation,finance-close-tracker,finance-close-tracker,yes,Validation results for finance-close-tracker,keyid:exact,G&A,Unknown (default),Finance Close Tracker,yes
+nextdata,gross-to-net,gross-to-net,yes,Data product,canonical,Revenue / vials,Unknown (default),Gross to Net,yes
+validation,gross-to-net,gross-to-net,yes,Validation results for gross-to-net,keyid:exact,Revenue / vials,Unknown (default),Gross to Net,yes
+nextdata,hcp-hco-master,hcp-hco-master,yes,Data product,canonical,HCP,HCP (name rule),HCP HCO Master,yes
+validation,hcp-hco-master,hcp-hco-master,yes,Validation results for hcp-hco-master,keyid:exact,HCP,HCP (name rule),HCP HCO Master,yes
+nextdata,hcp-targeting,hcp-targeting,yes,Data product,canonical,HCP,HCP (name rule),HCP Targeting,yes
+validation,hcp-targeting,hcp-targeting,yes,Validation results for hcp-targeting,keyid:exact,HCP,HCP (name rule),HCP Targeting,yes
+nextdata,headcount-and-cost,headcount-and-cost,yes,Data product,canonical,G&A,Unknown (default),Headcount and Cost,yes
+validation,headcount-and-cost,headcount-and-cost,yes,Validation results for headcount-and-cost,keyid:exact,G&A,Unknown (default),Headcount and Cost,yes
+nextdata,inventory-positions,inventory-positions,yes,Data product,canonical,TechOps,Logistics (name rule),Inventory Positions,yes
+validation,inventory-positions,inventory-positions,yes,Validation results for inventory-positions,keyid:exact,TechOps,Logistics (name rule),Inventory Positions,yes
+nextdata,kol-network-graph,kol-network-graph,yes,Data product,canonical,HCP,Medical affairs (name rule),KOL Network Graph,yes
+validation,kol-network-graph,kol-network-graph,yes,Validation results for kol-network-graph,keyid:exact,HCP,Medical affairs (name rule),KOL Network Graph,yes
+nextdata,lab-results-harmonised,lab-results-harmonised,yes,Data product,canonical,R&D,Unknown (default),Lab Results Harmonised,yes
+validation,lab-results-harmonised,lab-results-harmonised,yes,Validation results for lab-results-harmonised,keyid:exact,R&D,Unknown (default),Lab Results Harmonised,yes
+nextdata,legacy-sales-cube,legacy-sales-cube,yes,Data product,canonical,Revenue / vials,Revenue / vials (name rule),Legacy Sales Cube,yes
+validation,legacy-sales-cube,legacy-sales-cube,yes,Validation results for legacy-sales-cube,keyid:exact,Revenue / vials,Revenue / vials (name rule),Legacy Sales Cube,yes
+validation,legal-matters,legal-matters,yes,Known only to the validation tool (not in NextData),validation-only,G&A,Unknown (default),Legal Matters,yes
+nextdata,lot-release-cycle-time,lot-release-cycle-time,yes,Data product,canonical,TechOps,Unknown (default),Lot Release Cycle Time,yes
+validation,lot-release-cycle-time,lot-release-cycle-time,yes,Validation results for lot-release-cycle-time,keyid:exact,TechOps,Unknown (default),Lot Release Cycle Time,yes
+validation,maintenance-work-orders,maintenance-work-orders,yes,Known only to the validation tool (not in NextData),validation-only,TechOps,Unknown (default),Maintenance Work Orders,yes
+nextdata,media-interaction,media-interaction,yes,Data product,canonical,HCP,HCP (name rule),Media Interaction,yes
+validation,media-interaction,media-interaction,yes,Validation results for media-interaction,keyid:exact,HCP,HCP (name rule),Media Interaction,yes
+nextdata,medical-claims,medical-claims,yes,Data product,canonical,Market access,Market access (name rule),Medical Claims,yes
+validation,medical-claims,medical-claims,yes,Validation results for medical-claims,keyid:exact,Market access,Market access (name rule),Medical Claims,yes
+validation,medical-education-reach,medical-education-reach,yes,Known only to the validation tool (not in NextData),validation-only,Medical affairs,Unknown (default),Medical Education Reach,yes
+nextdata,medical-inquiries,medical-inquiries,yes,Data product,canonical,Medical affairs,Unknown (default),Medical Inquiries,yes
+validation,medical-inquiries,medical-inquiries,yes,Validation results for medical-inquiries,keyid:exact,Medical affairs,Unknown (default),Medical Inquiries,yes
+nextdata,net-revenue-bridge,net-revenue-bridge,yes,Data product,canonical,Revenue / vials,Revenue / vials (name rule),Net Revenue Bridge,yes
+validation,net-revenue-bridge,net-revenue-bridge,yes,Validation results for net-revenue-bridge,keyid:exact,Revenue / vials,Revenue / vials (name rule),Net Revenue Bridge,yes
+nextdata,omnichannel-engagement,omnichannel-engagement,yes,Data product,canonical,HCP,Unknown (default),Omnichannel Engagement,yes
+validation,omnichannel-engagement,omnichannel-engagement,yes,Validation results for omnichannel-engagement,keyid:exact,HCP,Unknown (default),Omnichannel Engagement,yes
+nextdata,patient-journey-360,patient-journey-360,yes,Data product,canonical,Patient,Patient (name rule),Patient Journey 360,yes
+validation,patient-journey-360,patient-journey-360,yes,Validation results for patient-journey-360,keyid:exact,Patient,Patient (name rule),Patient Journey 360,yes
+nextdata,patient-master,patient-master,yes,Data product,canonical,Patient,Patient (product-domains.yaml),Patient Master,yes
+validation,patient-master,patient-master,yes,Validation results for patient-master,keyid:exact,Patient,Patient (product-domains.yaml),Patient Master,yes
+nextdata,patient-program-enrollment,patient-program-enrollment,yes,Data product,canonical,Patient,Patient (name rule),Patient Program Enrollment,yes
+validation,patient-program-enrollment,patient-program-enrollment,yes,Validation results for patient-program-enrollment,keyid:exact,Patient,Patient (name rule),Patient Program Enrollment,yes
+validation,patient-sentiment,patient-sentiment,yes,Known only to the validation tool (not in NextData),validation-only,Patient,Patient (name rule),Patient Sentiment,yes
+nextdata,patient-support-calls,patient-support-calls,yes,Data product,canonical,Patient,Patient (name rule),Patient Support Calls,yes
+validation,patient-support-calls,patient-support-calls,yes,Validation results for patient-support-calls,keyid:exact,Patient,Patient (name rule),Patient Support Calls,yes
+nextdata,patient-treatment-adherence,patient-treatment-adherence,yes,Data product,canonical,Patient,Patient (name rule),Patient Treatment Adherence,yes
+validation,patient-treatment-adherence,patient-treatment-adherence,yes,Validation results for patient-treatment-adherence,keyid:exact,Patient,Patient (name rule),Patient Treatment Adherence,yes
+nextdata,patient-universe,patient-universe,yes,Data product,canonical,Patient,Patient (name rule),Patient Universe,yes
+validation,patient-universe,patient-universe,yes,Validation results for patient-universe,keyid:exact,Patient,Patient (name rule),Patient Universe,yes
+nextdata,payer-master,payer-master,yes,Data product,canonical,Market access,Market access (name rule),Payer Master,yes
+validation,payer-master,payer-master,yes,Validation results for payer-master,keyid:exact,Market access,Market access (name rule),Payer Master,yes
+nextdata,payer-performance,payer-performance,yes,Data product,canonical,Market access,Market access (name rule),Payer Performance,yes
+validation,payer-performance,payer-performance,yes,Validation results for payer-performance,keyid:exact,Market access,Market access (name rule),Payer Performance,yes
+validation,payer-policy-context,payer-policy-context,yes,Known only to the validation tool (not in NextData),validation-only,Market access,Market access (name rule),Payer Policy Context,yes
+nextdata,pharmacovigilance-signals,pharmacovigilance-signals,yes,Data product,canonical,R&D,Unknown (default),Pharmacovigilance Signals,yes
+validation,pharmacovigilance-signals,pharmacovigilance-signals,yes,Validation results for pharmacovigilance-signals,keyid:exact,R&D,Unknown (default),Pharmacovigilance Signals,yes
+nextdata,pharmacy-claims,pharmacy-claims,yes,Data product,canonical,Market access,Market access (name rule),Pharmacy Claims,yes
+validation,pharmacy-claims,pharmacy-claims,yes,Validation results for pharmacy-claims,keyid:exact,Market access,Market access (name rule),Pharmacy Claims,yes
+nextdata,plant-capacity,plant-capacity,yes,Data product,canonical,TechOps,Unknown (default),Plant Capacity,yes
+validation,plant-capacity,plant-capacity,yes,Validation results for plant-capacity,keyid:exact,TechOps,Unknown (default),Plant Capacity,yes
+nextdata,pricing-scenario-model,pricing-scenario-model,yes,Data product,canonical,Market access,Unknown (default),Pricing Scenario Model,yes
+validation,pricing-scenario-model,pricing-scenario-model,yes,Validation results for pricing-scenario-model,keyid:exact,Market access,Unknown (default),Pricing Scenario Model,yes
+nextdata,procurement-spend,procurement-spend,yes,Data product,canonical,G&A,Unknown (default),Procurement Spend,yes
+validation,procurement-spend,procurement-spend,yes,Validation results for procurement-spend,keyid:exact,G&A,Unknown (default),Procurement Spend,yes
+nextdata,rebate-accruals,rebate-accruals,yes,Data product,canonical,Revenue / vials,Unknown (default),Rebate Accruals,yes
+validation,rebate-accruals,rebate-accruals,yes,Validation results for rebate-accruals,keyid:exact,Revenue / vials,Unknown (default),Rebate Accruals,yes
+nextdata,rep-next-best-action,rep-next-best-action,yes,Data product,canonical,HCP,Unknown (default),Rep Next Best Action,yes
+validation,rep-next-best-action,rep-next-best-action,yes,Validation results for rep-next-best-action,keyid:exact,HCP,Unknown (default),Rep Next Best Action,yes
+nextdata,scientific-publications,scientific-publications,yes,Data product,canonical,Medical affairs,Unknown (default),Scientific Publications,yes
+validation,scientific-publications,scientific-publications,yes,Validation results for scientific-publications,keyid:exact,Medical affairs,Unknown (default),Scientific Publications,yes
+nextdata,serialization-events,serialization-events,yes,Data product,canonical,TechOps,Unknown (default),Serialization Events,yes
+validation,serialization-events,serialization-events,yes,Validation results for serialization-events,keyid:exact,TechOps,Unknown (default),Serialization Events,yes
+nextdata,site-performance,site-performance,yes,Data product,canonical,R&D,Unknown (default),Site Performance,yes
+validation,site-performance,site-performance,yes,Validation results for site-performance,keyid:exact,R&D,Unknown (default),Site Performance,yes
+validation,speaker-programs,speaker-programs,yes,Known only to the validation tool (not in NextData),validation-only,HCP,Unknown (default),Speaker Programs,yes
+nextdata,specialty-pharmacy-feed,specialty-pharmacy-feed,yes,Data product,canonical,Channel partner,Unknown (default),Specialty Pharmacy Feed,yes
+validation,specialty-pharmacy-feed,specialty-pharmacy-feed,yes,Validation results for specialty-pharmacy-feed,keyid:exact,Channel partner,Unknown (default),Specialty Pharmacy Feed,yes
+nextdata,study-budget-forecast,study-budget-forecast,yes,Data product,canonical,R&D,Unknown (default),Study Budget Forecast,yes
+validation,study-budget-forecast,study-budget-forecast,yes,Validation results for study-budget-forecast,keyid:exact,R&D,Unknown (default),Study Budget Forecast,yes
+nextdata,supplier-quality-scorecard,supplier-quality-scorecard,yes,Data product,canonical,TechOps,Unknown (default),Supplier Quality Scorecard,yes
+validation,supplier-quality-scorecard,supplier-quality-scorecard,yes,Validation results for supplier-quality-scorecard,keyid:exact,TechOps,Unknown (default),Supplier Quality Scorecard,yes
+nextdata,survey-interaction,survey-interaction,yes,Data product,canonical,HCP,HCP (name rule),Survey Interaction,yes
+validation,survey-interaction,survey-interaction,yes,Validation results for survey-interaction,keyid:exact,HCP,HCP (name rule),Survey Interaction,yes
+nextdata,territory-and-alignment,territory-and-alignment,yes,Data product,canonical,HCP,HCP (name rule),Territory and Alignment,yes
+validation,territory-and-alignment,territory-and-alignment,yes,Validation results for territory-and-alignment,keyid:exact,HCP,HCP (name rule),Territory and Alignment,yes
+nextdata,travel-and-expense,travel-and-expense,yes,Data product,canonical,G&A,Unknown (default),Travel and Expense,yes
+validation,travel-and-expense,travel-and-expense,yes,Validation results for travel-and-expense,keyid:exact,G&A,Unknown (default),Travel and Expense,yes
+nextdata,vials-sold,vials-sold,yes,Data product,canonical,Revenue / vials,Revenue / vials (name rule),Vials Sold,yes
+validation,vials-sold,vials-sold,yes,Validation results for vials-sold,keyid:exact,Revenue / vials,Revenue / vials (name rule),Vials Sold,yes
+nextdata,warehouse-temperature,warehouse-temperature,yes,Data product,canonical,TechOps,Unknown (default),Warehouse Temperature,yes
+validation,warehouse-temperature,warehouse-temperature,yes,Validation results for warehouse-temperature,keyid:exact,TechOps,Unknown (default),Warehouse Temperature,yes

@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+app/dist/
+*.tsbuildinfo
+
+# Pipeline runtime (real data never committed)
+inbox/
+state/
+out/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# impeccable design tool: local working files only
+.impeccable/
+.impeccable-live*

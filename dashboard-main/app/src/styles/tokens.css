@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+/* argenx 2026 brand, dark. Instrument Sans for everything; Inria Serif italic once, in the product title.
+   Fonts are subset to Latin and inlined by the single-file build (SIL Open Font License, see assets/fonts). */
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("../assets/fonts/InstrumentSans-var.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inria Serif";
+  src: url("../assets/fonts/InriaSerif-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@theme {
+  --color-*: initial;
+
+  /* Vast Blue family neutrals */
+  --color-bg: #001a22;
+  --color-panel: #002834; /* Vast Blue */
+  --color-panel-2: #06323f;
+  --color-panel-3: #0b3c4a;
+  --color-line: #134451;
+  --color-line-strong: #22596a;
+
+  /* Ink: primary 15:1, secondary 10:1, muted 6.6:1 on the panel */
+  --color-ink: #f2fafc;
+  --color-ink-2: #c5dbe2;
+  --color-ink-3: #93b2bc;
+  --color-on-light: #001a22;
+
+  /* Brand accents */
+  --color-clear: #d2f1fa; /* Clear Blue: selection, focus, current view */
+  --color-link: #74cbe5;
+  --color-confidence: #18687f;
+
+  /* Data (brand tonal palette) */
+  --color-data-1: #74cbe5;
+  --color-data-2: #2397b8;
+  --color-track: #0b3c4a;
+
+  /* Health signal: reserved meaning, always with a ring shape or an icon */
+  --color-sig-red: #e55e5e;
+  --color-sig-orange: #ff7b24;
+  --color-sig-yellow: #ffe224;
+  --color-sig-green: #76cb5f;
+  --color-sig-grey: #9fa5ad;
+
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+
+  --font-sans: "Instrument Sans", Arial, Helvetica, sans-serif;
+  --font-accent: "Inria Serif", Georgia, serif;
+
+  /* One scale with distinct steps, sized for a projected screen: 13 / 15 / 17 / 20 / 28 / 32 / 48 */
+  --text-small: 13px;
+  --text-small--line-height: 1.45;
+  --text-body: 15px;
+  --text-body--line-height: 1.55;
+  --text-lead: 17px;
+  --text-lead--line-height: 1.5;
+  --text-heading: 20px;
+  --text-heading--line-height: 1.3;
+  --text-title: 28px;
+  --text-title--line-height: 1.15;
+  --text-figure: 32px;
+  --text-figure--line-height: 1.05;
+  --text-display: 48px;
+  --text-display--line-height: 1;
+
+  --radius-panel: 16px;
+  --radius-control: 10px;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    accent-color: var(--color-clear);
+    caret-color: var(--color-clear);
+    scrollbar-color: var(--color-line-strong) transparent;
+    scrollbar-width: thin;
+  }
+
+  html,
+  body {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    font-feature-settings: "kern", "liga", "calt";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3 {
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+
+  a {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+    transition: color 150ms ease, text-decoration-color 150ms ease;
+  }
+  a:hover {
+    text-decoration-color: currentColor;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-clear);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background: var(--color-confidence);
+    color: var(--color-white);
+  }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--color-line-strong); border-radius: 999px; border: 3px solid var(--color-bg); }
+}
+
+/* Aligned numerals for tables and axes only; large figures keep proportional digits. */
+@utility tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Print and the PDF one-pager: light, executive overview on one A4 landscape page. */
+@media print {
+  @page { size: A4 landscape; margin: 10mm; }
+  :root {
+    color-scheme: light;
+    --color-bg: #ffffff;
+    --color-panel: #ffffff;
+    --color-panel-2: #f2f8fa;
+    --color-panel-3: #e6f2f6;
+    --color-line: #d5e2e6;
+    --color-line-strong: #a9bec5;
+    --color-ink: #002834;
+    --color-ink-2: #1d4450;
+    --color-ink-3: #4b5f68;
+    --color-link: #18687f;
+    --color-data-1: #2397b8;
+    --color-data-2: #74cbe5;
+    --color-track: #e6f2f6;
+  }
+  html, body { background: #fff; }
+  .no-print { display: none !important; }
+  .print-break-avoid { break-inside: avoid; }
+  a { text-decoration: none; color: inherit; }
+}

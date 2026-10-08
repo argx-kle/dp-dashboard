@@ -1,0 +1,13 @@
+urn,gate,date_passed,g5_path,evidence_url
+nxd:dp-ops-crmsys,G1,2026-02-02,,https://evidence.example/crmsys/G1
+nxd:dp-ops-crmsys,G2,2026-03-16,,https://evidence.example/crmsys/G2
+nxd:dp-ops-crmsys,G3,2026-05-18,,https://evidence.example/crmsys/G3
+nxd:dp-ops-crmsys,G4,2026-07-27,,https://evidence.example/crmsys/G4
+nxd:dp-hcp-hcp-master,G1,2026-03-02,,https://evidence.example/hcp-master/G1
+nxd:dp-hcp-hcp-master,G2,2026-04-20,,https://evidence.example/hcp-master/G2
+nxd:dp-hcp-hcp-master,G3,2026-07-06,,https://evidence.example/hcp-master/G3
+nxd:dp-hcp-hcp-master,G4,2026-10-01,,https://evidence.example/hcp-master/G4
+nxd:dp-patient-journey-insights,G1,2026-06-01,,https://evidence.example/journey-insights/G1
+nxd:dp-patient-journey-insights,G2,2026-08-17,,https://evidence.example/journey-insights/G2
+nxd:dp-claims-rx-claims,G1,2026-09-07,,https://evidence.example/rx-claims/G1
+urn:dp:com:legacy-cube,G1,2026-05-04,,

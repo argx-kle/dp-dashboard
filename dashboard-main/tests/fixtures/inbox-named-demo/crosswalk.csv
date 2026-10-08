@@ -1,0 +1,96 @@
+source,name,product,include,reason,rule,domain,domain_by_rule,display_name,reviewed
+nextdata,anaplan,anaplan,yes,Data product,canonical,,Unknown (product-domains.yaml),Anaplan,yes
+validation,anaplan,anaplan,yes,Validation results for anaplan,keyid:exact,,Unknown (product-domains.yaml),Anaplan,yes
+nextdata,channel-partner,channel-partner,yes,Data product,canonical,,Channel partner (product-domains.yaml),Channel partner (Source systems),yes
+validation,channel-partner,channel-partner,yes,Validation results for channel-partner,keyid:exact,,Channel partner (product-domains.yaml),Channel partner (Source systems),yes
+nextdata,dp-claims-channel-partner,dp-claims-channel-partner,yes,Data product,canonical,,Channel partner (product-domains.yaml),Channel partner (Claims team),yes
+validation,dp-claims-channel-partner,dp-claims-channel-partner,yes,Validation results for dp-claims-channel-partner,keyid:exact,,Channel partner (product-domains.yaml),Channel partner (Claims team),yes
+nextdata,dp-claims-iqvia,dp-claims-iqvia,yes,Data product,canonical,,Market access (product-domains.yaml),IQVIA,yes
+validation,dp-claims-iqvia,dp-claims-iqvia,yes,Validation results for dp-claims-iqvia,keyid:exact,,Market access (product-domains.yaml),IQVIA,yes
+nextdata,dp-claims-medical-claims,dp-claims-medical-claims,yes,Data product,canonical,,Market access (product-domains.yaml),Medical claims,yes
+validation,dp-claims-medical-claims,dp-claims-medical-claims,yes,Validation results for dp-claims-medical-claims,keyid:exact,,Market access (product-domains.yaml),Medical claims,yes
+nextdata,dp-claims-payer-master,dp-claims-payer-master,yes,Data product,canonical,,Market access (product-domains.yaml),Payer master,yes
+validation,dp-claims-payer-master,dp-claims-payer-master,yes,Validation results for dp-claims-payer-master,keyid:exact,,Market access (product-domains.yaml),Payer master,yes
+nextdata,dp-claims-payer-performance,dp-claims-payer-performance,yes,Data product,canonical,,Market access (product-domains.yaml),Payer performance,yes
+validation,dp-claims-payer-performance,dp-claims-payer-performance,yes,Validation results for dp-claims-payer-performance,keyid:exact,,Market access (product-domains.yaml),Payer performance,yes
+nextdata,dp-claims-payer-policy-context,dp-claims-payer-policy-context,yes,Data product,canonical,,Market access (product-domains.yaml),Payer policy context,yes
+validation,dp-claims-payer-policy-context,dp-claims-payer-policy-context,yes,Validation results for dp-claims-payer-policy-context,keyid:exact,,Market access (product-domains.yaml),Payer policy context,yes
+nextdata,dp-claims-pharmacy-claims,dp-claims-pharmacy-claims,yes,Data product,canonical,,Market access (product-domains.yaml),Pharmacy claims,yes
+validation,dp-claims-pharmacy-claims,dp-claims-pharmacy-claims,yes,Validation results for dp-claims-pharmacy-claims,keyid:exact,,Market access (product-domains.yaml),Pharmacy claims,yes
+nextdata,dp-claims-product-market-activity,dp-claims-product-market-activity,yes,Data product,canonical,,Market access (product-domains.yaml),Product market activity,yes
+validation,dp-claims-product-market-activity,dp-claims-product-market-activity,yes,Validation results for dp-claims-product-market-activity,keyid:exact,,Market access (product-domains.yaml),Product market activity,yes
+nextdata,dp-hcp-call-interaction,dp-hcp-call-interaction,yes,Data product,canonical,,HCP (product-domains.yaml),Call interaction,yes
+validation,dp-hcp-call-interaction,dp-hcp-call-interaction,yes,Validation results for dp-hcp-call-interaction,keyid:exact,,HCP (product-domains.yaml),Call interaction,yes
+nextdata,dp-hcp-hcp-hco-master,dp-hcp-hcp-hco-master,yes,Data product,canonical,,HCP (product-domains.yaml),HCP HCO master,yes
+validation,dp-hcp-hcp-hco-master,dp-hcp-hcp-hco-master,yes,Validation results for dp-hcp-hcp-hco-master,keyid:exact,,HCP (product-domains.yaml),HCP HCO master,yes
+nextdata,dp-hcp-hcp-targeting,dp-hcp-hcp-targeting,yes,Data product,canonical,,HCP (product-domains.yaml),HCP targeting,yes
+validation,dp-hcp-hcp-targeting,dp-hcp-hcp-targeting,yes,Validation results for dp-hcp-hcp-targeting,keyid:exact,,HCP (product-domains.yaml),HCP targeting,yes
+nextdata,dp-hcp-indication-and-product-master,dp-hcp-indication-and-product-master,yes,Data product,canonical,,HCP (product-domains.yaml),Indication and product master,yes
+validation,dp-hcp-indication-and-product-master,dp-hcp-indication-and-product-master,yes,Validation results for dp-hcp-indication-and-product-master,keyid:exact,,HCP (product-domains.yaml),Indication and product master,yes
+nextdata,dp-hcp-media-interaction,dp-hcp-media-interaction,yes,Data product,canonical,,HCP (product-domains.yaml),Media interaction,yes
+validation,dp-hcp-media-interaction,dp-hcp-media-interaction,yes,Validation results for dp-hcp-media-interaction,keyid:exact,,HCP (product-domains.yaml),Media interaction,yes
+nextdata,dp-hcp-survey-interaction,dp-hcp-survey-interaction,yes,Data product,canonical,,HCP (product-domains.yaml),Survey interaction,yes
+validation,dp-hcp-survey-interaction,dp-hcp-survey-interaction,yes,Validation results for dp-hcp-survey-interaction,keyid:exact,,HCP (product-domains.yaml),Survey interaction,yes
+nextdata,dp-hcp-territory-and-alignment,dp-hcp-territory-and-alignment,yes,Data product,canonical,,HCP (product-domains.yaml),Territory and alignment,yes
+validation,dp-hcp-territory-and-alignment,dp-hcp-territory-and-alignment,yes,Validation results for dp-hcp-territory-and-alignment,keyid:exact,,HCP (product-domains.yaml),Territory and alignment,yes
+nextdata,dp-ops-artemis,dp-ops-artemis,yes,Data product,canonical,,Unknown (product-domains.yaml),Artemis,yes
+nextdata,artemis,dp-ops-artemis,yes,Older name of dp-ops-artemis,alias:team-prefix,,,,yes
+validation,dp-ops-artemis,dp-ops-artemis,yes,Validation results for dp-ops-artemis,keyid:exact,,Unknown (product-domains.yaml),Artemis,yes
+nextdata,dp-ops-bayshore,dp-ops-bayshore,yes,Data product,canonical,,Unknown (product-domains.yaml),Bayshore,yes
+nextdata,bayshore,dp-ops-bayshore,yes,Older name of dp-ops-bayshore,alias:team-prefix,,,,yes
+validation,dp-ops-bayshore,dp-ops-bayshore,yes,Validation results for dp-ops-bayshore,keyid:exact,,Unknown (product-domains.yaml),Bayshore,yes
+nextdata,dp-ops-buy-n-bill,dp-ops-buy-n-bill,yes,Data product,canonical,,Revenue / vials (product-domains.yaml),Buy n bill,yes
+validation,dp-ops-buy-n-bill,dp-ops-buy-n-bill,yes,Validation results for dp-ops-buy-n-bill,keyid:exact,,Revenue / vials (product-domains.yaml),Buy n bill,yes
+nextdata,dp-ops-h1-data,dp-ops-h1-data,yes,Data product,canonical,,HCP (product-domains.yaml),H1 data,yes
+nextdata,h1-data,dp-ops-h1-data,yes,Older name of dp-ops-h1-data,alias:team-prefix,,,,yes
+validation,dp-ops-h1-data,dp-ops-h1-data,yes,Validation results for dp-ops-h1-data,keyid:exact,,HCP (product-domains.yaml),H1 data,yes
+nextdata,dp-ops-ihub,dp-ops-ihub,yes,Data product,canonical,,Unknown (product-domains.yaml),Ihub,yes
+nextdata,ihub,dp-ops-ihub,yes,Older name of dp-ops-ihub,alias:team-prefix,,,,yes
+validation,dp-ops-ihub,dp-ops-ihub,yes,Validation results for dp-ops-ihub,keyid:exact,,Unknown (product-domains.yaml),Ihub,yes
+nextdata,dp-ops-oci-erp,dp-ops-oci-erp,yes,Data product,canonical,,Unknown (product-domains.yaml),OCI ERP,yes
+validation,dp-ops-oci-erp,dp-ops-oci-erp,yes,Validation results for dp-ops-oci-erp,keyid:exact,,Unknown (product-domains.yaml),OCI ERP,yes
+nextdata,dp-ops-txhub,dp-ops-txhub,yes,Data product,canonical,,Unknown (product-domains.yaml),Txhub,yes
+nextdata,txhub,dp-ops-txhub,yes,Older name of dp-ops-txhub,alias:team-prefix,,,,yes
+validation,dp-ops-txhub,dp-ops-txhub,yes,Validation results for dp-ops-txhub,keyid:exact,,Unknown (product-domains.yaml),Txhub,yes
+nextdata,dp-ops-veeva-align,dp-ops-veeva-align,yes,Data product,canonical,,HCP (product-domains.yaml),Veeva align,yes
+validation,dp-ops-veeva-align,dp-ops-veeva-align,yes,Validation results for dp-ops-veeva-align,keyid:exact,,HCP (product-domains.yaml),Veeva align,yes
+nextdata,dp-ops-veeva-crm,dp-ops-veeva-crm,yes,Data product,canonical,,HCP (product-domains.yaml),Veeva CRM,yes
+validation,dp-ops-veeva-crm,dp-ops-veeva-crm,yes,Validation results for dp-ops-veeva-crm,keyid:exact,,HCP (product-domains.yaml),Veeva CRM,yes
+nextdata,dp-ops-veeva-network,dp-ops-veeva-network,yes,Data product,canonical,,HCP (product-domains.yaml),Veeva network,yes
+validation,dp-ops-veeva-network,dp-ops-veeva-network,yes,Validation results for dp-ops-veeva-network,keyid:exact,,HCP (product-domains.yaml),Veeva network,yes
+nextdata,dp-patient-commercial-glossary,dp-patient-commercial-glossary,yes,Data product,canonical,,Patient (product-domains.yaml),Commercial glossary,yes
+validation,dp-patient-commercial-glossary,dp-patient-commercial-glossary,yes,Validation results for dp-patient-commercial-glossary,keyid:exact,,Patient (product-domains.yaml),Commercial glossary,yes
+nextdata,dp-patient-indication-performance,dp-patient-indication-performance,yes,Data product,canonical,,Patient (product-domains.yaml),Indication performance,yes
+nextdata,indication-performance,dp-patient-indication-performance,yes,Older name of dp-patient-indication-performance,alias:team-prefix,,,,yes
+nextdata,indication-performance-v3,dp-patient-indication-performance,yes,Another version of dp-patient-indication-performance,alias:version,,,,yes
+validation,dp-patient-indication-performance,dp-patient-indication-performance,yes,Validation results for dp-patient-indication-performance,keyid:exact,,Patient (product-domains.yaml),Indication performance,yes
+nextdata,dp-patient-patient-engagement,dp-patient-patient-engagement,yes,Data product,canonical,,Patient (product-domains.yaml),Patient engagement,yes
+validation,dp-patient-patient-engagement,dp-patient-patient-engagement,yes,Validation results for dp-patient-patient-engagement,keyid:exact,,Patient (product-domains.yaml),Patient engagement,yes
+nextdata,dp-patient-patient-journey,dp-patient-patient-journey,yes,Data product,canonical,,Patient (product-domains.yaml),Patient journey,yes
+validation,dp-patient-patient-journey,dp-patient-patient-journey,yes,Validation results for dp-patient-patient-journey,keyid:exact,,Patient (product-domains.yaml),Patient journey,yes
+nextdata,dp-patient-patient-program-enrollment,dp-patient-patient-program-enrollment,yes,Data product,canonical,,Patient (product-domains.yaml),Patient program enrollment,yes
+validation,dp-patient-patient-program-enrollment,dp-patient-patient-program-enrollment,yes,Validation results for dp-patient-patient-program-enrollment,keyid:exact,,Patient (product-domains.yaml),Patient program enrollment,yes
+nextdata,dp-patient-patient-treatment,dp-patient-patient-treatment,yes,Data product,canonical,,Patient (product-domains.yaml),Patient treatment,yes
+validation,dp-patient-patient-treatment,dp-patient-patient-treatment,yes,Validation results for dp-patient-patient-treatment,keyid:exact,,Patient (product-domains.yaml),Patient treatment,yes
+nextdata,dp-patient-patient-universe,dp-patient-patient-universe,yes,Data product,canonical,,Patient (product-domains.yaml),Patient universe,yes
+validation,dp-patient-patient-universe,dp-patient-patient-universe,yes,Validation results for dp-patient-patient-universe,keyid:exact,,Patient (product-domains.yaml),Patient universe,yes
+nextdata,eversana-nxd,eversana-nxd,yes,Data product,canonical,,Unknown (product-domains.yaml),Eversana NXD,yes
+validation,eversana-nxd,eversana-nxd,yes,Validation results for eversana-nxd,keyid:exact,,Unknown (product-domains.yaml),Eversana NXD,yes
+nextdata,iqvia-ama-weekly,iqvia-ama-weekly,yes,Data product,canonical,,HCP (product-domains.yaml),IQVIA AMA weekly,yes
+validation,iqvia-ama-weekly,iqvia-ama-weekly,yes,Validation results for iqvia-ama-weekly,keyid:exact,,HCP (product-domains.yaml),IQVIA AMA weekly,yes
+nextdata,iqvia-hpd-quarterly,iqvia-hpd-quarterly,yes,Data product,canonical,,HCP (product-domains.yaml),IQVIA HPD quarterly,yes
+validation,iqvia-hpd-quarterly,iqvia-hpd-quarterly,yes,Validation results for iqvia-hpd-quarterly,keyid:exact,,HCP (product-domains.yaml),IQVIA HPD quarterly,yes
+nextdata,iqvia-laad-mg-monthly,iqvia-laad-mg-monthly,yes,Data product,canonical,,Market access (product-domains.yaml),IQVIA LAAD MG monthly,yes
+validation,iqvia-laad-mg-monthly,iqvia-laad-mg-monthly,yes,Validation results for iqvia-laad-mg-monthly,keyid:exact,,Market access (product-domains.yaml),IQVIA LAAD MG monthly,yes
+nextdata,iqvia-laad-mg-weekly,iqvia-laad-mg-weekly,yes,Data product,canonical,,Market access (product-domains.yaml),IQVIA LAAD MG weekly,yes
+validation,iqvia-laad-mg-weekly,iqvia-laad-mg-weekly,yes,Validation results for iqvia-laad-mg-weekly,keyid:exact,,Market access (product-domains.yaml),IQVIA LAAD MG weekly,yes
+nextdata,iqvia-medb,iqvia-medb,yes,Data product,canonical,,Market access (product-domains.yaml),IQVIA MEDB,yes
+validation,iqvia-medb,iqvia-medb,yes,Validation results for iqvia-medb,keyid:exact,,Market access (product-domains.yaml),IQVIA MEDB,yes
+nextdata,iqvia-product,iqvia-product,yes,Data product,canonical,,Unknown (product-domains.yaml),IQVIA product,yes
+validation,iqvia-product,iqvia-product,yes,Validation results for iqvia-product,keyid:exact,,Unknown (product-domains.yaml),IQVIA product,yes
+nextdata,mmit,mmit,yes,Data product,canonical,,Market access (product-domains.yaml),MMIT,yes
+validation,mmit,mmit,yes,Validation results for mmit,keyid:exact,,Market access (product-domains.yaml),MMIT,yes
+nextdata,patient-master,patient-master,yes,Data product,canonical,,Patient (product-domains.yaml),Patient master,yes
+validation,patient-master,patient-master,yes,Validation results for patient-master,keyid:exact,,Patient (product-domains.yaml),Patient master,yes
+nextdata,patient-vs,patient-vs,yes,Data product,canonical,,Patient (product-domains.yaml),Patient VS,yes
+validation,patient-vs,patient-vs,yes,Validation results for patient-vs,keyid:exact,,Patient (product-domains.yaml),Patient VS,yes

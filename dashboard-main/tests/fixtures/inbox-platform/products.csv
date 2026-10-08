@@ -1,0 +1,7 @@
+urn,name,domain,dpo,planned_next_gate_date,planned_ga_date,named_consumers,input_products,active_users_30d,first_consumer_date,dpo_comment,reviewed_on,cancelled_on
+nxd:dp-ops-crmsys,CRM system,HCP,Ana Lane,,2026-08-01,3,,14,2026-08-20,,2026-10-06,
+nxd:dp-hcp-hcp-master,HCP master,HCP,Chris Ngata,,2026-10-01,4,nxd:dp-ops-crmsys,22,2026-10-05,,2026-10-07,
+nxd:dp-patient-journey-insights,Journey insights,Patient,Dana Voss,2026-11-20,2026-12-15,1,nxd:dp-ops-crmsys,,,,2026-10-02,
+nxd:dp-claims-rx-claims,Rx claims,Market access,Farid Amin,2026-10-30,2027-02-01,0,,,,,,
+nxd:hubservice-nxd,Hub service,Unknown,,,,0,,,,,,
+urn:dp:com:legacy-cube,Legacy cube,Revenue / vials,Ana Lane,2026-11-01,2026-12-01,0,,,,,2026-10-05,

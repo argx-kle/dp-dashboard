@@ -1,0 +1,12 @@
+domain,parent,description,data_products,created
+COMMERCIAL,,17             -,COMMERCIAL   17,
+COMMERCIAL/ANALYTICS,COMMERCIAL,-              -,Γöö COMMERCIAL/ANALYTICS   -,
+EDP,,Enterprise data platform  10             2026-07-01,EDP   10,2026/07/01
+EDP/OPS,EDP,Ops team domain (managed by IaC)  8              2026-07-01,Γöö EDP/OPS   8,2026/07/01
+EDP/HCP,EDP,HCP team domain (managed by IaC)  -              2026-07-01,Γöö EDP/HCP   -,2026/07/01
+EDP/PATIENT,EDP,Patient team domain (managed by IaC)  1              2026-07-20,Γöö EDP/PATIENT   1,2026/07/20
+EDP/CLAIMS,EDP,Claims team domain (managed by IaC)  -              2026-09-01,Γöö EDP/CLAIMS   -,2026/09/01
+EDP/GOV,EDP,Gov team domain (managed by IaC)  1              2026-08-15,Γöö EDP/GOV   1,2026/08/15
+ENTERPRISE,,1              -,ENTERPRISE   1,
+GOVERNANCE,,1              -,GOVERNANCE   1,
+SANDBOX,,-              -,SANDBOX   -,

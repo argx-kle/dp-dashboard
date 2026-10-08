@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dp-dashboard"
+version = "0.1.0"
+description = "Data Product Dashboard: turns an inbox folder of weekly files into a signed-off executive pack."
+requires-python = ">=3.11"
+dependencies = [
+  "pydantic>=2.7",
+  "openpyxl>=3.1",
+  "click>=8.1",
+  "pyyaml>=6.0",
+  "jsonschema>=4.22",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.2",
+  "playwright>=1.45",
+]
+
+[project.scripts]
+dp = "dp.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["dp", "dp.*", "pipeline", "pipeline.*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
