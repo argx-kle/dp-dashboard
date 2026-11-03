@@ -2553,7 +2553,77 @@
         "lastProdDeploy": "2026-11-12",
         "prodDeploys30d": 3,
         "deploys30d": 15,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-p",
+        "failingNow": [
+          "iac-apply-v"
+        ],
+        "recent": [
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-20T11:00:00Z",
+            "outcome": "pending"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-20T10:00:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:00:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-16T09:00:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-12T11:00:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-12T10:00:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-12T09:00:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:00:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-04T11:00:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-04T10:00:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          4,
+          4,
+          3,
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-20"
@@ -2702,7 +2772,75 @@
         "lastProdDeploy": "2026-11-20",
         "prodDeploys30d": 3,
         "deploys30d": 12,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-20T11:07:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-20T10:07:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:07:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-15T09:07:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-10T11:07:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-10T10:07:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-10T09:07:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-05T09:07:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-31T11:07:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-31T10:07:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          4,
+          3,
+          1,
+          4,
+          3,
+          4,
+          1,
+          3,
+          4,
+          1,
+          4,
+          3
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-19"
@@ -2850,7 +2988,75 @@
         "lastProdDeploy": "2026-11-20",
         "prodDeploys30d": 3,
         "deploys30d": 11,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-20T11:14:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-20T10:14:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:14:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:14:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-08T11:14:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-08T10:14:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:14:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:14:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-27T11:14:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-27T10:14:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          1,
+          3,
+          1,
+          4,
+          3,
+          1,
+          3,
+          1,
+          3,
+          4,
+          1,
+          3
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-18"
@@ -2953,7 +3159,45 @@
         "url": "https://github.example/example-org/edp-patient-dp-patient_sentiment",
         "prodDeploys30d": 0,
         "deploys30d": 4,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-d",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-17T09:42:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-11T09:42:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-05T09:42:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-30T09:42:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-20"
@@ -3099,7 +3343,75 @@
         "lastProdDeploy": "2026-11-13",
         "prodDeploys30d": 3,
         "deploys30d": 12,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-18T09:28:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-13T11:28:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-13T10:28:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-13T09:28:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:28:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-03T11:28:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-03T10:28:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-03T09:28:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-29T09:28:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-24T11:28:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          2,
+          1,
+          3,
+          3,
+          4,
+          1,
+          3,
+          4,
+          1,
+          4,
+          3,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-16"
@@ -3246,7 +3558,75 @@
         "lastProdDeploy": "2026-11-15",
         "prodDeploys30d": 4,
         "deploys30d": 16,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-19T09:21:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-15T11:21:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-15T10:21:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-15T09:21:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-11T09:21:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-07T11:21:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-07T10:21:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-07T09:21:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-03T09:21:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-30T11:21:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4,
+          4,
+          4,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-17"
@@ -3374,7 +3754,75 @@
         "url": "https://github.example/example-org/edp-patient-dp-patient_universe",
         "prodDeploys30d": 0,
         "deploys30d": 10,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-v",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-17T09:35:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-13T10:35:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-13T09:35:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-09T09:35:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-05T10:35:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-05T09:35:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-01T09:35:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-28T10:35:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-28T09:35:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-24T09:35:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          2,
+          3,
+          3,
+          3,
+          1,
+          3,
+          3,
+          3,
+          2,
+          3,
+          1
+        ]
       },
       "flags": [],
       "dpoComment": "Certification evidence pack in review.",
@@ -3523,7 +3971,75 @@
         "lastProdDeploy": "2026-11-13",
         "prodDeploys30d": 3,
         "deploys30d": 13,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-17T09:03:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-13T11:03:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-13T10:03:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-13T09:03:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-09T09:03:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-05T11:03:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-05T10:03:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-05T09:03:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-01T09:03:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-28T11:03:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          4,
+          3,
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-17"
@@ -3673,7 +4189,75 @@
         "lastProdDeploy": "2026-11-20",
         "prodDeploys30d": 3,
         "deploys30d": 11,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-20T11:56:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-20T10:56:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:56:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:56:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-08T11:56:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-08T10:56:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:56:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:56:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-27T11:56:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-27T10:56:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          1,
+          3,
+          1,
+          4,
+          3,
+          1,
+          3,
+          1,
+          3,
+          4,
+          1,
+          3
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-18"
@@ -3820,7 +4404,75 @@
         "lastProdDeploy": "2026-11-11",
         "prodDeploys30d": 2,
         "deploys30d": 9,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-17T09:17:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-11T11:17:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-11T10:17:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-11T09:17:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-05T09:17:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-30T11:17:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-30T10:17:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-30T09:17:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-24T09:17:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-18T11:17:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          4,
+          3,
+          1,
+          3,
+          1,
+          3,
+          4,
+          1,
+          3,
+          1,
+          3,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-15"
@@ -3941,7 +4593,75 @@
         "url": "https://github.example/example-org/edp-hcp-dp-kol_network_graph",
         "prodDeploys30d": 0,
         "deploys30d": 15,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-d",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:52:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-18T09:52:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-16T09:52:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:52:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-12T09:52:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-10T09:52:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:52:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-06T09:52:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-04T09:52:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:52:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          3
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-16"
@@ -4088,7 +4808,75 @@
         "lastProdDeploy": "2026-11-20",
         "prodDeploys30d": 4,
         "deploys30d": 16,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-20T11:24:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-20T10:24:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:24:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-16T09:24:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-12T11:24:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-12T10:24:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-12T09:24:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:24:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-04T11:24:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-04T10:24:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          4,
+          4,
+          3,
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-20"
@@ -4234,7 +5022,75 @@
         "lastProdDeploy": "2026-11-20",
         "prodDeploys30d": 3,
         "deploys30d": 11,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-20T11:38:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-20T10:38:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:38:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:38:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-08T11:38:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-08T10:38:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:38:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:38:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-27T11:38:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-27T10:38:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          1,
+          2,
+          1,
+          3,
+          2,
+          1,
+          2,
+          1,
+          3,
+          4,
+          1,
+          3
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-18"
@@ -4361,7 +5217,75 @@
         "url": "https://github.example/example-org/edp-hcp-dp-rep_next_best_action",
         "prodDeploys30d": 0,
         "deploys30d": 12,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-v",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-19T09:45:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-15T10:45:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-15T09:45:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-11T09:45:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-07T10:45:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-07T09:45:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-03T09:45:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-30T10:45:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-30T09:45:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-26T09:45:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          3,
+          3,
+          1,
+          3,
+          3,
+          3,
+          2,
+          3,
+          3,
+          3,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-17"
@@ -4462,7 +5386,40 @@
         "url": "https://github.example/example-org/edp-hcp-dp-speaker_programs",
         "prodDeploys30d": 0,
         "deploys30d": 3,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-d",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-16T09:59:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-10T09:59:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-04T09:59:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1
+        ]
       },
       "flags": [
         {
@@ -4612,7 +5569,75 @@
         "lastProdDeploy": "2026-11-12",
         "prodDeploys30d": 3,
         "deploys30d": 12,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-17T09:31:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-12T11:31:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-12T10:31:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-12T09:31:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-07T09:31:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-02T11:31:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-02T10:31:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:31:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-28T09:31:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-23T11:31:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          2,
+          3,
+          1,
+          2,
+          3,
+          1,
+          3,
+          3,
+          1,
+          4,
+          3,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-19"
@@ -4757,7 +5782,77 @@
         "lastProdDeploy": "2026-11-19",
         "prodDeploys30d": 3,
         "deploys30d": 12,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-p",
+        "failingNow": [
+          "iac-apply-d"
+        ],
+        "recent": [
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-19T11:10:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-19T10:10:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-19T09:10:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:10:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-09T11:10:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-09T10:10:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-09T09:10:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-04T09:10:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-30T11:10:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-30T10:10:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          4,
+          3,
+          4,
+          1,
+          3,
+          4,
+          1,
+          4,
+          3,
+          1,
+          4,
+          3
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-16"
@@ -4905,7 +6000,75 @@
         "lastProdDeploy": "2026-11-13",
         "prodDeploys30d": 3,
         "deploys30d": 12,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-18T09:13:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-13T11:13:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-13T10:13:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-13T09:13:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:13:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-03T11:13:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-03T10:13:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-03T09:13:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-29T09:13:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-24T11:13:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          1,
+          4,
+          3,
+          4,
+          1,
+          3,
+          4,
+          1,
+          4,
+          3,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-19"
@@ -5051,7 +6214,75 @@
         "lastProdDeploy": "2026-11-14",
         "prodDeploys30d": 3,
         "deploys30d": 13,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-18T09:06:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-14T11:06:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-14T10:06:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:06:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-10T09:06:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-06T11:06:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-06T10:06:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-06T09:06:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:06:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-29T11:06:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4,
+          4,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-20"
@@ -5181,7 +6412,75 @@
         "url": "https://github.example/example-org/edp-claims-dp-payer_performance",
         "prodDeploys30d": 0,
         "deploys30d": 14,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-v",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:20:00Z",
+            "outcome": "pending"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-17T10:20:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-17T09:20:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:20:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-11T10:20:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-11T09:20:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:20:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-05T10:20:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-05T09:20:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:20:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          5,
+          3,
+          3,
+          4,
+          3,
+          3,
+          5,
+          3,
+          3,
+          4,
+          3,
+          3
+        ]
       },
       "flags": [
         {
@@ -5289,7 +6588,40 @@
         "url": "https://github.example/example-org/edp-claims-dp-payer_policy_context",
         "prodDeploys30d": 0,
         "deploys30d": 3,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-d",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-15T09:34:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-09T09:34:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-03T09:34:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          0
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-16"
@@ -5411,7 +6743,75 @@
         "url": "https://github.example/example-org/edp-claims-dp-pharmacy_claims",
         "prodDeploys30d": 0,
         "deploys30d": 10,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-d",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-18T09:27:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-15T09:27:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-12T09:27:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-09T09:27:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-06T09:27:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-03T09:27:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-31T09:27:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-28T09:27:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-25T09:27:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-22T09:27:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          2,
+          3,
+          2,
+          2,
+          3,
+          2,
+          2,
+          3,
+          2,
+          2,
+          3,
+          1
+        ]
       },
       "flags": [
         {
@@ -5621,7 +7021,45 @@
         "url": "https://github.example/example-org/edp-ops-dp-channel_inventory",
         "prodDeploys30d": 0,
         "deploys30d": 4,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-d",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-18T09:55:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-12T09:55:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-06T09:55:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-31T09:55:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-19"
@@ -5742,7 +7180,75 @@
         "url": "https://github.example/example-org/edp-ops-dp-specialty_pharmacy_feed",
         "prodDeploys30d": 0,
         "deploys30d": 15,
-        "failed30d": 3
+        "failed30d": 3,
+        "reached": "iac-apply-d",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:48:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-18T09:48:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-16T09:48:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:48:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-12T09:48:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-10T09:48:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:48:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-06T09:48:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-04T09:48:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:48:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          3
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-20"
@@ -5904,7 +7410,75 @@
         "lastProdDeploy": "2026-11-11",
         "prodDeploys30d": 2,
         "deploys30d": 9,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-17T09:23:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-11T11:23:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-11T10:23:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-11T09:23:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-05T09:23:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-30T11:23:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-30T10:23:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-30T09:23:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-24T09:23:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-18T11:23:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          2,
+          1,
+          2,
+          1,
+          2,
+          4,
+          1,
+          3,
+          1,
+          3,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-15"
@@ -6038,7 +7612,75 @@
         "lastProdDeploy": "2026-08-31",
         "prodDeploys30d": 0,
         "deploys30d": 0,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-p",
+            "at": "2026-08-31T11:16:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-08-31T10:16:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-08-31T09:16:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-08-24T09:16:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-08-17T11:16:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-08-17T10:16:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-08-17T09:16:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-08-10T09:16:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-08-03T11:16:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-08-03T10:16:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-16"
@@ -6177,7 +7819,77 @@
         "lastProdDeploy": "2026-11-15",
         "prodDeploys30d": 4,
         "deploys30d": 16,
-        "failed30d": 2
+        "failed30d": 2,
+        "reached": "iac-apply-p",
+        "failingNow": [
+          "iac-apply-v"
+        ],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-19T09:09:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-15T11:09:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-15T10:09:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-15T09:09:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-11T09:09:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-07T11:09:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-07T10:09:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-07T09:09:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-03T09:09:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-30T11:09:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4,
+          4,
+          4,
+          1
+        ]
       },
       "flags": [
         {
@@ -6305,7 +8017,75 @@
         "url": "https://github.example/example-org/edp-ops-dp-rebate_accruals",
         "prodDeploys30d": 0,
         "deploys30d": 14,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-d",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:30:00Z",
+            "outcome": "pending"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-18T09:30:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-16T09:30:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:30:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-12T09:30:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-10T09:30:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:30:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-06T09:30:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-04T09:30:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:30:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          3
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-20"
@@ -6451,7 +8231,75 @@
         "lastProdDeploy": "2026-11-20",
         "prodDeploys30d": 3,
         "deploys30d": 11,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-20T11:02:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-20T10:02:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:02:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:02:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-08T11:02:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-08T10:02:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:02:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:02:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-27T11:02:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-27T10:02:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          1,
+          3,
+          1,
+          4,
+          3,
+          1,
+          3,
+          1,
+          3,
+          4,
+          1,
+          3
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-18"
@@ -6572,7 +8420,75 @@
         "url": "https://github.example/example-org/edp-medaff-dp-advisory_boards",
         "prodDeploys30d": 0,
         "deploys30d": 9,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-d",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:05:00Z",
+            "outcome": "pending"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-17T09:05:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:05:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-11T09:05:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:05:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-05T09:05:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:05:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-30T09:05:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-27T09:05:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-24T09:05:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          2,
+          2,
+          3,
+          2,
+          2,
+          3,
+          2,
+          2,
+          3,
+          2,
+          2
+        ]
       },
       "flags": [
         {
@@ -6722,7 +8638,75 @@
         "lastProdDeploy": "2026-11-13",
         "prodDeploys30d": 3,
         "deploys30d": 13,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-17T09:51:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-13T11:51:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-13T10:51:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-13T09:51:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-09T09:51:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-05T11:51:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-05T10:51:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-05T09:51:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-01T09:51:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-28T11:51:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          2,
+          3,
+          3,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-17"
@@ -6824,7 +8808,45 @@
         "url": "https://github.example/example-org/edp-medaff-dp-medical_education_reach",
         "prodDeploys30d": 0,
         "deploys30d": 4,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-d",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-17T09:12:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-11T09:12:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-05T09:12:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-30T09:12:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
       },
       "flags": [
         {
@@ -6974,7 +8996,75 @@
         "lastProdDeploy": "2026-11-20",
         "prodDeploys30d": 3,
         "deploys30d": 11,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-20T11:44:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-20T10:44:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:44:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:44:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-08T11:44:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-08T10:44:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:44:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:44:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-27T11:44:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-27T10:44:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          1,
+          3,
+          1,
+          4,
+          3,
+          1,
+          3,
+          1,
+          3,
+          4,
+          1,
+          3
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-18"
@@ -7101,7 +9191,77 @@
         "url": "https://github.example/example-org/edp-medaff-dp-scientific_publications",
         "prodDeploys30d": 0,
         "deploys30d": 15,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-v",
+        "failingNow": [
+          "iac-apply-d"
+        ],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-19T09:58:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-16T10:58:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-16T09:58:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-13T09:58:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-10T10:58:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-10T09:58:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-07T09:58:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-04T10:58:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-04T09:58:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-01T09:58:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          3,
+          4,
+          3,
+          3,
+          5,
+          3,
+          3,
+          4,
+          3,
+          3,
+          3
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-16"
@@ -7262,7 +9422,75 @@
         "lastProdDeploy": "2026-11-16",
         "prodDeploys30d": 5,
         "deploys30d": 20,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-19T09:19:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-16T11:19:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-16T10:19:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-16T09:19:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-13T09:19:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-10T11:19:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-10T10:19:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-10T09:19:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-07T09:19:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-04T11:19:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          4,
+          4,
+          5,
+          4,
+          4,
+          7,
+          4,
+          4,
+          5,
+          4,
+          4,
+          4
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-19"
@@ -7407,7 +9635,77 @@
         "lastProdDeploy": "2026-10-30",
         "prodDeploys30d": 1,
         "deploys30d": 9,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-p",
+        "failingNow": [
+          "iac-apply-p"
+        ],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-17T09:47:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-11T11:47:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-11T10:47:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-11T09:47:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-05T09:47:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-30T11:47:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-30T10:47:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-30T09:47:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-24T09:47:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-18T11:47:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          3,
+          1,
+          3,
+          1,
+          3,
+          4,
+          1,
+          3,
+          1,
+          3,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-15"
@@ -7550,7 +9848,77 @@
         "lastProdDeploy": "2026-11-20",
         "prodDeploys30d": 3,
         "deploys30d": 11,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-p",
+        "failingNow": [
+          "iac-apply-d"
+        ],
+        "recent": [
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-20T11:26:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-20T10:26:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:26:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:26:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-08T11:26:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-08T10:26:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:26:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:26:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-27T11:26:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-27T10:26:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          1,
+          3,
+          1,
+          4,
+          3,
+          1,
+          3,
+          1,
+          3,
+          4,
+          1,
+          3
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-18"
@@ -7693,7 +10061,75 @@
         "lastProdDeploy": "2026-11-19",
         "prodDeploys30d": 3,
         "deploys30d": 12,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-19T11:40:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-19T10:40:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-19T09:40:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:40:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-09T11:40:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-09T10:40:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-09T09:40:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-04T09:40:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-30T11:40:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-30T10:40:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          4,
+          3,
+          4,
+          1,
+          3,
+          4,
+          1,
+          4,
+          3,
+          1,
+          4,
+          3
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-16"
@@ -7814,7 +10250,77 @@
         "url": "https://github.example/example-org/edp-techops-dp-inventory_positions",
         "prodDeploys30d": 0,
         "deploys30d": 15,
-        "failed30d": 3
+        "failed30d": 3,
+        "reached": "iac-apply-d",
+        "failingNow": [
+          "iac-apply-d"
+        ],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:22:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-18T09:22:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-16T09:22:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:22:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-12T09:22:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-10T09:22:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:22:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-06T09:22:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-04T09:22:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:22:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          3
+        ]
       },
       "flags": [
         {
@@ -7964,7 +10470,75 @@
         "lastProdDeploy": "2026-11-12",
         "prodDeploys30d": 3,
         "deploys30d": 12,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-17T09:01:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-12T11:01:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-12T10:01:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-12T09:01:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-07T09:01:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-02T11:01:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-02T10:01:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:01:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-28T09:01:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-23T11:01:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          2,
+          3,
+          1,
+          2,
+          3,
+          1,
+          3,
+          3,
+          1,
+          4,
+          3,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-19"
@@ -8065,7 +10639,40 @@
         "url": "https://github.example/example-org/edp-techops-dp-maintenance_work_orders",
         "prodDeploys30d": 0,
         "deploys30d": 3,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-d",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-16T09:29:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-10T09:29:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-04T09:29:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1
+        ]
       },
       "flags": [
         {
@@ -8213,7 +10820,75 @@
         "lastProdDeploy": "2026-11-14",
         "prodDeploys30d": 3,
         "deploys30d": 13,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-18T09:54:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-14T11:54:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-14T10:54:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:54:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-10T09:54:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-06T11:54:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-06T10:54:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-06T09:54:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:54:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-29T11:54:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          2,
+          3,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4,
+          4,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-20"
@@ -8356,7 +11031,77 @@
         "lastProdDeploy": "2026-11-08",
         "prodDeploys30d": 1,
         "deploys30d": 10,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-p",
+        "failingNow": [
+          "iac-apply-p"
+        ],
+        "recent": [
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-20T11:08:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-20T10:08:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:08:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:08:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-08T11:08:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-08T10:08:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:08:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:08:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-27T10:08:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-27T09:08:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          1,
+          2,
+          1,
+          3,
+          2,
+          1,
+          2,
+          1,
+          2,
+          4,
+          1,
+          3
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-18"
@@ -8499,7 +11244,75 @@
         "lastProdDeploy": "2026-11-15",
         "prodDeploys30d": 4,
         "deploys30d": 16,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-19T09:33:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-15T11:33:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-15T10:33:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-15T09:33:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-11T09:33:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-07T11:33:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-07T10:33:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-07T09:33:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-03T09:33:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-30T11:33:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4,
+          4,
+          4,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-17"
@@ -8626,7 +11439,75 @@
         "url": "https://github.example/example-org/edp-techops-dp-warehouse_temperature",
         "prodDeploys30d": 0,
         "deploys30d": 10,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-v",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-17T09:15:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-13T10:15:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-13T09:15:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-09T09:15:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-05T10:15:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-05T09:15:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-01T09:15:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-28T10:15:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-28T09:15:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-24T09:15:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          2,
+          3,
+          3,
+          3,
+          1,
+          3,
+          3,
+          3,
+          2,
+          3,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-17"
@@ -8765,7 +11646,75 @@
         "lastProdDeploy": "2026-11-15",
         "prodDeploys30d": 3,
         "deploys30d": 15,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-19T09:57:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-15T11:57:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-15T10:57:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-15T09:57:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-11T09:57:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-07T11:57:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-07T10:57:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-07T09:57:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-03T09:57:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-30T11:57:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          3,
+          3,
+          1,
+          3,
+          3,
+          3,
+          2,
+          4,
+          4,
+          4,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-17"
@@ -8910,7 +11859,75 @@
         "lastProdDeploy": "2026-11-20",
         "prodDeploys30d": 4,
         "deploys30d": 16,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-20T11:36:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-20T10:36:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:36:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-16T09:36:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-12T11:36:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-12T10:36:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-12T09:36:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:36:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-04T11:36:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-04T10:36:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          4,
+          4,
+          3,
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-20"
@@ -9053,7 +12070,75 @@
         "lastProdDeploy": "2026-11-13",
         "prodDeploys30d": 3,
         "deploys30d": 12,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-18T09:43:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-13T11:43:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-13T10:43:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-13T09:43:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:43:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-03T11:43:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-03T10:43:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-03T09:43:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-29T09:43:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-24T11:43:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          1,
+          4,
+          3,
+          4,
+          1,
+          3,
+          4,
+          1,
+          4,
+          3,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-19"
@@ -9174,7 +12259,75 @@
         "url": "https://github.example/example-org/edp-rnd-dp-pharmacovigilance_signals",
         "prodDeploys30d": 0,
         "deploys30d": 10,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-d",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:11:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-17T09:11:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:11:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-11T09:11:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:11:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-05T09:11:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:11:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-30T09:11:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-27T09:11:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-24T09:11:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          2,
+          2,
+          3,
+          2,
+          2,
+          3,
+          2,
+          2,
+          3,
+          2,
+          2
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-15"
@@ -9319,7 +12472,75 @@
         "lastProdDeploy": "2026-11-08",
         "prodDeploys30d": 2,
         "deploys30d": 10,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-20T11:50:00Z",
+            "outcome": "pending"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-20T10:50:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:50:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:50:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-08T11:50:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-08T10:50:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:50:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:50:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-27T11:50:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-27T10:50:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          1,
+          2,
+          1,
+          3,
+          3,
+          1,
+          3,
+          1,
+          3,
+          4,
+          1,
+          3
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-18"
@@ -9446,7 +12667,75 @@
         "url": "https://github.example/example-org/edp-rnd-dp-study_budget_forecast",
         "prodDeploys30d": 0,
         "deploys30d": 15,
-        "failed30d": 2
+        "failed30d": 2,
+        "reached": "iac-apply-v",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-19T09:04:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-16T10:04:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-16T09:04:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-13T09:04:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-10T10:04:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-10T09:04:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-07T09:04:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-04T10:04:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-04T09:04:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-01T09:04:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          3,
+          4,
+          3,
+          3,
+          5,
+          3,
+          3,
+          4,
+          3,
+          3,
+          3
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-16"
@@ -9589,7 +12878,77 @@
         "lastProdDeploy": "2026-11-19",
         "prodDeploys30d": 3,
         "deploys30d": 12,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-p",
+        "failingNow": [
+          "iac-apply-v"
+        ],
+        "recent": [
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-19T11:25:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-19T10:25:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-19T09:25:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:25:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-09T11:25:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-09T10:25:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-09T09:25:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-04T09:25:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-30T11:25:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-30T10:25:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          3,
+          4,
+          1,
+          3,
+          4,
+          1,
+          4,
+          3,
+          1,
+          4,
+          3
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-19"
@@ -9732,7 +13091,75 @@
         "lastProdDeploy": "2026-11-14",
         "prodDeploys30d": 3,
         "deploys30d": 13,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-18T09:18:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-14T11:18:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-14T10:18:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:18:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-10T09:18:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-06T11:18:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-06T10:18:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-06T09:18:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:18:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-29T11:18:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4,
+          4,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-20"
@@ -9834,7 +13261,40 @@
         "url": "https://github.example/example-org/edp-gna-dp-legal_matters",
         "prodDeploys30d": 0,
         "deploys30d": 3,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-d",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-15T09:46:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-09T09:46:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-03T09:46:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          0
+        ]
       },
       "flags": [
         {
@@ -9982,7 +13442,75 @@
         "lastProdDeploy": "2026-11-20",
         "prodDeploys30d": 3,
         "deploys30d": 11,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-20T11:32:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-20T10:32:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-20T09:32:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-14T09:32:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-11-08T11:32:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-08T10:32:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-08T09:32:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-02T09:32:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-27T11:32:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-27T10:32:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          1,
+          2,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1,
+          3,
+          4,
+          1,
+          3
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-11-18"
@@ -10109,7 +13637,75 @@
         "url": "https://github.example/example-org/edp-gna-dp-travel_and_expense",
         "prodDeploys30d": 0,
         "deploys30d": 10,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-v",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-17T09:39:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-13T10:39:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-13T09:39:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-09T09:39:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-11-05T10:39:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-05T09:39:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-11-01T09:39:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-10-28T10:39:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-28T09:39:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-24T09:39:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          3,
+          2,
+          3,
+          3,
+          3,
+          1,
+          3,
+          3,
+          3,
+          2,
+          3,
+          1
+        ]
       },
       "flags": [
         {
@@ -11470,9 +15066,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
+      "expected": null,
       "pace": null,
-      "target": null,
-      "expected": null
+      "target": null
     },
     {
       "quarter": "2026-Q1",
@@ -11496,9 +15092,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
+      "expected": null,
       "pace": null,
-      "target": null,
-      "expected": null
+      "target": null
     },
     {
       "quarter": "2026-Q1",
@@ -11509,9 +15105,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
+      "expected": null,
       "pace": null,
-      "target": null,
-      "expected": null
+      "target": null
     },
     {
       "quarter": "2026-Q1",
@@ -11535,9 +15131,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
+      "expected": null,
       "pace": null,
-      "target": null,
-      "expected": null
+      "target": null
     },
     {
       "quarter": "2026-Q1",
@@ -11548,9 +15144,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
+      "expected": null,
       "pace": null,
-      "target": null,
-      "expected": null
+      "target": null
     },
     {
       "quarter": "2026-Q1",
@@ -11561,9 +15157,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
+      "expected": null,
       "pace": null,
-      "target": null,
-      "expected": null
+      "target": null
     },
     {
       "quarter": "2026-Q2",
@@ -11626,9 +15222,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
+      "expected": null,
       "pace": null,
-      "target": null,
-      "expected": null
+      "target": null
     },
     {
       "quarter": "2026-Q2",
@@ -11639,9 +15235,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
+      "expected": null,
       "pace": null,
-      "target": null,
-      "expected": null
+      "target": null
     },
     {
       "quarter": "2026-Q2",
@@ -11665,9 +15261,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
+      "expected": null,
       "pace": null,
-      "target": null,
-      "expected": null
+      "target": null
     },
     {
       "quarter": "2026-Q2",
@@ -11717,9 +15313,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
+      "expected": null,
       "pace": null,
-      "target": null,
-      "expected": null
+      "target": null
     },
     {
       "quarter": "2026-Q3",
@@ -11782,9 +15378,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
+      "expected": null,
       "pace": null,
-      "target": null,
-      "expected": null
+      "target": null
     },
     {
       "quarter": "2026-Q3",
@@ -11808,9 +15404,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
+      "expected": null,
       "pace": null,
-      "target": null,
-      "expected": null
+      "target": null
     },
     {
       "quarter": "2026-Q3",
@@ -11821,9 +15417,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
+      "expected": null,
       "pace": null,
-      "target": null,
-      "expected": null
+      "target": null
     },
     {
       "quarter": "2026-Q3",
@@ -11873,9 +15469,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
+      "expected": null,
       "pace": null,
-      "target": null,
-      "expected": null
+      "target": null
     },
     {
       "quarter": "2026-Q4",
@@ -11944,9 +15540,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
+      "expected": null,
       "pace": null,
-      "target": null,
-      "expected": null
+      "target": null
     },
     {
       "quarter": "2026-Q4",
@@ -11983,9 +15579,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
+      "expected": null,
       "pace": null,
-      "target": null,
-      "expected": null
+      "target": null
     },
     {
       "quarter": "2026-Q4",
@@ -12039,9 +15635,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
+      "expected": null,
       "pace": null,
-      "target": null,
-      "expected": null
+      "target": null
     }
   ],
   "weekly": [
@@ -18738,7 +22334,13 @@
       "reachedProd": 35,
       "notInRegister": 2,
       "lastProdDeploy": "2026-11-20",
-      "lastProdRepo": "edp-techops-dp-deviation_and_capa"
+      "lastProdRepo": "edp-techops-dp-deviation_and_capa",
+      "brokenNow": 10,
+      "pathEnvs": 136,
+      "bypass30d": 102,
+      "prodCommits30d": 102,
+      "recoveryHours30d": 84.0,
+      "onboarded": 58
     },
     "weekly": [
       {
@@ -18746,84 +22348,96 @@
         "start": "2026-08-31",
         "deploys": 144,
         "failed": 8,
-        "prodSuccess": 17
+        "prodSuccess": 17,
+        "firstDeploys": 0
       },
       {
         "week": "2026-W37",
         "start": "2026-09-07",
         "deploys": 146,
         "failed": 10,
-        "prodSuccess": 20
+        "prodSuccess": 20,
+        "firstDeploys": 0
       },
       {
         "week": "2026-W38",
         "start": "2026-09-14",
         "deploys": 133,
         "failed": 10,
-        "prodSuccess": 16
+        "prodSuccess": 16,
+        "firstDeploys": 0
       },
       {
         "week": "2026-W39",
         "start": "2026-09-21",
         "deploys": 150,
         "failed": 10,
-        "prodSuccess": 19
+        "prodSuccess": 19,
+        "firstDeploys": 0
       },
       {
         "week": "2026-W40",
         "start": "2026-09-28",
         "deploys": 145,
         "failed": 7,
-        "prodSuccess": 22
+        "prodSuccess": 22,
+        "firstDeploys": 0
       },
       {
         "week": "2026-W41",
         "start": "2026-10-05",
         "deploys": 132,
         "failed": 7,
-        "prodSuccess": 16
+        "prodSuccess": 16,
+        "firstDeploys": 0
       },
       {
         "week": "2026-W42",
         "start": "2026-10-12",
         "deploys": 147,
         "failed": 11,
-        "prodSuccess": 22
+        "prodSuccess": 22,
+        "firstDeploys": 0
       },
       {
         "week": "2026-W43",
         "start": "2026-10-19",
         "deploys": 142,
         "failed": 8,
-        "prodSuccess": 21
+        "prodSuccess": 21,
+        "firstDeploys": 0
       },
       {
         "week": "2026-W44",
         "start": "2026-10-26",
         "deploys": 153,
         "failed": 9,
-        "prodSuccess": 28
+        "prodSuccess": 28,
+        "firstDeploys": 3
       },
       {
         "week": "2026-W45",
         "start": "2026-11-02",
         "deploys": 169,
         "failed": 7,
-        "prodSuccess": 27
+        "prodSuccess": 27,
+        "firstDeploys": 4
       },
       {
         "week": "2026-W46",
         "start": "2026-11-09",
         "deploys": 153,
         "failed": 7,
-        "prodSuccess": 24
+        "prodSuccess": 24,
+        "firstDeploys": 0
       },
       {
         "week": "2026-W47",
         "start": "2026-11-16",
         "deploys": 111,
         "failed": 9,
-        "prodSuccess": 14
+        "prodSuccess": 14,
+        "firstDeploys": 0
       }
     ],
     "teams": [
@@ -18936,7 +22550,9 @@
           4,
           3,
           1
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-claims-dp-payer_master",
@@ -18982,7 +22598,9 @@
           4,
           4,
           1
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-claims-dp-payer_performance",
@@ -19021,7 +22639,9 @@
           4,
           3,
           3
-        ]
+        ],
+        "reached": "iac-apply-v",
+        "failingNow": []
       },
       {
         "name": "edp-claims-dp-payer_policy_context",
@@ -19053,7 +22673,9 @@
           1,
           2,
           0
-        ]
+        ],
+        "reached": "iac-apply-d",
+        "failingNow": []
       },
       {
         "name": "edp-claims-dp-pharmacy_claims",
@@ -19086,7 +22708,9 @@
           2,
           3,
           1
-        ]
+        ],
+        "reached": "iac-apply-d",
+        "failingNow": []
       },
       {
         "name": "edp-gna-dp-finance_close_tracker",
@@ -19132,6 +22756,10 @@
           1,
           4,
           3
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": [
+          "iac-apply-v"
         ]
       },
       {
@@ -19178,7 +22806,9 @@
           4,
           4,
           1
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-gna-dp-legal_matters",
@@ -19210,7 +22840,9 @@
           1,
           2,
           0
-        ]
+        ],
+        "reached": "iac-apply-d",
+        "failingNow": []
       },
       {
         "name": "edp-gna-dp-procurement_spend",
@@ -19255,7 +22887,9 @@
           4,
           1,
           3
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-gna-dp-travel_and_expense",
@@ -19294,7 +22928,9 @@
           2,
           3,
           1
-        ]
+        ],
+        "reached": "iac-apply-v",
+        "failingNow": []
       },
       {
         "name": "edp-gov-dp-data_control_framework",
@@ -19340,7 +22976,9 @@
           4,
           4,
           1
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-hcp-dp-call_interaction",
@@ -19386,7 +23024,9 @@
           3,
           4,
           1
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-hcp-dp-hcp_hco_master",
@@ -19432,7 +23072,9 @@
           4,
           1,
           3
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-hcp-dp-hcp_targeting",
@@ -19478,7 +23120,9 @@
           1,
           3,
           1
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-hcp-dp-kol_network_graph",
@@ -19511,7 +23155,9 @@
           4,
           3,
           3
-        ]
+        ],
+        "reached": "iac-apply-d",
+        "failingNow": []
       },
       {
         "name": "edp-hcp-dp-media_interaction",
@@ -19557,7 +23203,9 @@
           4,
           3,
           4
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-hcp-dp-omnichannel_engagement",
@@ -19603,7 +23251,9 @@
           4,
           1,
           3
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-hcp-dp-rep_next_best_action",
@@ -19642,7 +23292,9 @@
           3,
           3,
           1
-        ]
+        ],
+        "reached": "iac-apply-v",
+        "failingNow": []
       },
       {
         "name": "edp-hcp-dp-speaker_programs",
@@ -19674,7 +23326,9 @@
           1,
           1,
           1
-        ]
+        ],
+        "reached": "iac-apply-d",
+        "failingNow": []
       },
       {
         "name": "edp-hcp-dp-survey_interaction",
@@ -19720,7 +23374,9 @@
           4,
           3,
           1
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-hcp-dp-territory_and_alignment",
@@ -19766,6 +23422,10 @@
           1,
           4,
           3
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": [
+          "iac-apply-d"
         ]
       },
       {
@@ -19799,7 +23459,9 @@
           3,
           2,
           2
-        ]
+        ],
+        "reached": "iac-apply-d",
+        "failingNow": []
       },
       {
         "name": "edp-medaff-dp-field_medical_insights",
@@ -19844,7 +23506,9 @@
           3,
           4,
           1
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-medaff-dp-medical_education_reach",
@@ -19876,7 +23540,9 @@
           1,
           1,
           1
-        ]
+        ],
+        "reached": "iac-apply-d",
+        "failingNow": []
       },
       {
         "name": "edp-medaff-dp-medical_inquiries",
@@ -19921,7 +23587,9 @@
           4,
           1,
           3
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-medaff-dp-scientific_publications",
@@ -19960,6 +23628,10 @@
           3,
           3,
           3
+        ],
+        "reached": "iac-apply-v",
+        "failingNow": [
+          "iac-apply-d"
         ]
       },
       {
@@ -19993,7 +23665,9 @@
           1,
           1,
           1
-        ]
+        ],
+        "reached": "iac-apply-d",
+        "failingNow": []
       },
       {
         "name": "edp-ops-dp-gross_to_net",
@@ -20039,7 +23713,9 @@
           1,
           3,
           1
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-ops-dp-legacy_sales_cube",
@@ -20085,7 +23761,9 @@
           0,
           0,
           0
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-ops-dp-net_revenue_bridge",
@@ -20131,6 +23809,10 @@
           4,
           4,
           1
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": [
+          "iac-apply-v"
         ]
       },
       {
@@ -20164,7 +23846,9 @@
           4,
           3,
           3
-        ]
+        ],
+        "reached": "iac-apply-d",
+        "failingNow": []
       },
       {
         "name": "edp-ops-dp-sandbox_demo",
@@ -20197,7 +23881,9 @@
           2,
           2,
           2
-        ]
+        ],
+        "reached": "iac-apply-d",
+        "failingNow": []
       },
       {
         "name": "edp-ops-dp-specialty_pharmacy_feed",
@@ -20230,7 +23916,9 @@
           4,
           3,
           3
-        ]
+        ],
+        "reached": "iac-apply-d",
+        "failingNow": []
       },
       {
         "name": "edp-ops-dp-vendor_returns",
@@ -20268,6 +23956,10 @@
           2,
           3,
           1
+        ],
+        "reached": "iac-apply-v",
+        "failingNow": [
+          "iac-apply-d"
         ]
       },
       {
@@ -20314,7 +24006,9 @@
           4,
           1,
           3
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-patient-dp-patient_journey_360",
@@ -20360,6 +24054,10 @@
           4,
           3,
           4
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": [
+          "iac-apply-v"
         ]
       },
       {
@@ -20406,7 +24104,9 @@
           1,
           4,
           3
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-patient-dp-patient_program_enrollment",
@@ -20452,7 +24152,9 @@
           4,
           1,
           3
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-patient-dp-patient_sentiment",
@@ -20485,7 +24187,9 @@
           1,
           1,
           1
-        ]
+        ],
+        "reached": "iac-apply-d",
+        "failingNow": []
       },
       {
         "name": "edp-patient-dp-patient_support_calls",
@@ -20530,7 +24234,9 @@
           4,
           3,
           1
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-patient-dp-patient_treatment_adherence",
@@ -20576,7 +24282,9 @@
           4,
           4,
           1
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-patient-dp-patient_universe",
@@ -20615,7 +24323,9 @@
           2,
           3,
           1
-        ]
+        ],
+        "reached": "iac-apply-v",
+        "failingNow": []
       },
       {
         "name": "edp-rnd-dp-biomarker_discovery_feed",
@@ -20661,7 +24371,9 @@
           4,
           4,
           1
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-rnd-dp-clinical_trial_enrollment",
@@ -20706,7 +24418,9 @@
           4,
           3,
           4
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-rnd-dp-genomics_raw",
@@ -20738,7 +24452,9 @@
           4,
           3,
           3
-        ]
+        ],
+        "reached": "iac-apply-d",
+        "failingNow": []
       },
       {
         "name": "edp-rnd-dp-lab_results_harmonised",
@@ -20783,7 +24499,9 @@
           4,
           3,
           1
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-rnd-dp-pharmacovigilance_signals",
@@ -20816,7 +24534,9 @@
           3,
           2,
           2
-        ]
+        ],
+        "reached": "iac-apply-d",
+        "failingNow": []
       },
       {
         "name": "edp-rnd-dp-site_performance",
@@ -20862,7 +24582,9 @@
           4,
           1,
           3
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-rnd-dp-study_budget_forecast",
@@ -20901,7 +24623,9 @@
           3,
           3,
           3
-        ]
+        ],
+        "reached": "iac-apply-v",
+        "failingNow": []
       },
       {
         "name": "edp-techops-dp-batch_genealogy",
@@ -20947,7 +24671,9 @@
           4,
           4,
           4
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-techops-dp-cold_chain_monitoring",
@@ -20993,6 +24719,10 @@
           1,
           3,
           1
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": [
+          "iac-apply-p"
         ]
       },
       {
@@ -21039,6 +24769,10 @@
           4,
           1,
           3
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": [
+          "iac-apply-d"
         ]
       },
       {
@@ -21085,7 +24819,9 @@
           1,
           4,
           3
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-techops-dp-inventory_positions",
@@ -21118,6 +24854,10 @@
           4,
           3,
           3
+        ],
+        "reached": "iac-apply-d",
+        "failingNow": [
+          "iac-apply-d"
         ]
       },
       {
@@ -21164,7 +24904,9 @@
           4,
           3,
           1
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-techops-dp-maintenance_work_orders",
@@ -21196,7 +24938,9 @@
           1,
           1,
           1
-        ]
+        ],
+        "reached": "iac-apply-d",
+        "failingNow": []
       },
       {
         "name": "edp-techops-dp-plant_capacity",
@@ -21242,7 +24986,9 @@
           4,
           4,
           1
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-techops-dp-serialization_events",
@@ -21288,6 +25034,10 @@
           4,
           1,
           3
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": [
+          "iac-apply-p"
         ]
       },
       {
@@ -21334,7 +25084,9 @@
           4,
           4,
           1
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-techops-dp-warehouse_temperature",
@@ -21373,7 +25125,694 @@
           2,
           3,
           1
-        ]
+        ],
+        "reached": "iac-apply-v",
+        "failingNow": []
+      }
+    ],
+    "broken": [
+      {
+        "repo": "edp-techops-dp-cold_chain_monitoring",
+        "urn": "urn:dp:tq:cold-chain-monitoring",
+        "env": "iac-apply-p",
+        "since": "2026-11-11",
+        "lastSuccess": "2026-10-30"
+      },
+      {
+        "repo": "edp-ops-dp-net_revenue_bridge",
+        "urn": "urn:dp:com:net-revenue-bridge",
+        "env": "iac-apply-v",
+        "since": "2026-11-15",
+        "lastSuccess": "2026-11-07"
+      },
+      {
+        "repo": "edp-ops-dp-vendor_returns",
+        "env": "iac-apply-d",
+        "since": "2026-11-17",
+        "lastSuccess": "2026-11-13"
+      },
+      {
+        "repo": "edp-gna-dp-finance_close_tracker",
+        "urn": "urn:dp:ga:finance-close-tracker",
+        "env": "iac-apply-v",
+        "since": "2026-11-19",
+        "lastSuccess": "2026-11-09"
+      },
+      {
+        "repo": "edp-hcp-dp-territory_and_alignment",
+        "urn": "urn:dp:com:territory-and-alignment",
+        "env": "iac-apply-d",
+        "since": "2026-11-19",
+        "lastSuccess": "2026-11-14"
+      },
+      {
+        "repo": "edp-medaff-dp-scientific_publications",
+        "urn": "urn:dp:com:scientific-publications",
+        "env": "iac-apply-d",
+        "since": "2026-11-19",
+        "lastSuccess": "2026-11-16"
+      },
+      {
+        "repo": "edp-patient-dp-patient_journey_360",
+        "urn": "urn:dp:com:patient-journey-360",
+        "env": "iac-apply-v",
+        "since": "2026-11-20",
+        "lastSuccess": "2026-11-12"
+      },
+      {
+        "repo": "edp-techops-dp-deviation_and_capa",
+        "urn": "urn:dp:tq:deviation-and-capa",
+        "env": "iac-apply-d",
+        "since": "2026-11-20",
+        "lastSuccess": "2026-11-14"
+      },
+      {
+        "repo": "edp-techops-dp-inventory_positions",
+        "urn": "urn:dp:tq:inventory-positions",
+        "env": "iac-apply-d",
+        "since": "2026-11-20",
+        "lastSuccess": "2026-11-18"
+      },
+      {
+        "repo": "edp-techops-dp-serialization_events",
+        "urn": "urn:dp:tq:serialization-events",
+        "env": "iac-apply-p",
+        "since": "2026-11-20",
+        "lastSuccess": "2026-11-08"
+      }
+    ],
+    "bypass": [
+      {
+        "repo": "edp-techops-dp-deviation_and_capa",
+        "urn": "urn:dp:tq:deviation-and-capa",
+        "sha": "194b",
+        "at": "2026-11-20"
+      },
+      {
+        "repo": "edp-rnd-dp-clinical_trial_enrollment",
+        "urn": "urn:dp:rd:clinical-trial-enrollment",
+        "sha": "1af0",
+        "at": "2026-11-20"
+      },
+      {
+        "repo": "edp-patient-dp-patient_program_enrollment",
+        "urn": "urn:dp:com:patient-program-enrollment",
+        "sha": "141c",
+        "at": "2026-11-20"
+      },
+      {
+        "repo": "edp-patient-dp-patient_master",
+        "urn": "urn:dp:com:patient-master",
+        "sha": "13f4",
+        "at": "2026-11-20"
+      },
+      {
+        "repo": "edp-ops-dp-vials_sold",
+        "urn": "urn:dp:com:vials-sold",
+        "sha": "1779",
+        "at": "2026-11-20"
+      },
+      {
+        "repo": "edp-medaff-dp-medical_inquiries",
+        "urn": "urn:dp:com:medical-inquiries",
+        "sha": "1840",
+        "at": "2026-11-20"
+      },
+      {
+        "repo": "edp-hcp-dp-omnichannel_engagement",
+        "urn": "urn:dp:com:omnichannel-engagement",
+        "sha": "15e0",
+        "at": "2026-11-20"
+      },
+      {
+        "repo": "edp-hcp-dp-media_interaction",
+        "urn": "urn:dp:com:media-interaction",
+        "sha": "159a",
+        "at": "2026-11-20"
+      },
+      {
+        "repo": "edp-hcp-dp-hcp_hco_master",
+        "urn": "urn:dp:com:hcp-hco-master",
+        "sha": "14d4",
+        "at": "2026-11-20"
+      },
+      {
+        "repo": "edp-gna-dp-procurement_spend",
+        "urn": "urn:dp:ga:procurement-spend",
+        "sha": "1c54",
+        "at": "2026-11-20"
+      },
+      {
+        "repo": "edp-techops-dp-equipment_calibration",
+        "urn": "urn:dp:tq:equipment-calibration",
+        "sha": "19b1",
+        "at": "2026-11-19"
+      },
+      {
+        "repo": "edp-hcp-dp-territory_and_alignment",
+        "urn": "urn:dp:com:territory-and-alignment",
+        "sha": "153d",
+        "at": "2026-11-19"
+      },
+      {
+        "repo": "edp-gna-dp-finance_close_tracker",
+        "urn": "urn:dp:ga:finance-close-tracker",
+        "sha": "1c32",
+        "at": "2026-11-19"
+      },
+      {
+        "repo": "edp-techops-dp-batch_genealogy",
+        "urn": "urn:dp:tq:batch-genealogy",
+        "sha": "1922",
+        "at": "2026-11-16"
+      },
+      {
+        "repo": "edp-techops-dp-supplier_quality_scorecard",
+        "urn": "urn:dp:tq:supplier-quality-scorecard",
+        "sha": "1983",
+        "at": "2026-11-15"
+      },
+      {
+        "repo": "edp-rnd-dp-biomarker_discovery_feed",
+        "urn": "urn:dp:rd:biomarker-discovery-feed",
+        "sha": "1b6b",
+        "at": "2026-11-15"
+      },
+      {
+        "repo": "edp-patient-dp-patient_treatment_adherence",
+        "urn": "urn:dp:com:patient-treatment-adherence",
+        "sha": "1454",
+        "at": "2026-11-15"
+      },
+      {
+        "repo": "edp-ops-dp-net_revenue_bridge",
+        "urn": "urn:dp:com:net-revenue-bridge",
+        "sha": "17b1",
+        "at": "2026-11-15"
+      },
+      {
+        "repo": "edp-techops-dp-plant_capacity",
+        "urn": "urn:dp:tq:plant-capacity",
+        "sha": "1a05",
+        "at": "2026-11-14"
+      },
+      {
+        "repo": "edp-gna-dp-headcount_and_cost",
+        "urn": "urn:dp:ga:headcount-and-cost",
+        "sha": "1c05",
+        "at": "2026-11-14"
+      },
+      {
+        "repo": "edp-claims-dp-payer_master",
+        "urn": "urn:dp:com:payer-master",
+        "sha": "1681",
+        "at": "2026-11-14"
+      },
+      {
+        "repo": "edp-rnd-dp-lab_results_harmonised",
+        "urn": "urn:dp:rd:lab-results-harmonised",
+        "sha": "1b1a",
+        "at": "2026-11-13"
+      },
+      {
+        "repo": "edp-patient-dp-patient_support_calls",
+        "urn": "urn:dp:com:patient-support-calls",
+        "sha": "147c",
+        "at": "2026-11-13"
+      },
+      {
+        "repo": "edp-medaff-dp-field_medical_insights",
+        "urn": "urn:dp:com:field-medical-insights",
+        "sha": "1870",
+        "at": "2026-11-13"
+      },
+      {
+        "repo": "edp-hcp-dp-call_interaction",
+        "urn": "urn:dp:com:call-interaction",
+        "sha": "150c",
+        "at": "2026-11-13"
+      },
+      {
+        "repo": "edp-claims-dp-medical_claims",
+        "urn": "urn:dp:com:medical-claims",
+        "sha": "16ad",
+        "at": "2026-11-13"
+      },
+      {
+        "repo": "edp-techops-dp-lot_release_cycle_time",
+        "urn": "urn:dp:tq:lot-release-cycle-time",
+        "sha": "1a2a",
+        "at": "2026-11-12"
+      },
+      {
+        "repo": "edp-rnd-dp-clinical_trial_enrollment",
+        "urn": "urn:dp:rd:clinical-trial-enrollment",
+        "sha": "1aec",
+        "at": "2026-11-12"
+      },
+      {
+        "repo": "edp-patient-dp-patient_journey_360",
+        "urn": "urn:dp:com:patient-journey-360",
+        "sha": "13c0",
+        "at": "2026-11-12"
+      },
+      {
+        "repo": "edp-hcp-dp-survey_interaction",
+        "urn": "urn:dp:com:survey-interaction",
+        "sha": "15be",
+        "at": "2026-11-12"
+      },
+      {
+        "repo": "edp-hcp-dp-media_interaction",
+        "urn": "urn:dp:com:media-interaction",
+        "sha": "1596",
+        "at": "2026-11-12"
+      },
+      {
+        "repo": "edp-ops-dp-gross_to_net",
+        "urn": "urn:dp:com:gross-to-net",
+        "sha": "17dc",
+        "at": "2026-11-11"
+      },
+      {
+        "repo": "edp-hcp-dp-hcp_targeting",
+        "urn": "urn:dp:com:hcp-targeting",
+        "sha": "1561",
+        "at": "2026-11-11"
+      },
+      {
+        "repo": "edp-techops-dp-batch_genealogy",
+        "urn": "urn:dp:tq:batch-genealogy",
+        "sha": "191e",
+        "at": "2026-11-10"
+      },
+      {
+        "repo": "edp-patient-dp-patient_master",
+        "urn": "urn:dp:com:patient-master",
+        "sha": "13f0",
+        "at": "2026-11-10"
+      },
+      {
+        "repo": "edp-techops-dp-equipment_calibration",
+        "urn": "urn:dp:tq:equipment-calibration",
+        "sha": "19ad",
+        "at": "2026-11-09"
+      },
+      {
+        "repo": "edp-hcp-dp-territory_and_alignment",
+        "urn": "urn:dp:com:territory-and-alignment",
+        "sha": "1539",
+        "at": "2026-11-09"
+      },
+      {
+        "repo": "edp-gna-dp-finance_close_tracker",
+        "urn": "urn:dp:ga:finance-close-tracker",
+        "sha": "1c2e",
+        "at": "2026-11-09"
+      },
+      {
+        "repo": "edp-techops-dp-serialization_events",
+        "urn": "urn:dp:tq:serialization-events",
+        "sha": "1a47",
+        "at": "2026-11-08"
+      },
+      {
+        "repo": "edp-techops-dp-deviation_and_capa",
+        "urn": "urn:dp:tq:deviation-and-capa",
+        "sha": "1947",
+        "at": "2026-11-08"
+      },
+      {
+        "repo": "edp-rnd-dp-site_performance",
+        "urn": "urn:dp:rd:site-performance",
+        "sha": "1b3a",
+        "at": "2026-11-08"
+      },
+      {
+        "repo": "edp-patient-dp-patient_program_enrollment",
+        "urn": "urn:dp:com:patient-program-enrollment",
+        "sha": "1418",
+        "at": "2026-11-08"
+      },
+      {
+        "repo": "edp-ops-dp-vials_sold",
+        "urn": "urn:dp:com:vials-sold",
+        "sha": "1775",
+        "at": "2026-11-08"
+      },
+      {
+        "repo": "edp-medaff-dp-medical_inquiries",
+        "urn": "urn:dp:com:medical-inquiries",
+        "sha": "183c",
+        "at": "2026-11-08"
+      },
+      {
+        "repo": "edp-hcp-dp-omnichannel_engagement",
+        "urn": "urn:dp:com:omnichannel-engagement",
+        "sha": "15dc",
+        "at": "2026-11-08"
+      },
+      {
+        "repo": "edp-hcp-dp-hcp_hco_master",
+        "urn": "urn:dp:com:hcp-hco-master",
+        "sha": "14d0",
+        "at": "2026-11-08"
+      },
+      {
+        "repo": "edp-gna-dp-procurement_spend",
+        "urn": "urn:dp:ga:procurement-spend",
+        "sha": "1c50",
+        "at": "2026-11-08"
+      },
+      {
+        "repo": "edp-techops-dp-supplier_quality_scorecard",
+        "urn": "urn:dp:tq:supplier-quality-scorecard",
+        "sha": "197f",
+        "at": "2026-11-07"
+      },
+      {
+        "repo": "edp-rnd-dp-biomarker_discovery_feed",
+        "urn": "urn:dp:rd:biomarker-discovery-feed",
+        "sha": "1b67",
+        "at": "2026-11-07"
+      },
+      {
+        "repo": "edp-patient-dp-patient_treatment_adherence",
+        "urn": "urn:dp:com:patient-treatment-adherence",
+        "sha": "1450",
+        "at": "2026-11-07"
+      },
+      {
+        "repo": "edp-ops-dp-net_revenue_bridge",
+        "urn": "urn:dp:com:net-revenue-bridge",
+        "sha": "17ad",
+        "at": "2026-11-07"
+      },
+      {
+        "repo": "edp-techops-dp-plant_capacity",
+        "urn": "urn:dp:tq:plant-capacity",
+        "sha": "1a01",
+        "at": "2026-11-06"
+      },
+      {
+        "repo": "edp-gna-dp-headcount_and_cost",
+        "urn": "urn:dp:ga:headcount-and-cost",
+        "sha": "1c01",
+        "at": "2026-11-06"
+      },
+      {
+        "repo": "edp-claims-dp-payer_master",
+        "urn": "urn:dp:com:payer-master",
+        "sha": "167d",
+        "at": "2026-11-06"
+      },
+      {
+        "repo": "edp-medaff-dp-field_medical_insights",
+        "urn": "urn:dp:com:field-medical-insights",
+        "sha": "186c",
+        "at": "2026-11-05"
+      },
+      {
+        "repo": "edp-hcp-dp-call_interaction",
+        "urn": "urn:dp:com:call-interaction",
+        "sha": "1508",
+        "at": "2026-11-05"
+      },
+      {
+        "repo": "edp-techops-dp-batch_genealogy",
+        "urn": "urn:dp:tq:batch-genealogy",
+        "sha": "191a",
+        "at": "2026-11-04"
+      },
+      {
+        "repo": "edp-rnd-dp-clinical_trial_enrollment",
+        "urn": "urn:dp:rd:clinical-trial-enrollment",
+        "sha": "1ae8",
+        "at": "2026-11-04"
+      },
+      {
+        "repo": "edp-patient-dp-patient_journey_360",
+        "urn": "urn:dp:com:patient-journey-360",
+        "sha": "13bc",
+        "at": "2026-11-04"
+      },
+      {
+        "repo": "edp-hcp-dp-media_interaction",
+        "urn": "urn:dp:com:media-interaction",
+        "sha": "1592",
+        "at": "2026-11-04"
+      },
+      {
+        "repo": "edp-rnd-dp-lab_results_harmonised",
+        "urn": "urn:dp:rd:lab-results-harmonised",
+        "sha": "1b16",
+        "at": "2026-11-03"
+      },
+      {
+        "repo": "edp-patient-dp-patient_support_calls",
+        "urn": "urn:dp:com:patient-support-calls",
+        "sha": "1478",
+        "at": "2026-11-03"
+      },
+      {
+        "repo": "edp-claims-dp-medical_claims",
+        "urn": "urn:dp:com:medical-claims",
+        "sha": "16a9",
+        "at": "2026-11-03"
+      },
+      {
+        "repo": "edp-techops-dp-lot_release_cycle_time",
+        "urn": "urn:dp:tq:lot-release-cycle-time",
+        "sha": "1a26",
+        "at": "2026-11-02"
+      },
+      {
+        "repo": "edp-hcp-dp-survey_interaction",
+        "urn": "urn:dp:com:survey-interaction",
+        "sha": "15ba",
+        "at": "2026-11-02"
+      },
+      {
+        "repo": "edp-patient-dp-patient_master",
+        "urn": "urn:dp:com:patient-master",
+        "sha": "13ec",
+        "at": "2026-10-31"
+      },
+      {
+        "repo": "edp-techops-dp-supplier_quality_scorecard",
+        "urn": "urn:dp:tq:supplier-quality-scorecard",
+        "sha": "197b",
+        "at": "2026-10-30"
+      },
+      {
+        "repo": "edp-techops-dp-equipment_calibration",
+        "urn": "urn:dp:tq:equipment-calibration",
+        "sha": "19a9",
+        "at": "2026-10-30"
+      },
+      {
+        "repo": "edp-techops-dp-cold_chain_monitoring",
+        "urn": "urn:dp:tq:cold-chain-monitoring",
+        "sha": "19ce",
+        "at": "2026-10-30"
+      },
+      {
+        "repo": "edp-rnd-dp-biomarker_discovery_feed",
+        "urn": "urn:dp:rd:biomarker-discovery-feed",
+        "sha": "1b63",
+        "at": "2026-10-30"
+      },
+      {
+        "repo": "edp-patient-dp-patient_treatment_adherence",
+        "urn": "urn:dp:com:patient-treatment-adherence",
+        "sha": "144c",
+        "at": "2026-10-30"
+      },
+      {
+        "repo": "edp-ops-dp-net_revenue_bridge",
+        "urn": "urn:dp:com:net-revenue-bridge",
+        "sha": "17a9",
+        "at": "2026-10-30"
+      },
+      {
+        "repo": "edp-ops-dp-gross_to_net",
+        "urn": "urn:dp:com:gross-to-net",
+        "sha": "17d8",
+        "at": "2026-10-30"
+      },
+      {
+        "repo": "edp-hcp-dp-territory_and_alignment",
+        "urn": "urn:dp:com:territory-and-alignment",
+        "sha": "1535",
+        "at": "2026-10-30"
+      },
+      {
+        "repo": "edp-hcp-dp-hcp_targeting",
+        "urn": "urn:dp:com:hcp-targeting",
+        "sha": "155d",
+        "at": "2026-10-30"
+      },
+      {
+        "repo": "edp-gna-dp-finance_close_tracker",
+        "urn": "urn:dp:ga:finance-close-tracker",
+        "sha": "1c2a",
+        "at": "2026-10-30"
+      },
+      {
+        "repo": "edp-techops-dp-plant_capacity",
+        "urn": "urn:dp:tq:plant-capacity",
+        "sha": "19fd",
+        "at": "2026-10-29"
+      },
+      {
+        "repo": "edp-techops-dp-batch_genealogy",
+        "urn": "urn:dp:tq:batch-genealogy",
+        "sha": "1916",
+        "at": "2026-10-29"
+      },
+      {
+        "repo": "edp-gna-dp-headcount_and_cost",
+        "urn": "urn:dp:ga:headcount-and-cost",
+        "sha": "1bfd",
+        "at": "2026-10-29"
+      },
+      {
+        "repo": "edp-claims-dp-payer_master",
+        "urn": "urn:dp:com:payer-master",
+        "sha": "1679",
+        "at": "2026-10-29"
+      },
+      {
+        "repo": "edp-medaff-dp-field_medical_insights",
+        "urn": "urn:dp:com:field-medical-insights",
+        "sha": "1868",
+        "at": "2026-10-28"
+      },
+      {
+        "repo": "edp-hcp-dp-call_interaction",
+        "urn": "urn:dp:com:call-interaction",
+        "sha": "1504",
+        "at": "2026-10-28"
+      },
+      {
+        "repo": "edp-techops-dp-deviation_and_capa",
+        "urn": "urn:dp:tq:deviation-and-capa",
+        "sha": "1943",
+        "at": "2026-10-27"
+      },
+      {
+        "repo": "edp-rnd-dp-site_performance",
+        "urn": "urn:dp:rd:site-performance",
+        "sha": "1b36",
+        "at": "2026-10-27"
+      },
+      {
+        "repo": "edp-rnd-dp-clinical_trial_enrollment",
+        "urn": "urn:dp:rd:clinical-trial-enrollment",
+        "sha": "1ae4",
+        "at": "2026-10-27"
+      },
+      {
+        "repo": "edp-patient-dp-patient_program_enrollment",
+        "urn": "urn:dp:com:patient-program-enrollment",
+        "sha": "1414",
+        "at": "2026-10-27"
+      },
+      {
+        "repo": "edp-patient-dp-patient_journey_360",
+        "urn": "urn:dp:com:patient-journey-360",
+        "sha": "13b8",
+        "at": "2026-10-27"
+      },
+      {
+        "repo": "edp-ops-dp-vials_sold",
+        "urn": "urn:dp:com:vials-sold",
+        "sha": "1771",
+        "at": "2026-10-27"
+      },
+      {
+        "repo": "edp-medaff-dp-medical_inquiries",
+        "urn": "urn:dp:com:medical-inquiries",
+        "sha": "1838",
+        "at": "2026-10-27"
+      },
+      {
+        "repo": "edp-hcp-dp-omnichannel_engagement",
+        "urn": "urn:dp:com:omnichannel-engagement",
+        "sha": "15d8",
+        "at": "2026-10-27"
+      },
+      {
+        "repo": "edp-hcp-dp-media_interaction",
+        "urn": "urn:dp:com:media-interaction",
+        "sha": "158e",
+        "at": "2026-10-27"
+      },
+      {
+        "repo": "edp-hcp-dp-hcp_hco_master",
+        "urn": "urn:dp:com:hcp-hco-master",
+        "sha": "14cc",
+        "at": "2026-10-27"
+      },
+      {
+        "repo": "edp-gna-dp-procurement_spend",
+        "urn": "urn:dp:ga:procurement-spend",
+        "sha": "1c4c",
+        "at": "2026-10-27"
+      },
+      {
+        "repo": "edp-rnd-dp-lab_results_harmonised",
+        "urn": "urn:dp:rd:lab-results-harmonised",
+        "sha": "1b12",
+        "at": "2026-10-24"
+      },
+      {
+        "repo": "edp-patient-dp-patient_support_calls",
+        "urn": "urn:dp:com:patient-support-calls",
+        "sha": "1474",
+        "at": "2026-10-24"
+      },
+      {
+        "repo": "edp-claims-dp-medical_claims",
+        "urn": "urn:dp:com:medical-claims",
+        "sha": "16a5",
+        "at": "2026-10-24"
+      },
+      {
+        "repo": "edp-techops-dp-lot_release_cycle_time",
+        "urn": "urn:dp:tq:lot-release-cycle-time",
+        "sha": "1a22",
+        "at": "2026-10-23"
+      },
+      {
+        "repo": "edp-techops-dp-batch_genealogy",
+        "urn": "urn:dp:tq:batch-genealogy",
+        "sha": "1912",
+        "at": "2026-10-23"
+      },
+      {
+        "repo": "edp-hcp-dp-survey_interaction",
+        "urn": "urn:dp:com:survey-interaction",
+        "sha": "15b6",
+        "at": "2026-10-23"
+      },
+      {
+        "repo": "edp-techops-dp-supplier_quality_scorecard",
+        "urn": "urn:dp:tq:supplier-quality-scorecard",
+        "sha": "1977",
+        "at": "2026-10-22"
+      },
+      {
+        "repo": "edp-patient-dp-patient_treatment_adherence",
+        "urn": "urn:dp:com:patient-treatment-adherence",
+        "sha": "1448",
+        "at": "2026-10-22"
+      },
+      {
+        "repo": "edp-ops-dp-net_revenue_bridge",
+        "urn": "urn:dp:com:net-revenue-bridge",
+        "sha": "17a5",
+        "at": "2026-10-22"
       }
     ]
   }

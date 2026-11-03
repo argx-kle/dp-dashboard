@@ -96,7 +96,7 @@ def test_at_gh_04_repository_names(platform_cfg):
 
 def test_at_gh_05_products_carry_their_repository(snap):
     crm = _product(snap, "nxd:dp-ops-crmsys")["github"]
-    assert crm == {
+    assert {k: crm[k] for k in ("repo", "url", "lastProdDeploy", "prodDeploys30d", "deploys30d", "failed30d")} == {
         "repo": "edp-ops-dp-crmsys",
         "url": "https://github.example/example-org/edp-ops-dp-crmsys",
         "lastProdDeploy": "2026-10-05",  # the deployment on 2026-10-12 is after the as-of date
@@ -109,6 +109,26 @@ def test_at_gh_05_products_carry_their_repository(snap):
     hcp = _product(snap, "nxd:dp-hcp-hcp-master")["github"]
     assert "lastProdDeploy" not in hcp  # never deployed to production
     assert (hcp["deploys30d"], hcp["failed30d"]) == (2, 1)
+
+
+def test_at_gh_15_product_delivery_facts(snap):
+    crm = _product(snap, "nxd:dp-ops-crmsys")["github"]
+    assert crm["reached"] == "iac-apply-p" and crm["failingNow"] == []  # dev failed on 10-01, then succeeded on 10-02
+    assert [(d["env"], d["at"][:10], d["outcome"]) for d in crm["recent"]] == [
+        ("iac-apply-d", "2026-10-08", "pending"),
+        ("iac-apply-p", "2026-10-05", "success"),
+        ("iac-apply-d", "2026-10-02", "success"),
+        ("iac-apply-d", "2026-10-01", "failure"),
+        ("iac-apply-p", "2026-09-25", "success"),
+        ("iac-apply-p", "2026-08-01", "success"),
+    ]  # 106 is after the as-of date
+    assert crm["weekly"] == [0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2]  # W30 to W41
+    hcp = _product(snap, "nxd:dp-hcp-hcp-master")["github"]
+    assert hcp["reached"] == "iac-apply-v" and hcp["failingNow"] == ["iac-apply-d"]
+    journey = _product(snap, "nxd:dp-patient-journey-insights")["github"]
+    assert journey["reached"] == "iac-apply-d"
+    rx = _product(snap, "nxd:dp-claims-rx-claims")["github"]
+    assert "reached" not in rx and rx["recent"] == [] and rx["failingNow"] == []
 
 
 def test_at_gh_06_crosswalk_links_and_excludes_repositories(tmp_path, regs):

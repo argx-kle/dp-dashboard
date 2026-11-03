@@ -1,6 +1,8 @@
 /* Domains as clusters, products as bubbles. Each domain's outline is the union of halos around its
    products, so the cluster hugs its members. Each bubble carries the product's name; its ring is the
-   lifecycle stage (colour and arc length; health is a domain verdict and lives on the cluster label).
+   lifecycle stage (colour and arc length; health is a domain verdict and lives on the cluster label). While the
+   register has no gate dates, the ring is the platform stage instead (lib/platform.ts) and the dot marks a
+   product failing now.
    Moving the pointer magnifies nearby bubbles (react-bits Dock-style proximity scaling); hovering or
    focusing one lifts it and opens a preview card. */
 
@@ -11,7 +13,9 @@ import { ATTENTION, C, STAGES } from '@/lib/theme';
 import { href } from '@/lib/router';
 import { useFocusTarget } from '@/lib/focus';
 import { useWidth } from '@/lib/useWidth';
-import { StageRing } from '@/components/StageMark';
+import { PlatformRing, StageRing } from '@/components/StageMark';
+import { useSnapshot } from '@/lib/context';
+import { failingReasons, hasGates, platformStage, type PlatformStage } from '@/lib/platform';
 import ProductPreview from '@/components/ProductPreview';
 import type { ProductRow } from '@/types/snapshot';
 
@@ -45,6 +49,8 @@ export default function ClusterMap({ groups, bubbleR = 36, ariaLabel, testId = '
   const my = useMotionValue(OFF);
   const { focus, setFocus } = useFocusTarget();
   const [local, setLocal] = useState<string | null>(null);
+  const s = useSnapshot();
+  const platform = !hasGates(s);
 
   const layout = useMemo(
     () =>
@@ -123,6 +129,8 @@ export default function ClusterMap({ groups, bubbleR = 36, ariaLabel, testId = '
           <Bubble
             key={urn}
             p={info.p}
+            pstage={platform ? platformStage(s, info.p) : undefined}
+            failing={platform ? failingReasons(s, info.p) : undefined}
             x={info.x}
             y={info.y}
             r={bubbleR}
@@ -177,6 +185,8 @@ export default function ClusterMap({ groups, bubbleR = 36, ariaLabel, testId = '
 
 interface BubbleProps {
   p: ProductRow;
+  pstage?: PlatformStage;
+  failing?: string[];
   x: number;
   y: number;
   r: number;
@@ -189,7 +199,7 @@ interface BubbleProps {
   onActivate: (urn: string | null) => void;
 }
 
-const Bubble = memo(function Bubble({ p, x, y, r, index, mx, my, reduced, active, dimmed, onActivate }: BubbleProps) {
+const Bubble = memo(function Bubble({ p, pstage, failing, x, y, r, index, mx, my, reduced, active, dimmed, onActivate }: BubbleProps) {
   const target = useMotionValue(reduced ? 1 : 0);
   const scale = useSpring(target, reduced ? { duration: 0 } : { stiffness: 340, damping: 26, mass: 0.6 });
   const mounted = useRef(reduced);
@@ -221,11 +231,16 @@ const Bubble = memo(function Bubble({ p, x, y, r, index, mx, my, reduced, active
   }, [active, reduced, mx, my, x, y, r, index, target]);
 
   const st = STAGES[p.lifecycle];
-  const ended = !!st.ended;
+  const ended = !pstage && !!st.ended;
+  const color = pstage ? pstage.color : st.color;
+  const top = pstage ? pstage.step === pstage.steps : p.lifecycle === 'Live';
   const ring = Math.max(1.2, r / 22);
   const name = useMemo(() => fitName(p.name, r - ring - 3), [p.name, r, ring]);
   const flags = p.flags.map((f) => f.code.replace(/_/g, ' ').toLowerCase()).join(', ');
-  const label = `${p.name}. ${p.lifecycle}${flags ? `. Flagged: ${flags}` : ''}. Open product.`;
+  const attention = pstage ? (failing?.length ?? 0) > 0 : p.flags.length > 0;
+  const label = pstage
+    ? `${p.name}. ${pstage.label}${failing?.length ? `. Failing now: ${failing.join(', ')}` : ''}. Open product.`
+    : `${p.name}. ${p.lifecycle}${flags ? `. Flagged: ${flags}` : ''}. Open product.`;
 
   return (
     <g transform={`translate(${x} ${y})`}>
@@ -235,7 +250,7 @@ const Bubble = memo(function Bubble({ p, x, y, r, index, mx, my, reduced, active
           aria-label={label}
           data-testid="cluster-bubble"
           data-urn={p.urn}
-          data-stage={p.lifecycle}
+          data-stage={pstage ? pstage.key : p.lifecycle}
           onPointerEnter={() => onActivate(p.urn)}
           onPointerLeave={() => onActivate(null)}
           onFocus={() => onActivate(p.urn)}
@@ -245,15 +260,15 @@ const Bubble = memo(function Bubble({ p, x, y, r, index, mx, my, reduced, active
           {/* Hit area larger than the mark (>= 24px) and symmetric, so scaling stays centred. */}
           <circle r={r + 4} fill="transparent" />
           <circle className="focus-ring" r={r + 4} fill="none" stroke={C.clear} strokeWidth={1.5} opacity={0} />
-          {active && <circle r={r + 6} fill={st.color} opacity={0.18} style={{ filter: 'blur(8px)' }} />}
+          {active && <circle r={r + 6} fill={color} opacity={0.18} style={{ filter: 'blur(8px)' }} />}
           <circle r={r} fill={ended ? C.bg : C.panel} />
-          {p.lifecycle === 'Live' && <circle r={r} fill={st.color} opacity={active ? 0.18 : 0.1} />}
+          {top && <circle r={r} fill={color} opacity={active ? 0.18 : 0.1} />}
           <g opacity={ended && !active ? 0.8 : 1}>
-            <StageRing stage={p.lifecycle} r={p.lifecycle === 'Failed / retired' ? r - 4 * ring : r - ring} width={ring} />
+            {pstage ? <PlatformRing stage={pstage} r={r - ring} width={ring} /> : <StageRing stage={p.lifecycle} r={p.lifecycle === 'Failed / retired' ? r - 4 * ring : r - ring} width={ring} />}
           </g>
-          {p.flags.length > 0 && (
+          {attention && (
             <circle cx={r * 0.72} cy={-r * 0.72} r={Math.max(4.5, r / 6.5)} fill={ATTENTION} stroke={C.bg} strokeWidth={2} data-testid="attention-dot">
-              <title>Needs attention</title>
+              <title>{pstage ? 'Failing now' : 'Needs attention'}</title>
             </circle>
           )}
           <text textAnchor="middle" fontSize={name.size} fontWeight={600} fill={ended ? C.ink3 : C.ink} style={{ pointerEvents: 'none', fontFamily: 'var(--font-sans)', textDecoration: 'none' }}>

@@ -1,5 +1,6 @@
 /* Hover/focus preview on the cluster map: the picture's caption, not a report. Name, where it
-   lives, its lifecycle stage, the one reason, and at most three figures. Empty figures hide. */
+   lives, its lifecycle stage, the one reason, and at most three figures. Empty figures hide. While the register
+   has no gate dates: its platform stage, what is failing now, and the delivery figures. */
 
 import { useLayoutEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
@@ -7,7 +8,8 @@ import { useSnapshot } from '@/lib/context';
 import { fmtShort, humanize } from '@/lib/format';
 import { domainName, flagDef } from '@/lib/select';
 import { gateLabel } from '@/lib/theme';
-import { StageLabel } from '@/components/StageMark';
+import { PlatformLabel, StageLabel } from '@/components/StageMark';
+import { failingReasons, hasGates, platformStage } from '@/lib/platform';
 import type { ProductRow } from '@/types/snapshot';
 
 interface Props {
@@ -69,6 +71,10 @@ export default function ProductPreview({ product: p, left, top, width }: Props) 
       <div className="mt-0.5 text-small text-ink-3">
         {domainName(s, p.domain)}
       </div>
+      {!hasGates(s) ? (
+        <PlatformFacts product={p} year={year} />
+      ) : (
+        <>
       {first && (
         <p className="mt-2.5 text-small text-pretty text-ink-2">
           <span className="font-semibold text-ink">{flagDef(s, first.code)?.label}</span>
@@ -83,6 +89,30 @@ export default function ProductPreview({ product: p, left, top, width }: Props) 
         <Fact label="Days in stage" value={p.daysInStage} />
         <Fact label="Owner" value={p.dpo ?? 'No DPO'} />
       </dl>
+        </>
+      )}
     </motion.div>
+  );
+}
+
+function PlatformFacts({ product: p, year }: { product: ProductRow; year: number }) {
+  const s = useSnapshot();
+  const failing = failingReasons(s, p);
+  const g = p.github;
+  return (
+    <>
+      {failing.length > 0 && (
+        <p className="mt-2.5 text-small text-pretty text-ink-2">
+          <span className="font-semibold text-ink">Failing now:</span> {failing.join(', ')}
+        </p>
+      )}
+      <dl className="mt-3 border-t border-line pt-2">
+        <Fact label="Platform stage" value={<PlatformLabel stage={platformStage(s, p)} className="text-body font-semibold text-ink" />} />
+        {g && <Fact label="Last production deploy" value={g.lastProdDeploy ? fmtShort(g.lastProdDeploy, year) : 'Never'} />}
+        {g && <Fact label="Deploys, 30 days" value={g.deploys30d ? `${g.deploys30d}, ${Math.round((g.failed30d / g.deploys30d) * 100)}% failed` : 'None'} />}
+        {p.nextdata && <Fact label="NextData" value={`${p.nextdata.runtime}${p.nextdata.env && p.nextdata.runtime === 'Started' ? ` · ${p.nextdata.env}` : ''}`} />}
+        {p.validation?.score != null && <Fact label="Spec score" value={`${Math.round(p.validation.score * 100)}%`} />}
+      </dl>
+    </>
   );
 }

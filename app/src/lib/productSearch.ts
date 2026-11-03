@@ -13,5 +13,6 @@ export function productFields(s: Snapshot, p: ProductRow): SearchField[] {
     { key: 'stage', text: p.lifecycle, weight: 1.2 },
     { key: 'flags', text: p.flags.map((f) => flagDef(s, f.code)?.label ?? f.code).join(' · '), weight: 1.2 },
     { key: 'urn', text: p.urn, weight: 0.8 },
+    ...(p.github ? [{ key: 'repo', text: p.github.repo, weight: 1.2 }] : []),
   ];
 }

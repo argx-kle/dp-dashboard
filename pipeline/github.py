@@ -154,3 +154,82 @@ def recent(repo: GithubRepo, as_of: date) -> list[GhDeployment]:
 
 def failed(deps: list[GhDeployment]) -> list[GhDeployment]:
     return [d for d in deps if d.outcome in FAILED]
+
+
+WEEKS = 12
+RECENT = 10  # deployments listed on a product page
+
+
+def weeks(as_of: date) -> list[date]:
+    """Mondays of the last WEEKS ISO weeks up to the as-of date, oldest first."""
+    monday = as_of - timedelta(days=as_of.weekday())
+    return [monday - timedelta(weeks=WEEKS - 1 - i) for i in range(WEEKS)]
+
+
+def weekly_counts(deps: list[GhDeployment], mondays: list[date]) -> list[int]:
+    return [sum(1 for d in deps if m <= d.day < m + timedelta(days=7)) for m in mondays]
+
+
+def _known(repo: GithubRepo, as_of: date) -> list[GhDeployment]:
+    """Deployments up to the as-of date that have an outcome, oldest first."""
+    return sorted((d for d in repo.deployments if d.day <= as_of and d.outcome != "pending"), key=lambda d: d.created_at)
+
+
+def reached(repo: GithubRepo, cfg: PlatformConfig, as_of: date) -> str | None:
+    """The furthest environment of the promotion path with a successful deployment; None when none succeeded."""
+    ok = {d.env for d in _known(repo, as_of) if d.outcome == "success"}
+    return next((e for e in reversed(list(cfg.github_environments)) if e in ok), None)
+
+
+@dataclass
+class Streak:
+    env: str
+    since: date  # the first failure after the last success
+    last_success: date | None
+
+
+def failing_streaks(repo: GithubRepo, cfg: PlatformConfig, as_of: date) -> list[Streak]:
+    """Path environments whose latest deployment with an outcome failed: failing now, and since when."""
+    out = []
+    for env in cfg.github_environments:
+        deps = [d for d in _known(repo, as_of) if d.env == env]
+        if not deps or deps[-1].outcome not in FAILED:
+            continue
+        last_ok = max((i for i, d in enumerate(deps) if d.outcome == "success"), default=-1)
+        out.append(Streak(env=env, since=deps[last_ok + 1].day, last_success=deps[last_ok].day if last_ok >= 0 else None))
+    return out
+
+
+def recovery_hours(repo: GithubRepo, as_of: date) -> list[float]:
+    """Per environment: hours from a failed deployment in the window to the next successful one."""
+    out = []
+    by_env: dict[str, list[GhDeployment]] = {}
+    for d in _known(repo, as_of):
+        by_env.setdefault(d.env, []).append(d)
+    for deps in by_env.values():
+        failed_at = None
+        for d in deps:
+            if d.outcome in FAILED and failed_at is None and in_window(d, as_of):
+                failed_at = d.created_at
+            elif d.outcome == "success" and failed_at is not None:
+                out.append((d.created_at - failed_at).total_seconds() / 3600)
+                failed_at = None
+    return out
+
+
+def unvalidated_prod(repo: GithubRepo, cfg: PlatformConfig, as_of: date) -> tuple[list[GhDeployment], int]:
+    """Successful production deployments in the window whose commit had no earlier successful deployment in an
+    environment before production on the path (validation); and the number of production commits in the window."""
+    path = list(cfg.github_environments)
+    prod = set(cfg.github_prod_environments)
+    gate = [e for e in path if e not in prod][-1:]  # the last step before production (Validation)
+    known = _known(repo, as_of)
+    prod_ok = [d for d in known if d.env in prod and d.outcome == "success" and in_window(d, as_of) and d.sha]
+    first: dict[str, GhDeployment] = {}
+    for d in prod_ok:
+        first.setdefault(d.sha, d)
+    bypass = [
+        d for d in first.values()
+        if not any(v.env in gate and v.outcome == "success" and v.sha == d.sha and v.created_at <= d.created_at for v in known)
+    ]
+    return bypass, len(first)

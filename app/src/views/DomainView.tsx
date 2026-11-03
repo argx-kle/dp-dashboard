@@ -1,7 +1,8 @@
-/* #/domain/:id  One domain: its quarter, its products, technical readiness, speed and adoption, coverage. */
+/* #/domain/:id  One domain: its quarter, its products, technical readiness, speed and adoption, coverage. While the
+   register has no gate dates: its products by platform stage beside what is failing now, readiness, coverage. */
 
 import ClusterMap from '@/components/ClusterMap';
-import AttentionList from '@/components/AttentionList';
+import AttentionList, { FailingList } from '@/components/AttentionList';
 import ProductTable from '@/components/ProductTable';
 import StatStrip, { TechnicalReadiness } from '@/components/StatStrip';
 import ReportingStrip from '@/components/Coverage';
@@ -14,6 +15,7 @@ import { plural, quarterLabel } from '@/lib/format';
 import { href } from '@/lib/router';
 import { healthOf } from '@/lib/quarter';
 import { domainById, metricValue } from '@/lib/select';
+import { hasGates } from '@/lib/platform';
 
 export default function DomainView({ id }: { id: string }) {
   const s = useSnapshot();
@@ -28,7 +30,8 @@ export default function DomainView({ id }: { id: string }) {
       </div>
     );
   }
-  const h = healthOf(s, id);
+  const gates = hasGates(s);
+  const h = gates ? healthOf(s, id) : undefined;
   const fc = metricValue(s, 'g4_forecast', id);
   const products = s.products.filter((p) => p.domain === id);
   const groups = [{ id, label: d.name, items: products, meta: plural(products.length, 'data product') }];
@@ -40,7 +43,7 @@ export default function DomainView({ id }: { id: string }) {
       </a>
       <section className="grid gap-px overflow-hidden rounded-panel border border-line bg-line lg:grid-cols-[minmax(0,1fr)_auto]" aria-labelledby="domain-h">
         <div className="flex flex-col items-start gap-6 bg-panel p-6 sm:flex-row sm:items-center sm:gap-8">
-          <DomainRing id={id} size={132} />
+          {gates && <DomainRing id={id} size={132} />}
           <div>
             <div className="flex flex-wrap items-center gap-3">
               <h1 id="domain-h" className="text-title font-semibold text-ink">
@@ -84,18 +87,18 @@ export default function DomainView({ id }: { id: string }) {
             Products
           </h2>
           <div className="px-6 pt-2 pb-6">
-            <ClusterMap groups={groups} bubbleR={38} ariaLabel={`${d.name} products. Each circle is a product; its ring shows its lifecycle stage.`} testId="domain-cluster-map" />
+            <ClusterMap groups={groups} bubbleR={38} ariaLabel={`${d.name} products. Each circle is a product; its ring shows ${gates ? 'its lifecycle stage' : 'how far it has got on the promotion path'}.`} testId="domain-cluster-map" />
             <div className="mt-3 border-t border-line pt-4">
               <StageLegend products={products} domain={id} />
             </div>
           </div>
         </section>
-        <AttentionList domain={id} />
+        {gates ? <AttentionList domain={id} /> : <FailingList domain={id} />}
       </div>
 
       <TechnicalReadiness scope={id} />
 
-      <StatStrip scope={id} />
+      {gates && <StatStrip scope={id} />}
 
       <ProductTable
         products={products}

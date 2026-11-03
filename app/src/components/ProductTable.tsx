@@ -1,11 +1,14 @@
 /* Product table. Optionally grouped by domain: each domain is a summary row with a disclosure
    triangle, its figures staying in view while the table scrolls sideways. Sortable columns, the
-   product name frozen on the left, search matches highlighted in names. Stages, not gate codes. */
+   product name frozen on the left, search matches highlighted in names. Stages, not gate codes. While the register
+   has no gate dates, the gate columns (stage, next gate, users, owner, flags) give way to the platform ones. */
 
 import { useId, useMemo, useState, type ReactNode } from 'react';
 import StatusPips from '@/components/StatusPips';
 import FlagBadge from '@/components/FlagBadge';
 import SourceLabel from '@/components/SourceLabel';
+import { PlatformLabel } from '@/components/StageMark';
+import { envLabel, hasGates, platformStage } from '@/lib/platform';
 import ScrollTable from '@/components/ScrollTable';
 import { ChevronDownIcon, ChevronUpIcon, SortIcon, TriangleIcon } from '@/components/Icons';
 import { useSnapshot } from '@/lib/context';
@@ -46,6 +49,7 @@ export function productColumns(s: Snapshot, { showDomain, compact, highlight }: 
   const year = Number(s.asOfDate.slice(0, 4));
   const short = (iso?: string) => fmtShort(iso, year);
   const allSelfReported = s.products.every((p) => !p.activeUsers30d || p.activeUsers30d.source === 'self-reported');
+  const gates = hasGates(s);
   const cols: Column<ProductRow>[] = [
     {
       id: 'name',
@@ -68,8 +72,31 @@ export function productColumns(s: Snapshot, { showDomain, compact, highlight }: 
       sortValue: (p) => domainName(s, p.domain),
       cell: (p) => <span className="block whitespace-nowrap text-ink-2">{domainName(s, p.domain)}</span>,
     });
-  cols.push({ id: 'status', header: 'Stage', sortValue: (p) => STAGE_ORDER.indexOf(p.lifecycle) * 10 + STATUS_ORDER.indexOf(p.status), cell: (p) => <StatusPips product={p} /> });
-  if (!compact)
+  if (s.products.some((p) => p.github))
+    cols.push({
+      id: 'delivery',
+      header: (
+        <span title="How far the product has got on the promotion path in GitHub, and its last production deployment">
+          Delivery<span className="block text-left text-small font-normal text-ink-3">furthest step · production</span>
+        </span>
+      ),
+      descFirst: true,
+      minWidth: 160,
+      sortValue: (p) => platformStage(s, p).step * 10 + (p.github?.failingNow.length ? 0 : 1),
+      cell: (p) => (
+        <span className="block whitespace-nowrap" data-testid="delivery-cell">
+          <PlatformLabel stage={platformStage(s, p)} className="text-body" />
+          {p.github && (
+            <span className="block text-small text-ink-3">
+              {p.github.lastProdDeploy ? `prod ${short(p.github.lastProdDeploy)}` : 'never in production'}
+              {p.github.failingNow.length > 0 && <strong className="font-semibold text-ink"> · failing: {p.github.failingNow.map((e) => envLabel(s, e)).join(', ')}</strong>}
+            </span>
+          )}
+        </span>
+      ),
+    });
+  if (gates) cols.push({ id: 'status', header: 'Stage', sortValue: (p) => STAGE_ORDER.indexOf(p.lifecycle) * 10 + STATUS_ORDER.indexOf(p.status), cell: (p) => <StatusPips product={p} /> });
+  if (gates && !compact)
     cols.push(
       {
         id: 'lastGate',
@@ -86,7 +113,7 @@ export function productColumns(s: Snapshot, { showDomain, compact, highlight }: 
       },
       { id: 'days', header: 'Days in stage', align: 'right', sortValue: (p) => p.daysInStage, cell: (p) => <span className="font-semibold text-ink">{p.daysInStage}</span> },
     );
-  cols.push({
+  if (gates) cols.push({
     id: 'nextGate',
     header: 'Next gate',
     sortValue: (p) => p.nextGate?.plannedDate ?? '9999',
@@ -100,7 +127,7 @@ export function productColumns(s: Snapshot, { showDomain, compact, highlight }: 
         <span className="text-ink-3">–</span>
       ),
   });
-  if (!compact)
+  if (gates && !compact)
     cols.push({
       id: 'users',
       header: (
@@ -140,7 +167,7 @@ export function productColumns(s: Snapshot, { showDomain, compact, highlight }: 
         </span>
       ),
     });
-  cols.push(
+  if (gates) cols.push(
     {
       id: 'dpo',
       header: 'Data product owner',

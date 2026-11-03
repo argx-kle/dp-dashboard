@@ -3,7 +3,8 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import ProductTable from '@/components/ProductTable';
-import StageMark from '@/components/StageMark';
+import StageMark, { PlatformMark } from '@/components/StageMark';
+import { hasGates, platformStage, platformStages } from '@/lib/platform';
 import { CloseIcon, SearchIcon } from '@/components/Icons';
 import { useSnapshot } from '@/lib/context';
 import { href } from '@/lib/router';
@@ -33,11 +34,14 @@ export default function ProductsView({ params }: { params: URLSearchParams }) {
   const status = params.get('status') ?? undefined;
   const stage = params.get('stage') ?? undefined;
   const runtime = params.get('runtime') ?? undefined;
+  const pstage = params.get('pstage') ?? undefined;
+  const gates = hasGates(s);
+  const pstages = platformStages(s).filter((st) => s.products.some((p) => platformStage(s, p).key === st.key));
   const runtimes = RUNTIMES.filter((r) => s.products.some((p) => (p.nextdata?.runtime ?? 'Not in NextData') === r));
-  const fromMetric = params.has('metric') || params.has('flagged');
+  const fromMetric = params.has('metric') || params.has('flagged') || params.has('failing');
   const [query, setQuery] = useState(params.get('q') ?? '');
   const input = useRef<HTMLInputElement>(null);
-  const keep = (over: Record<string, string | undefined>) => href.products({ domain, status, stage, runtime, q: query || undefined, ...over });
+  const keep = (over: Record<string, string | undefined>) => href.products({ domain, status, stage, runtime, pstage, q: query || undefined, ...over });
 
   // Keep the query in the URL without adding history entries.
   useEffect(() => {
@@ -95,7 +99,7 @@ export default function ProductsView({ params }: { params: URLSearchParams }) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Escape' && setQuery('')}
-            placeholder="Search by product, owner, domain, stage or flag, in any order"
+            placeholder={gates ? 'Search by product, owner, domain, stage or flag, in any order' : 'Search by product, domain or repository, in any order'}
             className="h-12 w-full rounded-control border border-line-strong bg-panel pr-12 pl-11 text-lead text-ink placeholder:text-ink-3 focus:border-clear focus:outline-none [&::-webkit-search-cancel-button]:hidden"
             data-testid="product-search"
             autoComplete="off"
@@ -125,6 +129,21 @@ export default function ProductsView({ params }: { params: URLSearchParams }) {
                   </Pill>
                 ))}
             </div>
+            {!gates && s.products.some((p) => p.github) && (
+              <div className="flex flex-wrap items-center gap-2" data-testid="pstage-filter">
+                <span className="w-16 text-small text-ink-3">Delivery</span>
+                <Pill to={keep({ pstage: undefined })} on={!pstage}>
+                  All
+                </Pill>
+                {pstages.map((st) => (
+                  <Pill key={st.key} to={keep({ pstage: st.key })} on={pstage === st.key}>
+                    <PlatformMark stage={st} size={14} />
+                    {st.label}
+                  </Pill>
+                ))}
+              </div>
+            )}
+            {gates && (
             <div className="flex flex-wrap items-center gap-2">
               <span className="w-16 text-small text-ink-3">Stage</span>
               <Pill to={keep({ stage: undefined, status: undefined })} on={!stage && !status}>
@@ -137,6 +156,7 @@ export default function ProductsView({ params }: { params: URLSearchParams }) {
                 </Pill>
               ))}
             </div>
+            )}
             {s.products.some((p) => p.nextdata) && (
               <div className="flex flex-wrap items-center gap-2">
                 <span className="w-16 text-small text-ink-3">NextData</span>

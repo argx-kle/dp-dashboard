@@ -273,7 +273,7 @@ export interface NextDataDeployment {
   url?: string;
 }
 /**
- * The product's GitHub repository and its deployments as of the as-of date. Added 2026-10-30.
+ * The product's GitHub repository and its deployments as of the as-of date. Added 2026-10-30; reached, failingNow, recent and weekly added 2026-11-03.
  */
 export interface GithubSummary {
   /**
@@ -300,6 +300,27 @@ export interface GithubSummary {
    * Of those, deployments that ended in failure or error
    */
   failed30d: number;
+  /**
+   * Furthest environment of the promotion path with a successful deployment (a Delivery.envs id); absent when none succeeded
+   */
+  reached?: string;
+  /**
+   * Path environments whose latest deployment with an outcome failed
+   */
+  failingNow: string[];
+  /**
+   * The last 10 deployments up to the as-of date, newest first
+   */
+  recent: GithubDeploy[];
+  /**
+   * Deployments per week over the last 12 ISO weeks, oldest first
+   */
+  weekly: number[];
+}
+export interface GithubDeploy {
+  env: string;
+  at: string;
+  outcome: "success" | "failure" | "error" | "pending";
 }
 export interface ProductFlag {
   code: "OVERDUE" | "SLIPPING" | "NO_DPO" | "NOT_UPDATED" | "UNUSED" | "PENDING_URN";
@@ -433,6 +454,14 @@ export interface Delivery {
   weekly: DeliveryWeek[];
   teams: DeliveryTeam[];
   repos: DeliveryRepo[];
+  /**
+   * Counted repositories and path environments whose latest deployment failed, longest-failing first. Added 2026-11-03.
+   */
+  broken: DeliveryBroken[];
+  /**
+   * Successful production deployments in the window whose commit was never deployed to validation successfully before, newest first. Added 2026-11-03.
+   */
+  bypass: DeliveryBypass[];
 }
 export interface DeliveryEnv {
   /**
@@ -481,6 +510,30 @@ export interface DeliveryTotals {
   notInRegister: number;
   lastProdDeploy?: string;
   lastProdRepo?: string;
+  /**
+   * Repository and path-environment pairs whose latest deployment failed
+   */
+  brokenNow: number;
+  /**
+   * Repository and path-environment pairs with at least one deployment with an outcome
+   */
+  pathEnvs: number;
+  /**
+   * Production commits in the window never deployed to validation successfully before
+   */
+  bypass30d: number;
+  /**
+   * Distinct commits deployed to production successfully in the window
+   */
+  prodCommits30d: number;
+  /**
+   * Median hours from a failed deployment in the window to the next successful one in the same repository and environment
+   */
+  recoveryHours30d?: number;
+  /**
+   * Counted repositories with at least one deployment
+   */
+  onboarded: number;
 }
 export interface DeliveryWeek {
   week: string;
@@ -494,6 +547,10 @@ export interface DeliveryWeek {
   deploys: number;
   failed: number;
   prodSuccess: number;
+  /**
+   * Counted repositories whose first deployment falls in the week
+   */
+  firstDeploys: number;
 }
 export interface DeliveryTeam {
   /**
@@ -535,10 +592,37 @@ export interface DeliveryRepo {
    * Deployments per week, aligned with Delivery.weekly
    */
   weekly: number[];
+  /**
+   * Furthest environment of the promotion path with a successful deployment
+   */
+  reached?: string;
+  /**
+   * Path environments whose latest deployment with an outcome failed
+   */
+  failingNow: string[];
 }
 export interface RepoEnv {
   env: string;
   lastSuccess?: string;
   deploys30d: number;
   failed30d: number;
+}
+export interface DeliveryBroken {
+  repo: string;
+  urn?: string;
+  env: string;
+  /**
+   * First failure after the last success
+   */
+  since: string;
+  lastSuccess?: string;
+}
+export interface DeliveryBypass {
+  repo: string;
+  urn?: string;
+  /**
+   * Commit, first 7 characters
+   */
+  sha: string;
+  at: string;
 }

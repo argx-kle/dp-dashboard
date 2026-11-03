@@ -1,8 +1,10 @@
-/* #/definitions  Generated from the registry carried in the snapshot. */
+/* #/definitions  Generated from the registry carried in the snapshot. While the register has no gate dates, the
+   gate-based definitions (domain health, flags, gates, lifecycle stages, quarters) give way to the platform ones. */
 
 import FlagBadge from '@/components/FlagBadge';
 import HealthBadge from '@/components/HealthBadge';
-import StageMark from '@/components/StageMark';
+import StageMark, { PlatformMark } from '@/components/StageMark';
+import { hasGates, platformStages } from '@/lib/platform';
 import { useSnapshot } from '@/lib/context';
 import { fmtDate, quarterLabel } from '@/lib/format';
 import { STAGES, STAGE_ORDER, type Health, type Stage } from '@/lib/theme';
@@ -89,16 +91,19 @@ const td = 'px-6 py-4 align-top';
 
 export default function DefinitionsView() {
   const s = useSnapshot();
-  const metrics = [...s.registry.metrics].sort((a, b) => a.order - b.order);
+  const gates = hasGates(s);
+  const metrics = [...s.registry.metrics].sort((a, b) => a.order - b.order).filter((m) => gates || READINESS.includes(m.id));
+  const window = s.delivery?.windowDays ?? 30;
   return (
     <div className="space-y-10" data-testid="definitions-view">
       <div>
         <h1 className="text-title font-semibold text-ink">How each number is defined</h1>
         <p className="mt-3 max-w-[68ch] text-lead text-ink-2">
-          Week {Number(s.weekId.slice(-2))}, as of {fmtDate(s.asOfDate)}, quarter {quarterLabel(s.quarter)}. All numbers come from the product register and its source files. No number comes from a self-assessed rating. When fewer than three products give a median, the dashboard shows each value. Self-reported values have a label.
+          Week {Number(s.weekId.slice(-2))}, as of {fmtDate(s.asOfDate)}, quarter {quarterLabel(s.quarter)}. {gates ? 'All numbers come from the product register and its source files.' : 'The register has no gate dates yet, so this week the numbers come from the platform: the GitHub extract, NextData and the validation tool.'} No number comes from a self-assessed rating. When fewer than three products give a median, the dashboard shows each value. Self-reported values have a label.
         </p>
       </div>
 
+      {gates && (
       <Section id="health-h" title="Domain health">
         <ul className="divide-y divide-line">
           {HEALTH_RULE.map(([status, rule]) => (
@@ -114,6 +119,50 @@ export default function DefinitionsView() {
           </li>
         </ul>
       </Section>
+      )}
+
+      {!gates && (
+        <Section id="pstages-h" title="Platform stages">
+          <ul className="divide-y divide-line">
+            {platformStages(s).map((st) => (
+              <li key={st.key} className="flex flex-col gap-2 px-6 py-4 sm:flex-row sm:items-center sm:gap-4" data-testid={`pstage-def-${st.key}`}>
+                <span className="inline-flex w-44 shrink-0 items-center gap-2 text-body font-semibold text-ink">
+                  <PlatformMark stage={st} size={18} />
+                  {st.label}
+                </span>
+                <span className="max-w-[68ch] text-body text-ink-2">
+                  {st.step < 0
+                    ? 'No GitHub repository is matched to the product (naming rules, the data_product_urn property or the crosswalk).'
+                    : st.step === 0
+                      ? 'The product has a repository, but no deployment in it has succeeded yet.'
+                      : `The furthest step of the promotion path with a successful deployment is ${st.label} (environment ${st.key}).`}
+                </span>
+              </li>
+            ))}
+            <li className="max-w-[90ch] px-6 py-4 text-body text-ink-3">
+              The ring around each product fills one segment per step reached. GitHub decides, never the register: a gate is a governance decision and the dashboard does not infer one from a deployment.
+            </li>
+          </ul>
+        </Section>
+      )}
+
+      {!gates && s.delivery && (
+        <Section id="dhealth-h" title="Delivery health">
+          <dl className="divide-y divide-line">
+            {[
+              ['Failing now', 'A repository and step of the promotion path whose latest deployment with a result failed or ended in error. It stays failing until a later deployment there succeeds. A product is also failing now when NextData reports it Failed or Unreachable.'],
+              [`Production without validation, ${window} days`, `Commits deployed to production successfully in the last ${window} days that had no earlier successful deployment to validation in the same repository. Commits are matched exactly: a production deployment of a different commit (for example a merge commit) counts here even if its changes were validated.`],
+              [`Time to recover, ${window} days`, `The median time from a failed deployment in the last ${window} days to the next successful deployment in the same repository and environment. Failures that were never followed by a success are not counted.`],
+              ['Repositories onboarded', 'Counted repositories with at least one deployment. A repository counts as onboarded in the week of its first deployment.'],
+            ].map(([term, rule]) => (
+              <div key={term} className="flex flex-col gap-1 px-6 py-4 sm:flex-row sm:gap-4">
+                <dt className="w-64 shrink-0 text-body font-semibold text-ink">{term}</dt>
+                <dd className="m-0 max-w-[68ch] text-body text-ink-2">{rule}</dd>
+              </div>
+            ))}
+          </dl>
+        </Section>
+      )}
 
       <Section id="metrics-h" title="Metrics">
         <table className="w-full border-collapse text-body">
@@ -138,6 +187,7 @@ export default function DefinitionsView() {
         </table>
       </Section>
 
+      {gates && (
       <Section id="flags-h" title="Flags">
         <table className="w-full border-collapse text-body">
           <tbody>
@@ -153,7 +203,9 @@ export default function DefinitionsView() {
           </tbody>
         </table>
       </Section>
+      )}
 
+      {gates && (
       <Section id="gates-h" title="Stages and the gates between them">
         <GateFlow />
         <table className="w-full border-collapse border-t border-line text-body">
@@ -182,7 +234,9 @@ export default function DefinitionsView() {
           </tbody>
         </table>
       </Section>
+      )}
 
+      {gates && (
       <Section id="status-h" title="Lifecycle stages">
         <table className="w-full border-collapse text-body">
           <thead>
@@ -209,13 +263,16 @@ export default function DefinitionsView() {
         </table>
         <p className="border-t border-line px-6 py-4 text-body text-ink-3">Each stage fills one more quarter of the circle, from 12 o'clock. The green gets brighter as the product moves forward. Ideation is a dotted ring. Failed or retired is a red double ring. A yellow dot on a bubble shows that the product needs attention.</p>
       </Section>
+      )}
 
+      {gates && (
       <Section id="quarters-h" title="Quarters and weeks">
         <ul className="divide-y divide-line text-body text-ink-2">
           <li className="max-w-[80ch] px-6 py-4">The quarter selector shows each closed quarter on its last day. The dashboard calculates it from the gate dates: stages, certifications, targets, time to production and time to first consumer. The register keeps plans, flags and usage for the current week only. Thus a closed quarter shows no forecast, no flags and no usage.</li>
           <li className="max-w-[80ch] px-6 py-4">By week, the trend counts the products certified in the quarter until the end of each week (Monday to Sunday). The dashed line is the target pace. It goes up evenly from zero to the target on the last day of the quarter.</li>
         </ul>
       </Section>
+      )}
     </div>
   );
 }

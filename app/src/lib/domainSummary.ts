@@ -6,6 +6,7 @@ import { fmtValue } from '@/lib/format';
 import { href } from '@/lib/router';
 import { metricValue } from '@/lib/select';
 import { STAGE_ORDER } from '@/lib/theme';
+import { failingProducts, platformStage, platformStages } from '@/lib/platform';
 
 export interface SummaryFigure {
   key: string;
@@ -61,3 +62,20 @@ export function domainStages(s: Snapshot, id: string): StageCount[] {
     testId: `dh-stage-${stage.replace(/[^a-z]+/gi, '-').toLowerCase()}-${id}`,
   })).filter((c) => c.count > 0);
 }
+
+/** While the register has no gate dates: products by platform stage and failing now, each linking to its list. */
+export function platformSummary(s: Snapshot, id: string): SummaryFigure[] {
+  const products = s.products.filter((p) => p.domain === id);
+  const stages = platformStages(s).map((st) => {
+    const n = products.filter((p) => platformStage(s, p).key === st.key).length;
+    return { key: st.key, value: n ? String(n) : '–', label: st.label.toLowerCase(), href: href.products({ domain: id, pstage: st.key }), testId: `dp-${st.key}-${id}`, count: n };
+  });
+  const failing = failingProducts(s, id).length;
+  return [
+    { key: 'products', value: String(products.length), label: 'products', href: href.products({ domain: id }), testId: `dp-products-${id}`, count: products.length },
+    ...stages,
+    { key: 'failing', value: failing ? String(failing) : '–', label: 'failing now', href: href.products({ domain: id, failing: '1' }), testId: `dp-failing-${id}`, count: failing },
+  ];
+}
+
+export const platformHeaders = (s: Snapshot) => ['Products', ...platformStages(s).map((st) => st.label), 'Failing now'];
