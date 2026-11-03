@@ -5,7 +5,7 @@ belongs to a register product, first hit wins:
 1. the crosswalk row with source github (product: a register URN, or a NextData name or product key);
 2. the repository's data_product_urn custom property equals the register URN;
 3. dp-<team>-x-y, x-y or x-y-nxd is the last segment of the register URN, or a NextData name of its platform product.
-Tooling teams and template or test names (registry/platform.yaml) are not counted, as for NextData names.
+Tooling teams and names matching any exclude_patterns entry (registry/platform.yaml) are not counted, as for NextData names.
 """
 
 from __future__ import annotations

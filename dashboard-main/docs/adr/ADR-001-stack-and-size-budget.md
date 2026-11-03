@@ -20,9 +20,9 @@ React alone is more than half of the 400 KB figure, which was set before anythin
 
 ## Decision
 
-1. Stack: React 19, TypeScript, Vite 6 + `vite-plugin-singlefile`, Tailwind 4 (build-time only), `motion` as the single animation runtime. No gsap, no react-router (a 40-line hash router instead). TanStack Table was dropped on 2026-10-07 for a small in-house table (`app/src/lib/table.ts`), saving about 60 KB.
+1. Stack: React 19, TypeScript, Vite 6 + `vite-plugin-singlefile`, Tailwind 4 (build-time only), `motion` as the single animation runtime. No gsap, no react-router (a small hash router instead, about 70 lines). TanStack Table was dropped on 2026-10-07 for a small in-house table (`app/src/lib/table.ts`), saving about 60 KB.
 2. Charts are hand-written SVG components animated with `motion`. Recharts is not used.
-3. react-bits components are vendored into `app/src/components/reactbits/` with attribution, restyled with brand tokens. Used: CountUp, AnimatedList, Stepper, GlareHover (SpotlightCard and GooeyNav were removed on 2026-10-06, see ADR-002). No background effects.
+3. react-bits components are vendored into `app/src/components/reactbits/` with attribution, restyled with brand tokens. Used: CountUp, Stepper, GlareHover (SpotlightCard and GooeyNav were removed on 2026-10-06, see ADR-002; AnimatedList on 2026-11-03, unused since ADR-003). No background effects.
 4. Budget: template HTML ≤ 640 KB before snapshot injection (raised from 600 KB on 2026-10-07 by the product owner, for the grouped domain table, rather than trimming code). The hard rule stays the 2-second open from `file://` on a standard laptop, measured by the end-to-end suite.
 5. All motion respects `prefers-reduced-motion` and is disabled in print.
 

@@ -37,7 +37,7 @@
 - id: cycle_time_g1_g4
   label: Median time to production
   short_label: Time to production
-  definition: Median number of days from G1 Intake to the first G4 Certify. It uses products certified in the last 182 days. A product without a G1 is not used, and the data-quality report shows a warning.
+  definition: Median number of days from G1 Intake to the first G4 Certify. It uses products certified in the last 182 days. A product with a later gate but no G1 is a blocker in the data-quality report.
   levels: [org, domain]
   unit: days
   min_n: 3

@@ -11,7 +11,7 @@
 #   reason      template for the reason text; fields come from the rule function
 #   applies_to  active | all   (active = not Retired and not Cancelled)
 #
-# Product signal (shown as the ring on each product in the cluster map):
+# Product signal (not drawn since 2026-10-08; it ranks the Needs attention list):
 #   grey   the product is Retired or Cancelled
 #   red / orange / yellow   the most severe signal among the product's flags
 #   unreported  active, no flags, and never reviewed by its DPO ("Not yet reported")
@@ -29,7 +29,7 @@
 - code: OVERDUE
   label: Overdue
   level: product
-  definition: The next gate is 14 or more days late.
+  definition: The next gate is more than 14 days late.
   signal: red
   fn: pipeline.flags.overdue
   reason: "{gate} {gate_name} is {days} days late. Due {planned}."

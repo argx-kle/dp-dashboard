@@ -29,7 +29,7 @@ Executive feedback on the 2026-10-07 dashboard: product counts on the summary mu
 - **Next gate** ("G4 Certify · 20 Oct") on the hover card, the tables and the product page; the Definitions page shows the gates between the stages and explains each.
 - **Areas**: TechOps, R&D and G&A are separate domains; no merged heading.
 - **Last updated** moved from the header to the footer.
-- **Showcase week** (`scripts/make_showcase.py`, week 2026-W47, 58 made-up products in all four areas) is the demo and the dev preview; the golden fixture stays the test reference.
+- **Showcase week** (`scripts/make_showcase.py`, week 2026-W47, 58 made-up products in all four areas; 60 since 2026-11-02) is the demo and the dev preview; the golden fixture stays the test reference.
 
 ## Revision, round 3
 

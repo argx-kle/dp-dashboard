@@ -34,8 +34,3 @@ def _tidy(v: float) -> float | int:
 def count_result(urns: list[str]) -> MetricResult:
     return MetricResult(len(urns), n=len(urns), urns=sorted(urns))
 
-
-def share_result(numerator: list[str], denominator: int, empty_reason: str) -> MetricResult:
-    if denominator == 0:
-        return MetricResult(None, n=0, urns=[], reason=empty_reason)
-    return MetricResult(round(len(numerator) / denominator, 4), n=denominator, urns=sorted(numerator))

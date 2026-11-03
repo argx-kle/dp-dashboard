@@ -72,7 +72,7 @@ Reasons name the gate: "G4 Certify was due 20 Oct, 31 days overdue".
 | Id | Rule | Edge cases |
 | --- | --- | --- |
 | `certified_qtd` | Count of products whose `firstG4Date` falls in the current quarter. Shown against the Targets sheet for the quarter. | Re-certifications after G5 are not counted; the first G4 decides the quarter. |
-| `cycle_time_g1_g4` | Median of `firstG4Date − G1 date`, over products whose `firstG4Date` is in the trailing 182 days. | Product without G1 excluded with a warning (and it is a blocker if it has G2 to G4). |
+| `cycle_time_g1_g4` | Median of `firstG4Date − G1 date`, over products whose `firstG4Date` is in the trailing 182 days. | A product with G2 to G4 but no G1 is a blocker (`NO_G1`). |
 | `time_to_first_consumer` | Median of `firstConsumerDate − G1 date`, over products whose `firstConsumerDate` is in the trailing 182 days. | Source label (self-reported or snowflake) carried through. |
 | `active_users_median` | Median of `activeUsers30d` over Live products that have a figure. | Live product without a figure is excluded and gets a warning. |
 
@@ -199,14 +199,17 @@ Up to three lines comparing the current snapshot with the last approved one: new
 | Blocker | Gate events not in gate order within an iteration, or dated after the as-of date | `GATE_ORDER`, `FUTURE_DATE` |
 | Blocker | G2, G3 or G4 without a G1 | `NO_G1` |
 | Blocker | Gate event for an unknown URN | `UNKNOWN_URN` |
+| Blocker | Domain not in `registry/domains.yaml` (Products, Targets or Capacity) | `UNKNOWN_DOMAIN` |
 | Blocker | Unparseable date or number | `BAD_VALUE` |
 | Blocker | DPO comment matches a screening pattern (email, phone, ID-like string) or term | `SCREENING` |
 | Blocker | Snapshot fails schema validation | `SCHEMA` |
 | Warning | Gate event without evidence link | `NO_EVIDENCE` |
 | Warning | Active product without a plan for its next gate, or a plan for a gate already passed | `NO_PLAN`, `STALE_PLAN` |
 | Warning | Live product without a usage figure | `NO_USAGE` |
-| Warning | Product with G2 to G4 history but no G1 (excluded from cycle time) | `NO_G1_WARN` |
+| Warning | G5 without `g5_path` (treated as scope change) | `NO_G5_PATH` |
 | Warning | Unknown column ignored | `UNKNOWN_COLUMN` |
+| Warning | NextData listing line with the wrong number of values (skipped) | `ND_PARSE` |
+| Warning | App template missing; `index.html` not written | `NO_TEMPLATE` |
 | Warning | NextData listing present but empty | `SOURCE_MISSING` |
 | Warning | NextData, validation, GitHub and crosswalk checks (see "Platform warnings" below) | `ND_*`, `VAL_*`, `GH_*`, `XWALK_*` |
 
@@ -231,7 +234,7 @@ NextData lists deployments, not products, and the validation tool has its own ke
 2. **Validation keyids** match a NextData name exactly, with a team prefix, with an `-nxd` suffix, with the same words in another order, as the prefix of exactly one name, or as a clone (identical results) of a matched keyid. A keyid that matches nothing is a product known only to the validation tool ("Not deployed").
 3. **Not counted** (listed with the reason in the data-quality report): names matching a pattern in `registry/platform.yaml` (template, test, sandbox or synthetic, placeholder `dp-<team>-<word>-dp`); tooling teams (`gov`, `nxd`); every deployment unreachable and the catalog does not know the name; deployed only in a demo environment and never validated.
 4. **Team layer.** The `<team>` in `dp-<team>-…` is the EDP team subdomain (ops, hcp, patient, claims): Source systems, HCP team, Patient team, Claims team. For a bare name: its repository name (`…-ops-dp-…`), else its NextData domain (`EDP/OPS`), else the team of other bare products with the same first word, else a team word in the name. The team is shown on the product page; it is not a sub-group inside the domain (changed 2026-10-07).
-5. **Business domain** (Patient, HCP, Market access, Channel partner, Revenue / vials, Medical affairs, Logistics, or Unknown; `registry/domains.yaml`), first match wins:
+5. **Business domain** (Patient, HCP, Market access, Channel partner, Revenue / vials, Medical affairs, Logistics, TechOps, R&D, G&A, or Unknown; `registry/domains.yaml`), first match wins:
    1. the crosswalk's `domain` column, for one name;
    2. `registry/product-domains.yaml`, the durable product-to-domain map, keyed by product key, NextData name or keyid;
    3. the name rules (`domain_rules` in `registry/platform.yaml`): a phrase in the name (`channel-partner`, `buy-n-bill`) or a whole word (`claims`, `payer`, `mmit` → Market access; `hcp`, `veeva`, `ama`, `territory` → HCP; `patient` → Patient; `msl`, `kol` → Medical affairs; `logistics`, `3pl` → Logistics; `revenue`, `vial`, `sales` → Revenue / vials);
@@ -252,7 +255,7 @@ A register product is matched to its platform product by URN: `nxd:<name>`, a ca
 2. the repository's `data_product_urn` custom property equals the register URN (no repository has it yet; it is read as soon as the org defines it);
 3. `dp-<team>-x-y`, `x-y` or `x-y-nxd` is the last segment of the register URN or a NextData name of the product.
 
-Repositories of tooling teams (`gov`, `nxd`) and with template or test names (`registry/platform.yaml`) are not counted. When two repositories match one product, the first by these rules (then by name) is used.
+Repositories of tooling teams (`gov`, `nxd`) and with names matching any `exclude_patterns` entry in `registry/platform.yaml` (template, test, sandbox or synthetic, placeholder) are not counted. When two repositories match one product, the first by these rules (then by name) is used.
 
 ### Platform warnings
 

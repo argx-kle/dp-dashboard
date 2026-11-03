@@ -1,6 +1,6 @@
 ---
 name: Data Product Delivery
-description: argenx weekly executive dashboard for data product delivery, dark Vast Blue world with a shape-coded health signal
+description: argenx weekly executive dashboard for data product delivery, dark Vast Blue world with icon-coded domain health and stage-coded products
 colors:
   bg: "#001a22"
   panel: "#002834"
@@ -154,13 +154,13 @@ components:
 
 A dark, still room in Vast Blue where the only things that light up are the things that need a leader's attention. The dashboard is read projected, by several executives at once, so the system is built for distance: one strict seven-step type scale, large rings and figures, generous 24px panel padding, and colour that is either brand blue (progress, place, data) or a reserved health signal (red, orange, yellow, green, grey). Everything else is tonal neutral. The craft bar is the category-standard dashboard executed at the level of Linear, the Vercel dashboard and Apple Health's summary; no novelty worlds.
 
-The picture comes first: progress rings for the quarter and each domain, a cluster map where every product is a bubble carrying its signal ring, then figures one hover or one click away. Depth is tonal, not cast: the ground, panels and raised states are four steps of the same blue, separated by one-step-lighter hairlines. Only things that float above the page (the bubble preview, the chart tooltip) carry a shadow.
+The picture comes first: progress rings for the quarter and each domain, a cluster map where every product is a bubble carrying its stage ring, then figures one hover or one click away. Depth is tonal, not cast: the ground, panels and raised states are four steps of the same blue, separated by one-step-lighter hairlines. Only things that float above the page (the bubble preview, the chart tooltip) carry a shadow.
 
 Motion explains and then stops. Rings draw and figures count once on load, bubbles lift on hover or focus, the tab glare sweeps once on view change, and all of it is off under reduced motion. Print swaps the whole palette to light through the same variables.
 
 **Key Characteristics:**
 - Vast Blue tonal neutrals; Clear Blue marks place and focus; brand tonal blues carry data.
-- A reserved five-step health signal, always paired with a ring shape or an icon.
+- Reserved health colours for domain verdicts and flags, always paired with an icon and a word; products show their lifecycle stage on a green ramp.
 - Instrument Sans for everything; Inria Serif italic for exactly one word, in the product title.
 - Sentence case throughout; no all-caps.
 - Panels with 16px corners and hairline borders; related figures share one panel split by 1px rules.
@@ -199,7 +199,7 @@ A cold, low-chroma Vast Blue ground with one pale accent for place, two data blu
 - **On Light** (`on-light`): figures printed inside light data bars.
 
 ### Named Rules
-**The Signal Reserve Rule.** Red, orange, yellow, green and grey mean product health or a flag and nothing else, and they never appear alone: every use carries its ring shape (double, broken, dashed, solid, dotted) or a flag icon and label.
+**The Signal Reserve Rule.** Red, orange, yellow and the signal green mean domain health or a flag and nothing else, and they never appear alone: every use carries its icon and word (trend up, check, warning, stop sign, trend down for health; the registry icon and label for flags). Product bubbles never take a health colour; they show the lifecycle stage.
 
 **The Pale Pointer Rule.** Clear Blue shows where you are (focus, current view, hovered figure). It is a line or a text colour, never a surface.
 
@@ -233,7 +233,7 @@ A cold, low-chroma Vast Blue ground with one pale accent for place, two data blu
 
 ## Layout
 
-A centred column capped at 1440px, with 24px side gutters that widen to 40px from 1024px. Sections stack with 24px gaps under a sticky 64px header (wordmark, divider, title, week and as-of date, tabs pushed right). Panels pad 24px; table cells pad 12px with 24px at the outer edges. The executive overview reads in rows: quarter ring beside a ring per domain (four to a row) in one split panel; the cluster map beside a 380px Needs attention column from 1280px; then Technical readiness when platform files are in the inbox; then the four-up Speed and adoption strip (two-up from 640px, one-up below); then the quarter chart; and last, Reporting coverage while inputs are incomplete. The domain page follows the same order: its map and attention list, Technical readiness, Speed and adoption, its product table, and Reporting coverage last. Below 1280px the attention list stacks under the map. The executive overview prints on one A4 landscape page, with the domain table in place of the map.
+A centred column capped at 1440px, with 24px side gutters that widen to 40px from 1024px. Sections stack with 24px gaps under a sticky 64px header (wordmark, divider, title, week and as-of date, tabs pushed right). Panels pad 24px; table cells pad 12px with 24px at the outer edges. The executive overview reads in rows: the Delivery panel first while no product has a gate yet (GitHub extract only); quarter ring beside a ring per domain (four to a row) in one split panel; the cluster map beside a 380px Needs attention column from 1280px; then Technical readiness when platform files are in the inbox; then the Delivery panel, when there is a GitHub extract and products have gates; then the four-up Speed and adoption strip (two-up from 640px, one-up below); then the quarter chart; and last, Reporting coverage while inputs are incomplete. The domain page follows the same order: its map and attention list, Technical readiness, Speed and adoption, its product table, and Reporting coverage last. Below 1280px the attention list stacks under the map. The executive overview prints on one A4 landscape page, with the domain table in place of the map.
 
 **The Ruled Strip Rule.** Related figures share one panel and are divided by 1px hairlines (a hairline ground showing through 1px gaps), not split into separate floating cards.
 
@@ -255,7 +255,7 @@ Soft, consistent geometry. Panels are 16px; controls, list rows and detail boxes
 ## Components
 
 ### Navigation
-- **Style:** three pill tabs (Executive, Products, Definitions) on the right of the sticky header, built on the vendored react-bits GlareHover.
+- **Style:** pill tabs (Executive, Products, Delivery, Definitions; Delivery only when the snapshot has GitHub data) on the right of the sticky header, built on the vendored react-bits GlareHover.
 - **States:** inactive is Ink Muted text on no fill, Ink on hover; current is Selected Blue fill, Strong Hairline border, Ink text.
 - **Signature:** a Clear Blue glare (32% opacity, -30 degrees) crosses the tab once on hover and once on the newly current tab after a view change (800ms); none under reduced motion.
 - **Mobile:** the header wraps; tabs drop to their own line.
@@ -273,8 +273,8 @@ Soft, consistent geometry. Panels are 16px; controls, list rows and detail boxes
 - **Border:** 1px Hairline.
 - **Internal Padding:** 24px; headings sit 24px from the top with content following at 8 to 20px.
 
-### Health signal mark
-One drawing at every size (map bubble, legend, tables, list, preview): a circle tinted 18% in the signal colour inside its ring shape. Red is a double ring, orange a ring with a quarter missing, yellow dashed, green solid, grey dotted with no tint. Paired in text with its label (Off track, At risk, Attention, On track, Retired or cancelled).
+### Stage mark and health mark
+Stage mark, one drawing at every size (map bubble, legend, tables, list, preview): one quarter of the circle per stage, clockwise from 12 o'clock, on a green ramp that brightens as the product advances. Ideation is a dotted ring, Failed / retired a red double ring. Health mark (domains only): a coloured icon with its word (Ahead, On track, Behind, Off track; Above, Met or Below target for a closed quarter). The product signal is no longer drawn; it only ranks Needs attention (ADR-003).
 
 Not yet reported: active, no flag, and the owner has never reviewed the row. A thin (1.1px) Ink Muted outline with no fill, the quietest mark on the map (bubble drawn at 94%). It replaces a wall of yellow during onboarding and turns green at the first review.
 
@@ -282,7 +282,7 @@ Not yet reported: active, no flag, and the owner has never reviewed the row. A t
 Track in Strong Hairline at 55%; certified in Data Blue, forecast in Deep Data Blue at 45%, and any shortfall to target as a thinner red arc, separated by small gaps with round caps. Figure and "of N target" sit centred inside. Arcs draw once on load (900ms, staggered 350ms).
 
 ### Cluster map and preview (signature)
-Domains are regions on Raised Blue outlined by a Hairline (Strong Hairline when lit); the EDP team is shown on the product page, not on the map. Each product is a bubble filled with its signal tint (off track loudest at 38% and drawn 15% larger, on track quietest at 6%) with its signal ring and the last gate passed in the centre. The pointer magnifies nearby bubbles up to 14%; hover or focus lifts one to 125% on a spring, dims the others to 35%, lights the matching Needs attention row and opens a 300px preview card (Raised Blue, 20px padding, Preview lift shadow): name, domain, signal and lifecycle pips, the first flag's reason, and at most three facts. The card stays within the viewport below the header.
+Domains are regions on Raised Blue outlined by a Hairline (Strong Hairline when lit); the EDP team is shown on the product page, not on the map. Each product is a bubble carrying its name, ringed by its stage mark; Live bubbles take a faint stage tint, and a yellow dot marks a product that needs attention. The pointer magnifies nearby bubbles up to 14%; hover or focus lifts one to 125% on a spring, dims the others to 35%, lights the matching Needs attention row and opens a 300px preview card (Raised Blue, 20px padding, Preview lift shadow): name, domain, signal and lifecycle pips, the first flag's reason, and at most three facts. The card stays within the viewport below the header.
 
 ### Lists and tables
 - **Needs attention:** rows with an 18px signal mark, bold product name, the first flag's reason and the domain and owner in muted text; hovering or focusing lights the row in Selected Blue and the bubble on the map. Overflow becomes one "N more" link line, never an inner scroll.
@@ -291,7 +291,7 @@ Domains are regions on Raised Blue outlined by a Hairline (Strong Hairline when 
 - **Scrolling table viewport (Products, domain view):** the table box fills the window below the header and scrolls on both axes; the column header row stays pinned, the signal and product columns stay frozen on the left with an edge shadow once scrolled, and pressing on empty table space and dragging pans sideways (grab cursor, 4px threshold). The browser's own scrollbar is the only scrollbar; no hint line.
 - **Product search:** a 48px field above the filters (Strong Hairline border, Clear Blue on focus, search icon, "/" key hint). Matching is order-independent and forgiving (substring, letters in order with gaps, one typo); matched letters in names are highlighted in a 20% Clear Blue wash.
 - **Reporting coverage strip:** one ruled strip at the end of the executive overview and of each domain page while any input (gate dates, planned GA dates, owner reviews, owners, usage, first consumers, validation score, NextData, GitHub repository) is below 80% of its base. Each cell: small label, the count in Heading weight as a link to the products missing it, "of N base" muted, and a 4px Data Blue bar on Track. Under every number whose input is incomplete, one muted Small line says so ("Gate dates for 5 of 6 active products") and links to the same list. The strip disappears once inputs are complete; the notes stay.
-- **Technical readiness strip:** the Speed and adoption strip's twin, directly above it, shown only when platform files are in the inbox, with the tiles of each source present: median finish-spec score (validation tool), failing in NextData ("of N deployed"), and from GitHub never deployed to production ("of N with a repository"), production deploys per live product over 30 days and the deployment failure rate ("of N deployments"). Two to five tiles in one row on wide screens, two per row below; an odd count fills the last slot with panel colour. Source labels say Validation tool, NextData or GitHub, and the note names the sources present.
+- **Technical readiness strip:** the Speed and adoption strip's twin, directly above it, shown only when platform files are in the inbox, with the tiles of each source present: median finish-spec score (validation tool), failing in NextData ("of N deployed"), and from GitHub never deployed to production ("of N with a repository"), production deploys per shipping product over 30 days and the deployment failure rate ("of N deployments"). Two to five tiles in one row on wide screens, two per row below; an odd count fills the last slot with panel colour. Source labels say Validation tool, NextData or GitHub, and the note names the sources present.
 - **On the platform (product page):** an "Open in NextData" link (Clear Blue, arrow icon) beside the heading goes to the best deployment's NextData page. Two cells. Runtime: state and best environment in Lead, the EDP team and NextData domain and other names muted, a small deployments table with an Open link per row where non-running states are bold Ink (never a signal colour). Finish-spec validation: score in Lead with the run date, the owner status in the repository, and one 6px Data Blue bar per component. Deployments (GitHub), full width below both: the last successful production deploy in Lead (or "Never deployed to production"), the repository and the 30-day counts muted, and an "Open in GitHub" link. A product with only a repository shows the Deployments cell alone. A Facts cell summarises them and scrolls to the section.
 - **Platform column:** on the products page when platform data exists: runtime (bold Ink when Failed or Unreachable) over "spec 73%" muted. It sits before the owner column and scrolls with the table.
 - **Lifecycle pips:** four 7x3px pills (gates passed to G4) in Ink Secondary over Strong Hairline, plus the status words; no colour meaning, so they never compete with the signal.
@@ -299,7 +299,7 @@ Domains are regions on Raised Blue outlined by a Hairline (Strong Hairline when 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** pair every signal colour with its ring shape or a flag icon and label, at every size.
+- **Do** pair every health or flag colour with its icon and word, at every size.
 - **Do** keep text on the seven steps: 13, 15, 17, 20, 28, 32, 48px.
 - **Do** use Clear Blue only for focus, the current view and hovered figures, as a line or text colour.
 - **Do** group related figures in one 16px panel divided by 1px hairlines.

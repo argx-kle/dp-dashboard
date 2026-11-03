@@ -4,7 +4,7 @@ Turns a folder of weekly files (the product register, plus optional NextData, va
 
 ## 1. See it without installing anything
 
-Open `demo/index.html` in a browser (double-click it). It is the full dashboard on a made-up showcase week, 2026-W47: 58 products in Commercial, TechOps, R&D and G&A, every stage, flag and health state. `demo/index-named.html` is week 2026-W41 with the real data product and domain names and made-up values.
+Open `demo/index.html` in a browser (double-click it). It is the full dashboard on a made-up showcase week, 2026-W47: 60 products in Commercial, TechOps, R&D and G&A, every stage, flag and health state. `demo/index-named.html` is week 2026-W41 with the real data product and domain names and made-up values.
 
 ## 2. Set up once
 
@@ -58,7 +58,7 @@ dp approve --week 2026-W43 --by "Program lead"    # sign off: the footer shows w
 
 **GitHub connection.** `dp fetch-github` reads every `*-dp-*` repository of the `argenxDataAI` org (set in `registry/platform.yaml`) and only ever reads: the session refuses anything but GET requests and GraphQL queries. Once:
 
-1. `gh auth login` (the command reuses `gh auth token`), or set `GITHUB_TOKEN` to a token with the `repo` and `read:org` scopes. The token is never written to disk.
+1. `gh auth login` (the command reuses `gh auth token`), or set `GITHUB_TOKEN` (or `GH_TOKEN`) to a token with the `repo` and `read:org` scopes. The token is never written to disk.
 2. `dp fetch-github --check` tests the connection: it prints your login, your org membership and the API calls left this hour.
 
 Behind the BearingPoint proxy (Netskope) nothing else is needed on Windows: Python reads the proxy's certificate from the Windows certificate store. Elsewhere, set `SSL_CERT_FILE` to a PEM bundle that contains it. A full run takes about a minute and a half and uses about 200 of the 5,000 hourly API calls; `--repos <name>` (repeatable) limits it to some repositories. How repositories are matched to products is in `docs/metric-definitions.md` ("GitHub repositories"); a repository the rules miss can be linked in `crosswalk.csv` with `source` github.
@@ -66,7 +66,7 @@ Behind the BearingPoint proxy (Netskope) nothing else is needed on Windows: Pyth
 **First time with platform files.** Write a first crosswalk and register from the NextData and validation exports, review them, then run the week as above:
 
 ```bash
-python scripts/seed_crosswalk.py --inbox inbox   # writes inbox/crosswalk.csv: review it, set reviewed=yes
+python scripts/seed_crosswalk.py --inbox inbox   # writes inbox/crosswalk.csv (crosswalk.proposed.csv if one exists): review it, set reviewed=yes
 python scripts/seed_register.py  --inbox inbox   # writes inbox/register.xlsx, one Products row per counted product
 ```
 
@@ -81,7 +81,7 @@ sh scripts/demo.sh --rebuild          # rebuild demo/index.html from the current
 python scripts/make_showcase.py generate   # rewrite the showcase inbox (tests/fixtures/inbox-showcase/) from the script's table
 ```
 
-The named demo is built from `tests/fixtures/inbox-named-demo/`: weeks 39 and 40 are built and signed off first, so "what changed" and Slipping are real pipeline results. `python scripts/make_named_demo.py generate --inbox inbox` refreshes that fixture from a real inbox, copying only product names and domains. The version approved on 2026-10-07 is the git tag `demo-2026-10-07`; in a clone, `git checkout demo-2026-10-07 -- demo/index.html` brings it back.
+The named demo is built from `tests/fixtures/inbox-named-demo/`: weeks 39 and 40 are built and signed off first, so "what changed" and Slipping are real pipeline results. `python scripts/make_named_demo.py generate --inbox inbox` refreshes that fixture from a real inbox, copying only product names and domains.
 
 ## Changing the dashboard
 
@@ -134,3 +134,5 @@ py -3 -m venv .venv
 cd app; npm ci; npm run build; cd ..
 .venv\Scripts\dp build --inbox tests\fixtures\inbox-golden --week 2026-W41
 ```
+
+In later sessions, `.venv\Scripts\Activate.ps1` puts `dp` on the path (Git Bash: `source .venv/Scripts/activate`).

@@ -25,3 +25,13 @@ out/
 # impeccable design tool: local working files only
 .impeccable/
 .impeccable-live*
+
+# Local secrets, logs, test reports, editor tooling
+.env
+.env.*
+*.log
+.coverage
+htmlcov/
+test-results/
+playwright-report/
+.claude/

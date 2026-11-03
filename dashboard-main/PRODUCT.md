@@ -13,7 +13,7 @@ web
 
 ## Product Purpose
 
-A weekly executive view of how every business domain (Patient, HCP, Market access, Channel partner, Revenue / vials, Medical affairs, Logistics; all commercial) is progressing on data products, built on the argenx Data Product Governance Framework gates G1 Intake to G6 Retire. It answers, in under a minute: are we delivering, how fast, is anyone using what we deliver, and which domain is falling behind.
+A weekly executive view of how every business domain (the Commercial domains Patient, HCP, Market access, Channel partner, Revenue / vials, Medical affairs and Logistics, plus TechOps, R&D and G&A) is progressing on data products, built on the argenx Data Product Governance Framework gates G1 Intake to G6 Retire. It answers, in under a minute: are we delivering, how fast, is anyone using what we deliver, and which domain is falling behind.
 
 Success in the first ten seconds of the meeting: leaders see **which domain is falling behind** and **whether the quarter is on track** against its certification target. (Confirmed 2026-10-06.) Everything else is one click or one hover away.
 
@@ -30,9 +30,9 @@ The view is built from facts recorded in the product register and source systems
 ## Capabilities and Constraints
 
 - One-file dashboard (React + TypeScript, Vite single-file build), snapshot JSON embedded by the Python `dp` pipeline. Opens from `file://`, hash routing, under 2 seconds; template budget 640 KB (ADR-001).
-- Views: executive overview, domain view, product list, product detail, definitions.
-- Headline metrics (leadership-agreed): certified this quarter vs target, median G1→G4 cycle time, median time to first consumer, median active users per live product, share of live products consumed by other products. Medians show n; self-reported values are labelled; nulls show "—" with a reason.
-- Flags: Behind (domain), Overdue, Slipping, No DPO, Not updated, Unused, Pending URN. Each product carries a health signal derived from its flags: red (off track), orange (at risk), yellow (attention), green (on track), grey (retired or cancelled).
+- Views: executive overview, domain view, product list, product detail, delivery (when the GitHub extract is in the inbox), definitions.
+- Headline metrics (leadership-agreed): certified this quarter vs target, median time to production (G1→G4), median time to first consumer, median active users per live product. Medians show n; self-reported values are labelled; nulls show "—" with a reason.
+- Flags: Behind (domain), Overdue, Slipping, No DPO, Not updated, Unused, Pending URN. Health is judged per domain: a pace forecast against the quarter target (Ahead, On track, Behind, Off track; ADR-003). Products show their lifecycle stage; their flag-derived signal only ranks the Needs attention list.
 - Print stylesheet fits the executive overview on one A4 landscape page.
 - Made-up values only in the repository; real inbox files are opened only by people.
 - Out of scope: gate checklists, rule-level validation detail, editing data in the app.
@@ -44,12 +44,12 @@ The view is built from facts recorded in the product register and source systems
 - **Logo.** argenx wordmark files `argenx_r_rev_wht_rgb_260527.png` (reversed white, for dark grounds), `argenx_r_pos_clr_rgb_260527.png`, `argenx_r_pos_blk_rgb_260527.png`. Never recoloured or restyled.
 - **Voice.** "The immunology innovation company": courage and urgency for patients waiting for a breakthrough; Entrepreneurial Science; co-creation. Plain, factual, never hype.
 - **Standing preference (2026-10-06):** the category-standard executive dashboard composition, executed at the craft level of Linear, the Vercel dashboard and Apple Health's summary screen; no novelty worlds.
-- **Product-owner decisions (2026-10-06):** dark background; no draft watermark (the footer states draft or signed off, decision of 2026-10-07); domain section as a cluster map (domains as clusters, products as circles with a health-signal ring, hover lifts and previews key metrics); navigation between Executive, Products and Definitions uses the react-bits GlareHover effect; UI components drawn from react-bits where they serve the task.
+- **Product-owner decisions (2026-10-06):** dark background; no draft watermark (the footer states draft or signed off, decision of 2026-10-07); domain section as a cluster map (domains as clusters, products as circles with a health-signal ring (a lifecycle-stage ring since 2026-10-08, ADR-003), hover lifts and previews key metrics); navigation between the tabs uses the react-bits GlareHover effect; UI components drawn from react-bits where they serve the task.
 
 ## Evidence on Hand
 
 - Rules: `docs/metric-definitions.md`. The original plans are archived in `docs/archive/` (the code is current where they differ).
-- Synthetic golden week `tests/fixtures/golden/2026-W41.json` (25 products, 8 domains). Real register values never enter the repository. Real product and domain names appear only in the named demo, `registry/product-domains.yaml` and `tests/fixtures/inbox-named-demo/` (the repository is private). Never invent customers, patient numbers or outcomes.
+- Synthetic golden week `tests/fixtures/golden/2026-W41.json` (25 products, 7 domains). Real register values never enter the repository. Real product and domain names appear only in the named demo, `registry/product-domains.yaml` and `tests/fixtures/inbox-named-demo/` (the repository is private). Never invent customers, patient numbers or outcomes.
 - Brand sources: Portals brand guidelines (palette, fonts, logo, icon set, "Strings" and "Infinity Loop" line graphics, photography); argenx PowerPoint template 3.0. The icon set, line graphics and photography are not in the project; do not imitate them.
 
 ## Product Principles
@@ -62,4 +62,4 @@ The view is built from facts recorded in the product register and source systems
 
 ## Accessibility & Inclusion
 
-WCAG 2.1 AA, verified with axe-core on every view. Colour is never the only signal: flags carry an icon and label, health signals carry a ring shape as well as a colour. Motion respects `prefers-reduced-motion`. Every chart has a table equivalent.
+WCAG 2.1 AA, verified with axe-core on every view. Colour is never the only signal: flags carry an icon and label, domain health carries an icon and its word, and stage marks carry a fill as well as a colour. Motion respects `prefers-reduced-motion`. Every chart has a table equivalent.

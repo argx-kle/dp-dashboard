@@ -19,12 +19,6 @@ const dp = (n: number) => plural(n, 'data product');
 const num = (n: number | null | undefined) => fmtValue(n ?? 0, 'count');
 const isResult = (h: HealthItem) => h.status.endsWith('target') && h.status !== 'no-target';
 
-/** "1/3"; "1" without a target. */
-export function ofTarget(h: Pick<HealthItem, 'certified' | 'target'> | undefined): string {
-  if (!h) return '–';
-  return h.target === null ? String(h.certified) : `${h.certified}/${h.target}`;
-}
-
 /** The quarter, one fact per line: what is live, what was expected by today, the target. */
 export function headline(h: HealthItem, quarter: string): { lead: string; expected: string | null; target: string } {
   if (h.target === null) return { lead: `${dp(h.certified)} live this quarter.`, expected: null, target: 'No quarter target.' };

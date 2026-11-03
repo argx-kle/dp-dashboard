@@ -150,7 +150,7 @@
         "id": "cycle_time_g1_g4",
         "label": "Median time to production",
         "shortLabel": "Time to production",
-        "definition": "Median number of days from G1 Intake to the first G4 Certify. It uses products certified in the last 182 days. A product without a G1 is not used, and the data-quality report shows a warning.",
+        "definition": "Median number of days from G1 Intake to the first G4 Certify. It uses products certified in the last 182 days. A product with a later gate but no G1 is a blocker in the data-quality report.",
         "levels": [
           "org",
           "domain"
@@ -332,7 +332,7 @@
         "code": "OVERDUE",
         "label": "Overdue",
         "level": "product",
-        "definition": "The next gate is 14 or more days late.",
+        "definition": "The next gate is more than 14 days late.",
         "signal": "red"
       },
       {
@@ -11470,9 +11470,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "expected": null,
       "pace": null,
-      "target": null
+      "target": null,
+      "expected": null
     },
     {
       "quarter": "2026-Q1",
@@ -11496,9 +11496,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "expected": null,
       "pace": null,
-      "target": null
+      "target": null,
+      "expected": null
     },
     {
       "quarter": "2026-Q1",
@@ -11509,9 +11509,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "expected": null,
       "pace": null,
-      "target": null
+      "target": null,
+      "expected": null
     },
     {
       "quarter": "2026-Q1",
@@ -11535,9 +11535,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "expected": null,
       "pace": null,
-      "target": null
+      "target": null,
+      "expected": null
     },
     {
       "quarter": "2026-Q1",
@@ -11548,9 +11548,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "expected": null,
       "pace": null,
-      "target": null
+      "target": null,
+      "expected": null
     },
     {
       "quarter": "2026-Q1",
@@ -11561,9 +11561,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "expected": null,
       "pace": null,
-      "target": null
+      "target": null,
+      "expected": null
     },
     {
       "quarter": "2026-Q2",
@@ -11626,9 +11626,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "expected": null,
       "pace": null,
-      "target": null
+      "target": null,
+      "expected": null
     },
     {
       "quarter": "2026-Q2",
@@ -11639,9 +11639,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "expected": null,
       "pace": null,
-      "target": null
+      "target": null,
+      "expected": null
     },
     {
       "quarter": "2026-Q2",
@@ -11665,9 +11665,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "expected": null,
       "pace": null,
-      "target": null
+      "target": null,
+      "expected": null
     },
     {
       "quarter": "2026-Q2",
@@ -11717,9 +11717,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "expected": null,
       "pace": null,
-      "target": null
+      "target": null,
+      "expected": null
     },
     {
       "quarter": "2026-Q3",
@@ -11782,9 +11782,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "expected": null,
       "pace": null,
-      "target": null
+      "target": null,
+      "expected": null
     },
     {
       "quarter": "2026-Q3",
@@ -11808,9 +11808,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "expected": null,
       "pace": null,
-      "target": null
+      "target": null,
+      "expected": null
     },
     {
       "quarter": "2026-Q3",
@@ -11821,9 +11821,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "expected": null,
       "pace": null,
-      "target": null
+      "target": null,
+      "expected": null
     },
     {
       "quarter": "2026-Q3",
@@ -11873,9 +11873,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "expected": null,
       "pace": null,
-      "target": null
+      "target": null,
+      "expected": null
     },
     {
       "quarter": "2026-Q4",
@@ -11944,9 +11944,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "expected": null,
       "pace": null,
-      "target": null
+      "target": null,
+      "expected": null
     },
     {
       "quarter": "2026-Q4",
@@ -11983,9 +11983,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "expected": null,
       "pace": null,
-      "target": null
+      "target": null,
+      "expected": null
     },
     {
       "quarter": "2026-Q4",
@@ -12039,9 +12039,9 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "expected": null,
       "pace": null,
-      "target": null
+      "target": null,
+      "expected": null
     }
   ],
   "weekly": [
