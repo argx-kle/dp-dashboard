@@ -240,6 +240,49 @@
         "execTile": false,
         "order": 17,
         "coverage": "nextdata"
+      },
+      {
+        "id": "no_prod_deploy",
+        "label": "Products never deployed to production",
+        "shortLabel": "No prod deploy",
+        "definition": "Active products whose GitHub repository has never deployed to production successfully. Counted over the active products that have a repository.",
+        "levels": [
+          "org",
+          "domain"
+        ],
+        "unit": "count",
+        "execTile": false,
+        "order": 18,
+        "coverage": "github"
+      },
+      {
+        "id": "prod_deploy_frequency",
+        "label": "Median production deployments per shipping product (30 days)",
+        "shortLabel": "Prod deploys / 30 days",
+        "definition": "Median number of successful production deployments in the last 30 days, over active products whose GitHub repository has deployed to production at least once. A product with no production deployment in the period counts as 0.",
+        "levels": [
+          "org",
+          "domain"
+        ],
+        "unit": "count",
+        "minN": 3,
+        "execTile": false,
+        "order": 19,
+        "coverage": "github"
+      },
+      {
+        "id": "deploy_failure_rate",
+        "label": "Deployment failure rate (30 days)",
+        "shortLabel": "Deploy failure rate",
+        "definition": "Share of deployments in the last 30 days, in every environment, that ended in failure or error. Uses the repositories of active products; deployments still running are not counted. The products listed had at least one failure.",
+        "levels": [
+          "org",
+          "domain"
+        ],
+        "unit": "share",
+        "execTile": false,
+        "order": 20,
+        "coverage": "github"
       }
     ],
     "flags": [
@@ -1491,6 +1534,330 @@
       "n": 0,
       "source": "nextdata",
       "reason": "No NextData listing in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "org",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "patient",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "hcp",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "market-access",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "channel-partner",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "revenue-vials",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "medical-affairs",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "logistics",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "techops",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "r-and-d",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "g-and-a",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "unknown",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "org",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "patient",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "hcp",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "market-access",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "channel-partner",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "revenue-vials",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "medical-affairs",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "logistics",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "techops",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "r-and-d",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "g-and-a",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "unknown",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "org",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "patient",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "hcp",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "market-access",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "channel-partner",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "revenue-vials",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "medical-affairs",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "logistics",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "techops",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "r-and-d",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "g-and-a",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "unknown",
+      "n": 0,
+      "source": "github",
+      "reason": "No GitHub extract in the inbox",
       "urns": [],
       "value": null
     }
@@ -3856,8 +4223,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -3882,8 +4249,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -3895,8 +4262,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -3934,8 +4301,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -3947,8 +4314,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -4012,8 +4379,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -4038,8 +4405,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -4051,8 +4418,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -4090,8 +4457,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -4103,8 +4470,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -4168,8 +4535,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -4194,8 +4561,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -4207,8 +4574,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -4246,8 +4613,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -4259,8 +4626,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -4329,8 +4696,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -4355,8 +4722,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -4368,8 +4735,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -4409,8 +4776,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     },
     {
@@ -4422,8 +4789,8 @@
       "forecast": 0,
       "late": 0,
       "lateUrns": [],
-      "target": null,
       "expected": null,
+      "target": null,
       "pace": null
     }
   ],
@@ -5958,6 +6325,330 @@
           "reason": "No NextData listing in the inbox",
           "urns": [],
           "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "org",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "patient",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "hcp",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "market-access",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "channel-partner",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "revenue-vials",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "medical-affairs",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "logistics",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "techops",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "r-and-d",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "g-and-a",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "unknown",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "org",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "patient",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "hcp",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "market-access",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "channel-partner",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "revenue-vials",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "medical-affairs",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "logistics",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "techops",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "r-and-d",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "g-and-a",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "unknown",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "org",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "patient",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "hcp",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "market-access",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "channel-partner",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "revenue-vials",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "medical-affairs",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "logistics",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "techops",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "r-and-d",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "g-and-a",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "unknown",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
         }
       ],
       "products": [
@@ -7252,6 +7943,330 @@
           "n": 0,
           "source": "nextdata",
           "reason": "No NextData listing in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "org",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "patient",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "hcp",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "market-access",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "channel-partner",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "revenue-vials",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "medical-affairs",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "logistics",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "techops",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "r-and-d",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "g-and-a",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "unknown",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "org",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "patient",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "hcp",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "market-access",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "channel-partner",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "revenue-vials",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "medical-affairs",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "logistics",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "techops",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "r-and-d",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "g-and-a",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "unknown",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "org",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "patient",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "hcp",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "market-access",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "channel-partner",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "revenue-vials",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "medical-affairs",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "logistics",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "techops",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "r-and-d",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "g-and-a",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "unknown",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
           "urns": [],
           "value": null
         }
@@ -8649,6 +9664,330 @@
           "n": 0,
           "source": "nextdata",
           "reason": "No NextData listing in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "org",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "patient",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "hcp",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "market-access",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "channel-partner",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "revenue-vials",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "medical-affairs",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "logistics",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "techops",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "r-and-d",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "g-and-a",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "unknown",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "org",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "patient",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "hcp",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "market-access",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "channel-partner",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "revenue-vials",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "medical-affairs",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "logistics",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "techops",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "r-and-d",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "g-and-a",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "unknown",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "org",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "patient",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "hcp",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "market-access",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "channel-partner",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "revenue-vials",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "medical-affairs",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "logistics",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "techops",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "r-and-d",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "g-and-a",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "unknown",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
           "urns": [],
           "value": null
         }

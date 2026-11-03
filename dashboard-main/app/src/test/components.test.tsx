@@ -14,6 +14,7 @@ import { QuarterContext, quarterSnapshot } from '@/lib/quarter';
 import { fitName, textWidth } from '@/lib/cluster';
 import golden from '../../../tests/fixtures/golden/2026-W41.json';
 import platformGolden from '../../../tests/fixtures/golden/platform-2026-W41.json';
+import githubGolden from '../../../tests/fixtures/golden/github-2026-W41.json';
 import showcase from '../../../tests/fixtures/showcase/2026-W47.json';
 import ReportingStrip, { CoverageNote } from '@/components/Coverage';
 import StatStrip, { TechnicalReadiness } from '@/components/StatStrip';
@@ -303,5 +304,38 @@ describe('AttentionList', () => {
     expect(screen.getByText('G4 Certify is 31 days late. Due 20 Oct.')).toBeInTheDocument();
     const stage = screen.getAllByText('In testing').find((el) => el.tagName === 'STRONG')!;
     expect(stage.getAttribute('style')).toContain('rgb(121, 212, 155)'); // the In testing ring colour
+  });
+});
+
+const gs = githubGolden as unknown as Snapshot;
+
+describe('GitHub', () => {
+  it('adds the deployment tiles to Technical readiness, each linked to its products', () => {
+    wrap(<TechnicalReadiness />, gs);
+    expect(screen.getByText('From the validation tool, NextData and GitHub.')).toBeInTheDocument();
+    expect(screen.getByTestId('tile-link-no_prod_deploy-org')).toHaveAttribute('data-count', '4');
+    expect(screen.getByText('of 6 with a repository')).toBeInTheDocument();
+    expect(screen.getByTestId('tile-link-deploy_failure_rate-org')).toHaveTextContent('29%');
+    expect(screen.getByText('of 7 deployments')).toBeInTheDocument();
+    expect(screen.getAllByText('GitHub').length).toBe(3);
+  });
+  it('leaves the GitHub tiles out when there is no extract', () => {
+    wrapP(<TechnicalReadiness />);
+    expect(screen.queryByTestId('tile-link-no_prod_deploy-org')).toBeNull();
+    expect(screen.getByText('From the validation tool and NextData.')).toBeInTheDocument();
+  });
+  it('shows the repository and its deployments on the product page', () => {
+    wrap(<ProductView urn="nxd:dp-ops-crmsys" />, gs);
+    const block = screen.getByTestId('platform-github');
+    expect(within(block).getByTestId('github-last-prod')).toHaveTextContent('Last production deploy');
+    expect(within(block).getByText(/2 production deploys, 4 in all environments, 1 failed/)).toBeInTheDocument();
+    expect(within(block).getByTestId('github-link')).toHaveAttribute('href', 'https://github.example/example-org/edp-ops-dp-crmsys');
+    cleanup();
+    wrap(<ProductView urn="nxd:dp-hcp-hcp-master" />, gs);
+    expect(screen.getByTestId('github-last-prod')).toHaveTextContent('Never deployed to production');
+    cleanup();
+    wrap(<ProductView urn="urn:dp:com:legacy-cube" />, gs); // not on NextData, but it has a repository
+    expect(screen.getByTestId('platform-github')).toBeInTheDocument();
+    expect(screen.queryByText('Runtime')).toBeNull();
   });
 });

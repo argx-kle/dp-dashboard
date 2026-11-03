@@ -1,8 +1,9 @@
-"""Regenerate the golden snapshots (golden inbox, and the platform inbox). Review the diff before committing."""
+"""Regenerate the golden snapshots (golden inbox, the platform inbox, and the platform inbox with GitHub). Review the diff before committing."""
 
 from __future__ import annotations
 
 import json
+import shutil
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -19,6 +20,8 @@ OUT = ROOT / "tests" / "fixtures" / "golden" / "2026-W41.json"
 
 PLATFORM_INBOX = ROOT / "tests" / "fixtures" / "inbox-platform"
 PLATFORM_OUT = ROOT / "tests" / "fixtures" / "golden" / "platform-2026-W41.json"
+GITHUB = ROOT / "tests" / "fixtures" / "github"
+GITHUB_OUT = ROOT / "tests" / "fixtures" / "golden" / "github-2026-W41.json"
 
 
 def write(inbox: Path, out: Path) -> None:
@@ -39,6 +42,11 @@ def write(inbox: Path, out: Path) -> None:
 def main() -> None:
     write(INBOX, OUT)
     write(PLATFORM_INBOX, PLATFORM_OUT)  # register plus platform files; used by the component tests
+    with TemporaryDirectory() as tmp:  # the platform inbox plus the GitHub extract; used by the component tests
+        inbox = Path(tmp) / "inbox"
+        shutil.copytree(PLATFORM_INBOX, inbox)
+        shutil.copytree(GITHUB, inbox / "github")
+        write(inbox, GITHUB_OUT)
 
 
 if __name__ == "__main__":

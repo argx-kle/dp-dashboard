@@ -1,6 +1,6 @@
 # Data Product Dashboard
 
-Turns a folder of weekly files (the product register, plus optional NextData and validation-tool exports) into a signed-off executive pack: one self-contained `index.html` dashboard and a data-quality report. It follows the argenx Data Product Governance Framework gates, G1 Intake to G6 Retire. Everything runs locally from files; there is no server and no login.
+Turns a folder of weekly files (the product register, plus optional NextData, validation-tool and GitHub exports) into a signed-off executive pack: one self-contained `index.html` dashboard and a data-quality report. It follows the argenx Data Product Governance Framework gates, G1 Intake to G6 Retire. Everything runs locally from files; there is no server and no login.
 
 ## 1. See it without installing anything
 
@@ -38,12 +38,14 @@ inbox/
                      (or the same four tables as products.csv, gate_events.csv, targets.csv, capacity.csv)
   nextdata/          optional: NextData `dp list` output (.txt), catalog lookup (.csv), domain tree (.csv with a parent column)
   validation/        optional: repo validation tool results (.xlsx summary or .csv)
+  github/            optional: written by `dp fetch-github` (repositories, deployments and their statuses)
   crosswalk.csv      optional: the program lead's decisions on which names are one product, what is counted, display names
 ```
 
 The empty register template for Data Product Owners is `templates/register.xlsx`. Then, with the environment active:
 
 ```bash
+dp fetch-github --inbox inbox                     # read the data product repositories from GitHub into inbox/github/
 dp check   --inbox inbox                          # read and validate the files; lists blockers and warnings
 dp build   --inbox inbox --week 2026-W43          # draft pack in out/2026-W43/
 dp preview --week 2026-W43                        # open the draft in the browser
@@ -53,6 +55,13 @@ dp approve --week 2026-W43 --by "Program lead"    # sign off: the footer shows w
 - `dp build` refuses to write a dashboard while any blocker exists. `dq-report.html` lists every problem with file, row and URN.
 - `dp approve` refuses if the inbox changed after the draft was built. Approved weeks in `state/` give the next week its "what changed" lines and the plan-slip history, so keep `state/` between runs.
 - `dp --help` and `dp <command> --help` list every option.
+
+**GitHub connection.** `dp fetch-github` reads every `*-dp-*` repository of the `argenxDataAI` org (set in `registry/platform.yaml`) and only ever reads: the session refuses anything but GET requests and GraphQL queries. Once:
+
+1. `gh auth login` (the command reuses `gh auth token`), or set `GITHUB_TOKEN` to a token with the `repo` and `read:org` scopes. The token is never written to disk.
+2. `dp fetch-github --check` tests the connection: it prints your login, your org membership and the API calls left this hour.
+
+Behind the BearingPoint proxy (Netskope) nothing else is needed on Windows: Python reads the proxy's certificate from the Windows certificate store. Elsewhere, set `SSL_CERT_FILE` to a PEM bundle that contains it. A full run takes about a minute and a half and uses about 200 of the 5,000 hourly API calls; `--repos <name>` (repeatable) limits it to some repositories. How repositories are matched to products is in `docs/metric-definitions.md` ("GitHub repositories"); a repository the rules miss can be linked in `crosswalk.csv` with `source` github.
 
 **First time with platform files.** Write a first crosswalk and register from the NextData and validation exports, review them, then run the week as above:
 
@@ -98,8 +107,8 @@ The end-to-end tests need the template and the test browser (`sh scripts/setup.s
 
 | Path | What |
 | --- | --- |
-| `dp/` | The `dp` command (check, build, preview, approve). |
-| `pipeline/` | Readers, lifecycle, data-quality checks, metric and flag functions, snapshot assembly, the data-quality report. |
+| `dp/` | The `dp` command (fetch-github, check, build, preview, approve). |
+| `pipeline/` | Readers, lifecycle, data-quality checks, metric and flag functions, snapshot assembly, the data-quality report, the GitHub extract (`github_fetch.py`). |
 | `registry/` | Metrics, flags, comment screening, domains, the product-to-domain map and the platform rules, as YAML. |
 | `schema/` | The snapshot contract between the pipeline and the app. |
 | `app/` | The one-file dashboard: React, TypeScript and Vite, built into `app/dist/template.html`. |
@@ -112,7 +121,7 @@ The end-to-end tests need the template and the test browser (`sh scripts/setup.s
 ## Guardrails
 
 - Real register values never enter the repository: `inbox/`, `state/` and `out/` are ignored by git. Real product and domain names appear only in `registry/product-domains.yaml`, `tests/fixtures/inbox-named-demo/` and `demo/index-named.html`, which is acceptable because the repository is private.
-- No credentials for SharePoint, NextData or Snowflake exist in this release.
+- No credentials for SharePoint, NextData or Snowflake exist in this release. `dp fetch-github` borrows your GitHub CLI login (or `GITHUB_TOKEN`) at run time and stores nothing.
 - Third-party material in the app: the argenx wordmark, the brand fonts (SIL OFL, licences next to them in `app/src/assets/fonts/`) and the vendored react-bits components (MIT + Commons Clause: use in this app is fine, redistributing the components themselves is not; see `app/src/components/reactbits/README.md`).
 
 ## On Windows

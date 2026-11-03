@@ -88,6 +88,40 @@ def test_at_plat_05_flat_validation_csv(tmp_path):
     assert (rec.score, rec.p1_findings) == (0.73, 2)
 
 
+def test_at_plat_05b_audit_workbook_names_folders_not_keyids(tmp_path):
+    from openpyxl import Workbook
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "DP summary"
+    for r in [
+        [None, "DP summary"],
+        [None, "2 product(s) audited on 2026-10-14 20:38 UTC."],
+        [],
+        [None, "Data product", "Completeness score"],
+        [None, "dp-ops-feed-1.0.0-dev (4)", 0.5811],
+        [None, "hubservice-6.0.0", 0.9419],
+        [None, "Use the component table below to locate weak areas."],
+        [],
+        [None, "Data product", "Product spec", "Metadata", "Traceability"],
+        [None, "dp-ops-feed-1.0.0-dev (4)", 0.9045, 0.0625, None],
+        [None, "hubservice-6.0.0", 0.9, 0.8829, None],
+    ]:
+        ws.append(r)
+    tracker = wb.create_sheet("Field tracker")
+    tracker.append([None, "Data product", "#", "Component", "Status", "Priority"])
+    tracker.append([None, "hubservice-6.0.0", "A1", "Product spec", "Filled", None])
+    p = tmp_path / "DP Validation Report -Oct 14.xlsx"
+    wb.save(p)
+    run, issues = read_validation(p)
+    assert issues == [] and run.run_date == date(2026, 10, 14)
+    by = {r.keyid: r for r in run.records}
+    assert sorted(by) == ["dp-ops-feed", "hubservice"]
+    assert (by["dp-ops-feed"].version, by["dp-ops-feed"].score) == ("1.0.0-dev", 0.5811)
+    assert by["dp-ops-feed"].components == [("Product spec", 0.9045), ("Metadata", 0.0625)]
+    assert by["hubservice"].version == "6.0.0"
+
+
 # --- Identity ------------------------------------------------------------------
 
 

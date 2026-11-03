@@ -8,7 +8,7 @@ import { COVERAGE, metricCoverage, reportingItem } from '@/lib/select';
 /** When every input is at or above this share, the strip steps aside (the notes under each number stay). */
 export const COVERAGE_COMPLETE = 0.8;
 
-const ORDER = ['gates', 'plans', 'reviewed', 'dpo', 'usage', 'consumers', 'validation', 'nextdata'];
+const ORDER = ['gates', 'plans', 'reviewed', 'dpo', 'usage', 'consumers', 'validation', 'nextdata', 'github'];
 
 /** One line under a number when the input it needs is incomplete: "Gate dates for 5 of 6 active products". */
 export function CoverageNote({ id, scope, className = '' }: { id: string; scope: string; className?: string }) {

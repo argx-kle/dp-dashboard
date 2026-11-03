@@ -9,7 +9,7 @@ from pathlib import Path
 
 from pipeline import SCHEMA_VERSION, TEMPLATE_PATH
 from pipeline.changes import compute_changes
-from pipeline.checks import run_checks, run_platform_checks
+from pipeline.checks import run_checks, run_github_checks, run_platform_checks
 from pipeline.context import MetricContext, ProductCtx, build_context
 from pipeline.contracts import (
     DataQualityItem,
@@ -17,6 +17,7 @@ from pipeline.contracts import (
     DQItem,
     FlagDefinition,
     GateRecord,
+    GithubSummary,
     Inbox,
     MetricDefinition,
     NextDataDeployment,
@@ -36,6 +37,8 @@ from pipeline.contracts import (
 from pipeline.dates import iso, week_friday
 from pipeline.dqreport import render as render_dq
 from pipeline.flags import apply_product_flags, product_signal
+from pipeline.delivery import compute_delivery
+from pipeline.github import GithubMatch, GithubSources, failed, in_window, last_prod_deploy, load_github, match_repos, prod_successes, recent
 from pipeline.health import compute_health
 from pipeline.inject import inject_file
 from pipeline.metrics.registry_runner import compute_metrics
@@ -79,6 +82,8 @@ class CheckResult:
     as_of: date
     platform: PlatformSources | None = None
     resolution: Resolution | None = None
+    github: GithubSources | None = None
+    github_match: GithubMatch | None = None
 
     @property
     def blockers(self) -> list[DQItem]:
@@ -116,7 +121,10 @@ def run_check(inbox_dir: Path, as_of: date, regs: Registries | None = None) -> t
         inbox.sources.extend(platform.sources)
         issues.extend(platform.issues)
         issues.extend(platform_checks(platform, res, regs.platform))
-    ctx = None
+    github = load_github(inbox_dir)
+    inbox.sources.extend(github.sources)
+    issues.extend(github.issues)
+    ctx, match = None, None
     if not inbox.blockers:
         ctx = build_context(inbox, as_of, regs.domains)
         ctx.platform_cfg = regs.platform
@@ -128,10 +136,16 @@ def run_check(inbox_dir: Path, as_of: date, regs: Registries | None = None) -> t
         issues.extend(run_checks(inbox, as_of, regs.screening, {pc.urn: pc.d for pc in ctx.products}))
         if res is not None:
             issues.extend(run_platform_checks(ctx, res, platform, as_of))
+        if github.run is not None:
+            match = match_repos(github.run, ctx.products, platform.crosswalk or {}, regs.platform)
+            ctx.has_github = True
+            for pc in ctx.products:
+                pc.github = match.by_urn.get(pc.urn)
+            issues.extend(run_github_checks(ctx, match, github.run, as_of))
     else:
         issues.extend(run_checks(inbox, as_of, regs.screening, None))
     issues = _dedupe(issues)
-    return CheckResult(inbox=inbox, issues=issues, as_of=as_of, platform=platform if res else None, resolution=res), ctx
+    return CheckResult(inbox=inbox, issues=issues, as_of=as_of, platform=platform if res else None, resolution=res, github=github if github.run else None, github_match=match), ctx
 
 
 def _dedupe(issues: list[DQItem]) -> list[DQItem]:
@@ -232,12 +246,27 @@ def _product_rows(ctx: MetricContext, ga_slips: dict, ng_slips: dict, flag_defs:
     return rows
 
 
+def _github_summary(pc: ProductCtx, ctx: MetricContext) -> GithubSummary:
+    repo, cfg, as_of = pc.github, ctx.platform_cfg, ctx.as_of
+    deps = recent(repo, as_of)
+    return GithubSummary(
+        repo=repo.name,
+        url=repo.url,
+        lastProdDeploy=iso(last_prod_deploy(repo, cfg, as_of)),
+        prodDeploys30d=len([d for d in prod_successes(repo, cfg, as_of) if in_window(d, as_of)]),
+        deploys30d=len(deps),
+        failed30d=len(failed(deps)),
+    )
+
+
 def _platform_fields(pc: ProductCtx, ctx: MetricContext) -> dict:
+    out: dict = {}
+    if ctx.has_github and pc.github is not None:
+        out["github"] = _github_summary(pc, ctx)
     pp = pc.platform
     if pp is None:
-        return {}
+        return out
     cfg = ctx.platform_cfg
-    out: dict = {}
     if ctx.has_nextdata:
         deps = sorted(pp.deployments, key=lambda d: (cfg.env_index(d.env), d.name, d.version))
         best = pp.best_deployment(cfg)
@@ -302,6 +331,7 @@ def assemble(ctx: MetricContext, check: CheckResult, week_id: str, regs: Registr
         health=past_health + compute_health(ctx),
         weekly=compute_weekly(ctx),
         quarters=quarters,
+        delivery=compute_delivery(check.github.run, check.github_match, regs.platform, ctx.as_of) if check.github and check.github_match else None,
     )
     data = to_json_dict(snapshot)
     data["changes"] = compute_changes(data, previous)

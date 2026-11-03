@@ -1,0 +1,11 @@
+repo_id,repo_name,full_name,html_url,archived,data_product_urn,data_product_urn_source
+1001,edp-ops-dp-crmsys,example-org/edp-ops-dp-crmsys,https://github.example/example-org/edp-ops-dp-crmsys,False,,
+1002,edp-hcp-dp-hcp_master,example-org/edp-hcp-dp-hcp_master,https://github.example/example-org/edp-hcp-dp-hcp_master,False,,
+1003,edp-patient-dp-journey_insights,example-org/edp-patient-dp-journey_insights,https://github.example/example-org/edp-patient-dp-journey_insights,False,,
+1004,edp-claims-dp-rx_claims,example-org/edp-claims-dp-rx_claims,https://github.example/example-org/edp-claims-dp-rx_claims,False,,
+1005,edp-ops-dp-legacy_cube,example-org/edp-ops-dp-legacy_cube,https://github.example/example-org/edp-ops-dp-legacy_cube,False,,
+1006,edp-patient-dp-pj_app,example-org/edp-patient-dp-pj_app,https://github.example/example-org/edp-patient-dp-pj_app,False,nxd:hubservice-nxd,org custom property
+1007,edp-patient-dp-crmsys,example-org/edp-patient-dp-crmsys,https://github.example/example-org/edp-patient-dp-crmsys,False,,
+1008,edp-ops-dp-orphan_feed,example-org/edp-ops-dp-orphan_feed,https://github.example/example-org/edp-ops-dp-orphan_feed,False,,
+1009,edp-nxd-dp-template,example-org/edp-nxd-dp-template,https://github.example/example-org/edp-nxd-dp-template,False,,
+1010,edp-hcp-dp-survey_test,example-org/edp-hcp-dp-survey_test,https://github.example/example-org/edp-hcp-dp-survey_test,False,,

@@ -130,7 +130,7 @@ class SourceInfo(_Model):
     rows: int
 
 
-CoverageKind = Literal["gates", "plans", "reviewed", "dpo", "usage", "consumers", "validation", "nextdata"]
+CoverageKind = Literal["gates", "plans", "reviewed", "dpo", "usage", "consumers", "validation", "nextdata", "github"]
 
 
 class MetricDefinition(_Model):
@@ -170,7 +170,7 @@ class MetricValue(_Model):
     n: int | None = None
     values: list[Number] | None = None
     target: Number | None = None
-    source: Literal["register", "self-reported", "snowflake", "nextdata", "validation"]
+    source: Literal["register", "self-reported", "snowflake", "nextdata", "validation", "github"]
     flag: Literal["BEHIND"] | None = None
     reason: str | None = None
     urns: list[str] | None = None
@@ -239,6 +239,89 @@ class NextDataSummary(_Model):
     deployments: list[NextDataDeployment]
 
 
+class GithubSummary(_Model):
+    repo: str
+    url: str | None = None
+    lastProdDeploy: str | None = None
+    prodDeploys30d: int
+    deploys30d: int
+    failed30d: int
+
+
+class DeliveryEnv(_Model):
+    id: str
+    label: str
+    prod: bool
+    path: bool
+    repos: int
+    deploys30d: int
+    failed30d: int
+
+
+class DeliveryTotals(_Model):
+    repos: int
+    active30d: int
+    deploys30d: int
+    failed30d: int
+    prodAttempts30d: int
+    prodFailed30d: int
+    reachedProd: int
+    notInRegister: int
+    lastProdDeploy: str | None = None
+    lastProdRepo: str | None = None
+
+
+class DeliveryWeek(_Model):
+    week: str
+    start: str
+    deploys: int
+    failed: int
+    prodSuccess: int
+
+
+class DeliveryTeam(_Model):
+    team: str
+    label: str
+    repos: int
+    deploys30d: int
+    failed30d: int
+    reachedProd: int
+
+
+class RepoEnv(_Model):
+    env: str
+    lastSuccess: str | None = None
+    deploys30d: int
+    failed30d: int
+
+
+class DeliveryRepo(_Model):
+    name: str
+    url: str | None = None
+    team: str | None = None
+    urn: str | None = None
+    excluded: str | None = None
+    envs: list[RepoEnv]
+    lastDeploy: str | None = None
+    lastFailure: str | None = None
+    lastProdDeploy: str | None = None
+    prodDeploys: int
+    deploys30d: int
+    failed30d: int
+    weekly: list[int]
+
+
+class Delivery(_Model):
+    fetchedAt: str
+    org: str | None = None
+    windowDays: int
+    envs: list[DeliveryEnv]
+    totals: DeliveryTotals
+    weekly: list[DeliveryWeek]
+    teams: list[DeliveryTeam]
+    repos: list[DeliveryRepo]
+
+
 class ReportingItem(_Model):
     kind: CoverageKind
     scope: str
@@ -281,6 +364,7 @@ class ProductRow(_Model):
     validation: ValidationSummary | None = None
     nextdata: NextDataSummary | None = None
     platformDomain: str | None = None
+    github: GithubSummary | None = None
     flags: list[ProductFlag]
     dpoComment: str | None = None
     reviewedOn: str | None = None
@@ -359,6 +443,7 @@ class Snapshot(_Model):
     health: list[HealthItem] | None = None
     weekly: list[WeeklyPoint] | None = None
     quarters: list[QuarterView] | None = None
+    delivery: Delivery | None = None
 
 
 # Fields that stay in the JSON even when null (required + nullable in the schema).

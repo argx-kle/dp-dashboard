@@ -32,3 +32,18 @@ def test_at_gold_03_platform_snapshot_matches(regs, tmp_path):
     res = run_build(PLATFORM_INBOX, WEEK, tmp_path / "out", tmp_path / "state", regs=regs, generated_at=FIXED_GENERATED_AT, template_path=tmp_path / "none")
     expected = json.loads((FIXTURES / "golden" / "platform-2026-W41.json").read_text(encoding="utf-8"))
     assert normalise(res.snapshot) == normalise(expected)
+
+
+def test_at_gold_04_github_snapshot_matches(regs, tmp_path):
+    """The platform fixture plus tests/fixtures/github builds tests/fixtures/golden/github-2026-W41.json (component tests)."""
+    import shutil
+
+    from conftest import FIXED_GENERATED_AT, FIXTURES, PLATFORM_INBOX, WEEK
+    from pipeline.build import run_build
+
+    inbox = tmp_path / "inbox"
+    shutil.copytree(PLATFORM_INBOX, inbox)
+    shutil.copytree(FIXTURES / "github", inbox / "github")
+    res = run_build(inbox, WEEK, tmp_path / "out", tmp_path / "state", regs=regs, generated_at=FIXED_GENERATED_AT, template_path=tmp_path / "none")
+    expected = json.loads((FIXTURES / "golden" / "github-2026-W41.json").read_text(encoding="utf-8"))
+    assert normalise(res.snapshot) == normalise(expected)

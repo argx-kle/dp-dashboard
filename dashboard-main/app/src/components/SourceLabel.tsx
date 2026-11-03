@@ -5,6 +5,7 @@ const LABELS: Record<string, string> = {
   snowflake: 'Snowflake',
   nextdata: 'NextData',
   validation: 'Validation tool',
+  github: 'GitHub',
 };
 
 const TITLES: Record<string, string> = {
@@ -12,6 +13,7 @@ const TITLES: Record<string, string> = {
   snowflake: 'Snowflake access history',
   nextdata: 'NextData platform export',
   validation: 'Repo validation tool: static completeness of the product specification',
+  github: "Deployments of the product's GitHub repository (dp fetch-github)",
 };
 
 export default function SourceLabel({ source, className = '' }: { source: string; className?: string }) {

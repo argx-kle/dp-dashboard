@@ -18,6 +18,7 @@ class ProductCtx:
     consumed_by: list[str] = field(default_factory=list)
     flags: list[ProductFlag] = field(default_factory=list)
     platform: object | None = None  # pipeline.platform.PlatformProduct when the platform files know the product
+    github: object | None = None  # pipeline.readers.github.GithubRepo when the GitHub extract has its repository
 
     @property
     def urn(self) -> str:
@@ -42,6 +43,7 @@ class MetricContext:
     platform_cfg: PlatformConfig | None = None
     has_validation: bool = False  # validation results are in the inbox
     has_nextdata: bool = False  # a NextData listing is in the inbox
+    has_github: bool = False  # a GitHub extract is in the inbox
     closed: bool = False  # a past quarter seen from its last day: nothing is forecast, usage is not known
 
     def scoped(self, scope: str) -> list[ProductCtx]:

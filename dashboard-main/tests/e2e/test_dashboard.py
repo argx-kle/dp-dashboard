@@ -1,11 +1,13 @@
 """AT-E2E: the built one-file dashboard, opened from file:// in Chromium (Playwright).
 
 Needs app/dist/template.html (run `npm run build` in app/). Skipped when it is missing.
+Where Playwright's Chromium download is blocked, PLAYWRIGHT_CHANNEL=msedge runs the installed Edge instead.
 """
 
 from __future__ import annotations
 
 import json
+import os
 import time
 from pathlib import Path
 
@@ -34,7 +36,7 @@ def browser():
     from playwright.sync_api import sync_playwright
 
     with sync_playwright() as p:
-        b = p.chromium.launch()
+        b = p.chromium.launch(channel=os.environ.get("PLAYWRIGHT_CHANNEL") or None)
         yield b
         b.close()
 
@@ -436,3 +438,102 @@ def test_at_e2e_24_attention_list_fills_the_column_beside_the_map(page):
     page.click("[data-testid=domains-view-table]")
     in_table = check()
     assert in_map >= in_table, "the taller map leaves room for at least as many items as the table"
+
+
+# --- GitHub extract in the inbox (tests/fixtures/inbox-platform plus tests/fixtures/github) -----------
+
+
+@pytest.fixture(scope="module")
+def github_pack(tmp_path_factory, regs) -> Path:
+    import shutil
+
+    from conftest import FIXTURES
+
+    base = tmp_path_factory.mktemp("github-pack")
+    shutil.copytree(PLATFORM_INBOX, base / "inbox")
+    shutil.copytree(FIXTURES / "github", base / "inbox" / "github")
+    res = run_build(base / "inbox", WEEK, base / "out", base / "state", regs=regs)
+    assert res.built
+    return base
+
+
+@pytest.fixture
+def gpage(browser, github_pack):
+    ctx = browser.new_context(viewport={"width": 1400, "height": 900}, reduced_motion="reduce")
+    pg = ctx.new_page()
+    errors: list[str] = []
+    pg.on("pageerror", lambda e: errors.append(str(e)))
+    pg.on("console", lambda m: errors.append(m.text) if m.type == "error" else None)
+    pg.goto((github_pack / "out" / WEEK / "index.html").as_uri())
+    pg.wait_for_selector("[data-testid=exec-view]")
+    yield pg
+    assert errors == [], errors
+    ctx.close()
+
+
+def test_at_e2e_25_github_figures_match_their_lists(gpage):
+    strip = gpage.inner_text("[data-testid=readiness-strip]")
+    assert "GitHub" in strip and "of 7 deployments" in strip
+    for mid in ["no_prod_deploy", "deploy_failure_rate"]:
+        sel = f"[data-testid=tile-link-{mid}-org]"
+        expected = _count(gpage, sel)
+        gpage.click(sel)
+        gpage.wait_for_selector("[data-testid=products-view]")
+        assert _count(gpage, "[data-testid=products-count]") == expected, mid
+        gpage.go_back()
+        gpage.wait_for_selector("[data-testid=exec-view]")
+    gpage.goto(gpage.url.split("#")[0] + "#/products/nxd:dp-ops-crmsys")
+    block = gpage.wait_for_selector("[data-testid=platform-github]")
+    assert "Last production deploy" in block.inner_text()
+
+
+@pytest.mark.skipif(not AXE.exists(), reason="axe-core not installed in app/node_modules")
+@pytest.mark.parametrize("route", ["#/", "#/products/nxd:dp-ops-crmsys", "#/products/urn:dp:com:legacy-cube", "#/delivery", "#/delivery?all=1"])
+def test_at_e2e_26_axe_with_github_data(gpage, route):
+    gpage.goto(gpage.url.split("#")[0] + route)
+    gpage.wait_for_selector("main [data-testid]")
+    _axe(gpage)
+
+
+def test_at_e2e_27_delivery_tab_only_with_an_extract(page, gpage):
+    assert page.locator("[data-testid=nav-delivery]").count() == 0
+    assert page.locator("[data-testid=delivery-summary]").count() == 0
+    gpage.click("[data-testid=nav-delivery]")
+    gpage.wait_for_selector("[data-testid=delivery-view]")
+    assert gpage.inner_text("[data-testid=del-reached-prod]").split("\n")[1] == "3"
+    assert "of 8 repositories" in gpage.inner_text("[data-testid=del-reached-prod]")
+    assert "1 failed, 3 succeeded" in gpage.inner_text("[data-testid=del-prod-attempts]")
+    assert _count(gpage, "[data-testid=del-repo-table]") == 8
+
+
+def test_at_e2e_28_funnel_and_team_filter_the_repositories(gpage):
+    gpage.goto(gpage.url.split("#")[0] + "#/delivery")
+    prod = "[data-testid=del-funnel-iac-apply-p]"
+    expected = _count(gpage, prod)
+    gpage.click(prod)
+    gpage.wait_for_function(f"document.querySelector('[data-testid=del-repo-table]').dataset.count === '{expected}'")
+    assert expected == 3
+    gpage.click("[data-testid=del-toggle-all]")
+    gpage.wait_for_function("location.hash.includes('all=1')")
+    gpage.click("[data-testid=del-clear]")
+    gpage.wait_for_function("document.querySelector('[data-testid=del-repo-table]').dataset.count === '10'")
+    assert "Not counted: Test" in gpage.inner_text("[data-repo=edp-hcp-dp-survey_test]")
+    gpage.goto(gpage.url.split("#")[0] + "#/delivery?team=ops")
+    gpage.wait_for_function("document.querySelector('[data-testid=del-repo-table]').dataset.count === '3'")
+
+
+def test_at_e2e_29_delivery_on_the_overview_and_product_page(gpage):
+    order = gpage.evaluate("[...document.querySelectorAll('[data-testid=readiness-strip],[data-testid=delivery-summary]')].map(e => e.dataset.testid)")
+    assert order == ["readiness-strip", "delivery-summary"]  # the register has gates: Delivery sits beside readiness
+    gpage.goto(gpage.url.split("#")[0] + "#/products/nxd:dp-ops-crmsys")
+    facts = gpage.wait_for_selector("[data-testid=github-delivery]").inner_text()
+    assert "3 production deploys ever" in facts and "Last failure 1 Oct 2026" in facts
+
+
+def test_at_e2e_30_delivery_fits_a_phone(browser, github_pack):
+    ctx = browser.new_context(viewport={"width": 390, "height": 844})
+    pg = ctx.new_page()
+    pg.goto((github_pack / "out" / WEEK / "index.html").as_uri() + "#/delivery")
+    pg.wait_for_selector("[data-testid=delivery-view]")
+    assert pg.evaluate("document.documentElement.scrollWidth") <= 390
+    ctx.close()

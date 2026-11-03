@@ -142,12 +142,27 @@ Which flag raises which signal is set in `registry/flags.yaml`. The "Needs atten
 
 ## Technical readiness (added 2026-10-07)
 
-From the platform sources. They move weekly, long before a certification. The "Technical readiness" strip is shown only when NextData or validation files are in the inbox (above Speed and adoption, on the executive overview and each domain page); a metric whose source is missing is null with the reason.
+From the platform sources. They move weekly, long before a certification. The "Technical readiness" strip is shown only when NextData, validation or GitHub files are in the inbox (above Speed and adoption, on the executive overview and each domain page), with the tiles of the sources present; a metric whose source is missing is null with the reason.
 
 | Id | Rule |
 | --- | --- |
 | `spec_score_median` | Median finish-spec score (validation tool) over active products that have one. Static completeness of the specification, not a launch pass. |
 | `runtime_failing` | Active products deployed in NextData whose deployments are all Failed or Unreachable; n is the number of active products deployed. |
+| `no_prod_deploy` | Active products whose GitHub repository has never deployed to production successfully, up to the as-of date; n is the number of active products with a repository. Added 2026-10-30. |
+| `prod_deploy_frequency` | Median number of successful production deployments in the trailing 30 days `(asOf − 30 days, asOf]`, over active products whose repository has deployed to production at least once (GitHub decides, not the register's Live stage); a product with none in the window counts as 0. Added 2026-10-30, pool changed 2026-11-02. |
+| `deploy_failure_rate` | Deployments in the trailing 30 days, every environment, whose outcome is failure or error, divided by all deployments with an outcome in that window, over the repositories of active products; n is the number of deployments, the products listed had at least one failure. Pending deployments are not counted. Added 2026-10-30. |
+
+GitHub rules: production is an environment listed in `github.prod_environments` in `registry/platform.yaml` (`iac-apply-p`; GitHub's own production flag is not set on these repositories). A deployment's outcome is its latest `success`, `failure` or `error` status; `inactive` (a success replaced by a newer deployment), `queued` and `in_progress` are ignored, and a deployment without any of the three is pending. Deployments dated after the as-of date are ignored.
+
+## Delivery (added 2026-11-02)
+
+The `#/delivery` view and the Delivery panel on the executive overview come from the GitHub extract alone, so they show real numbers while the register is still being filled. The panel sits at the top of the overview while no product has a gate, and next to Technical readiness once products do. It is shown for the current week only.
+
+- **Counted repositories:** every `*-dp-*` repository except tooling teams, template, test and placeholder names (the `exclude_*` rules in `registry/platform.yaml`) and crosswalk rows marked not counted. Excluded repositories are listed behind a toggle and left out of every total. Counted repositories that match no register product are tagged "Not in register".
+- **Promotion path:** `github.environments` in `registry/platform.yaml`, in order (Dev `iac-apply-d`, Validation `iac-apply-v`, Production `iac-apply-p`). A repository "reached" a step when at least one deployment there ended in success. Other environments count in the totals only.
+- **Window:** `(asOf − 30 days, asOf]`. Deployments are counted when they have an outcome; the failure rate is failure or error over those.
+- **Weekly:** the last 12 ISO weeks up to the as-of date, by the day each deployment started. "Succeeded or running" is every deployment that did not fail; production successes are marked above the bar.
+- **Last production deploy:** the latest successful production deployment of any counted repository. The tile counts days back from the extract date.
 
 ## Data coverage (added 2026-10-07)
 
@@ -163,6 +178,7 @@ For every scope (org and each domain) and each kind of input, the snapshot's `re
 | `consumers` | Live products | A first-consumer date |
 | `validation` | Active products (only when validation results are in the inbox) | A finish-spec score |
 | `nextdata` | Active products (only when a NextData listing is in the inbox) | At least one deployment |
+| `github` | Active products (only when a GitHub extract is in the inbox) | A matched repository |
 
 ## Trend
 
@@ -192,7 +208,7 @@ Up to three lines comparing the current snapshot with the last approved one: new
 | Warning | Product with G2 to G4 history but no G1 (excluded from cycle time) | `NO_G1_WARN` |
 | Warning | Unknown column ignored | `UNKNOWN_COLUMN` |
 | Warning | NextData listing present but empty | `SOURCE_MISSING` |
-| Warning | NextData, validation and crosswalk checks (see "Platform warnings" below) | `ND_*`, `VAL_*`, `XWALK_*` |
+| Warning | NextData, validation, GitHub and crosswalk checks (see "Platform warnings" below) | `ND_*`, `VAL_*`, `GH_*`, `XWALK_*` |
 
 ## Platform sources (added 2026-10-07)
 
@@ -203,8 +219,9 @@ Optional inbox files, read every week when present. They never block a pack: eve
 | `nextdata/*.txt` | NextData `dp list` output: name, environment, version, state, RPC, URL | One row per deployment |
 | `nextdata/*.csv` with a `parent` column | NextData domain tree; used only to check domain hygiene and that its counts reconcile with the listing | One row per domain |
 | `nextdata/*.csv` otherwise | NextData catalog lookup: name, domain, version, state, owner (later URN and ports) | One row per name |
-| `validation/*.xlsx` or `*.csv` | Repo validation tool results: finish-spec score, component scores, owner declared in the repository | One row per keyid |
-| `crosswalk.csv` | Program lead's decisions per name: product, counted or not, business domain (empty: use the product-to-domain map), display name, reviewed | One row per name |
+| `validation/*.xlsx` or `*.csv` | Repo validation tool results: finish-spec score, component scores, owner declared in the repository. Either the status inventory (a `keyid` column) or the audit workbook itself (a `Data product` column naming the audited folder, `name-version (copy)`, read as keyid and version; `Completeness score` is the score) | One row per keyid |
+| `github/*.csv` | `dp fetch-github` output: `repositories.csv`, `deployments.csv`, `deployment_statuses.csv`, `fetch.csv` (when and from which org), `issues.csv` (requests GitHub did not answer) | One row per repository, deployment or status |
+| `crosswalk.csv` | Program lead's decisions per name: product, counted or not, business domain (empty: use the product-to-domain map), display name, reviewed. Rows with `source` github link a repository to a product | One row per name |
 
 ### From names to products
 
@@ -227,6 +244,16 @@ NextData lists deployments, not products, and the validation tool has its own ke
 
 A register product is matched to its platform product by URN: `nxd:<name>`, a catalog URN, or a URN whose last segment is a NextData name or keyid.
 
+### GitHub repositories (added 2026-10-30)
+
+`dp fetch-github` reads every repository of the org whose name contains `-dp-` (read-only). A repository `edp-<team>-dp-<x_y>` belongs to a register product, first match wins:
+
+1. a crosswalk row with `source` github and the repository as `name`: `product` is the register URN or a NextData name; `include` no leaves the repository out;
+2. the repository's `data_product_urn` custom property equals the register URN (no repository has it yet; it is read as soon as the org defines it);
+3. `dp-<team>-x-y`, `x-y` or `x-y-nxd` is the last segment of the register URN or a NextData name of the product.
+
+Repositories of tooling teams (`gov`, `nxd`) and with template or test names (`registry/platform.yaml`) are not counted. When two repositories match one product, the first by these rules (then by name) is used.
+
 ### Platform warnings
 
 | Code | Rule |
@@ -242,6 +269,11 @@ A register product is matched to its platform product by URN: `nxd:<name>`, a ca
 | `ND_EXCLUDED` | A register product is one the platform rules leave out (the crosswalk can count it). |
 | `ND_STATUS` | Live in the register, but NextData shows no running production deployment. |
 | `VAL_STALE`, `VAL_NO_DATE` | Validation results older than 14 days at the as-of date; no run date in the file (the file date is used). |
+| `GH_STATUS` | Live in the register, but the product's repository has no successful production deployment. |
+| `GH_NOT_IN_REGISTER` | Counted repositories that match no product on the Products sheet (one line per EDP team). |
+| `GH_DUPLICATE` | A second repository matches a product that already uses another; its deployments are not counted. |
+| `GH_STALE` | The GitHub extract is more than 7 days older than the as-of date. |
+| `GH_FETCH` | Requests GitHub did not answer when the extract ran (from `issues.csv`), or deployments that name no known repository. |
 
 The validation tool's check IDs (A8, B3, D3, G1, G2, …) are not governance gates. The dashboard always writes them as "check G2".
 

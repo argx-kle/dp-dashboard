@@ -11,6 +11,7 @@ import DomainView from '@/views/DomainView';
 import ProductsView from '@/views/ProductsView';
 import ProductView from '@/views/ProductView';
 import DefinitionsView from '@/views/DefinitionsView';
+import DeliveryView from '@/views/DeliveryView';
 
 export default function App() {
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
@@ -47,6 +48,7 @@ function Shell() {
         {route.view === 'products' && <ProductsView params={route.params} />}
         {route.view === 'product' && <ProductView urn={route.urn} />}
         {route.view === 'definitions' && <DefinitionsView />}
+        {route.view === 'delivery' && <DeliveryView params={route.params} />}
         {route.view === 'notfound' && (
           <div className="py-16">
             <h1 className="text-title font-semibold text-ink">Nothing at this address</h1>

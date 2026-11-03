@@ -9,7 +9,7 @@ Every value is written out below, so the same script always gives the same week.
 behind, three on track, two ahead, one without a target; Logistics has no products and stays hidden. All four areas
 have products. HCP fell behind pace in October and caught up in November (visible week by week); Q3 started slow
 and finished above target. Every lifecycle stage and every flag appears, with usage, consumers, a revision, a
-retirement, a cancellation, NextData deployments and validation scores. Weeks 45 and 46 are built and approved
+retirement, a cancellation, NextData deployments, validation scores and a GitHub extract (the Delivery view). Weeks 45 and 46 are built and approved
 first, so plan slips and "what changed" are real pipeline results.
 """
 
@@ -28,6 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from pipeline.build import run_approve, run_build  # noqa: E402
+from pipeline.github_fetch import write_tables  # noqa: E402
 from pipeline.platform import CROSSWALK_COLUMNS, crosswalk_rows, load_platform, resolve  # noqa: E402
 from pipeline.readers.register import SPECS  # noqa: E402
 from pipeline.registry import load_platform_config  # noqa: E402
@@ -149,7 +150,7 @@ def _mods(text: str) -> dict[str, str]:
 
 
 def generate() -> None:
-    rows, gates, deps, val, cat, slipping = [], [], [], [], [], []
+    rows, gates, deps, val, cat, slipping, gh = [], [], [], [], [], [], []
     for i, (domain, name, owner, kind, when, mods_text) in enumerate(PRODUCTS):
         m = _mods(mods_text)
         key = slug(name)
@@ -220,6 +221,8 @@ def generate() -> None:
             deps.append((key, env, version if env == "prod" else f"{version}-dev", state))
         if envs:
             cat.append((key, NEXTDATA_TEAM[area], version, envs[0][1], owner or "Unassigned"))
+        if kind not in ("idea", "cancelled"):
+            gh.append((f"edp-{GH_TEAM[domain]}-dp-{key.replace('-', '_')}", key, kind, when if kind == "live" else "", i))
         if kind not in ("idea",):
             base = {"live": 0.84, "revision": 0.8, "retired": 0.62, "test": 0.76, "dev": 0.64, "design": 0.48, "cancelled": 0.4}[kind]
             score = round(min(0.97, base + ((i * 37) % 13 - 6) / 100), 4)
@@ -230,10 +233,12 @@ def generate() -> None:
     domains = sorted({r["domain"] for r in rows})
     capacity = [{"domain": d, "week": WEEK, "onboarded": 3 + 2 * n, "enrolled": 2 + n, "qualified": 1 + n // 2} for d in domains for n in [sum(1 for r in rows if r["domain"] == d)]]
 
-    if OUT.exists():
-        shutil.rmtree(OUT)
-    (OUT / "nextdata").mkdir(parents=True)
-    (OUT / "validation").mkdir()
+    # Delete the old files but keep the folders: OneDrive can hold a folder open and refuse to remove it.
+    for f in OUT.rglob("*") if OUT.exists() else []:
+        if f.is_file():
+            f.unlink()
+    (OUT / "nextdata").mkdir(parents=True, exist_ok=True)
+    (OUT / "validation").mkdir(exist_ok=True)
     _write(OUT / "products.csv", SPECS["products"].columns, rows)
     _write(OUT / "gate_events.csv", SPECS["gate_events"].columns, sorted(gates, key=lambda e: (e["urn"], e["date_passed"])))
     _write(OUT / "targets.csv", SPECS["targets"].columns, targets)
@@ -252,8 +257,58 @@ def generate() -> None:
             r["domain"] = by_key[r["product"]]
             r["display_name"] = next(n for _, n, *_ in PRODUCTS if slug(n) == r["product"])
     _write(OUT / "crosswalk.csv", CROSSWALK_COLUMNS, xw)
+    gh += [(f"edp-{team}-dp-{name}", name, kind, "", 100 + j) for j, (team, name, kind) in enumerate(GH_EXTRA)]
+    write_tables(_github(gh), OUT / "github")
     (OUT / "slipping.txt").write_text("\n".join(slipping) + "\n", encoding="utf-8")
-    print(f"wrote {OUT}: {len(rows)} products, {len(gates)} gate events, {len(deps)} deployments")
+    print(f"wrote {OUT}: {len(rows)} products, {len(gates)} gate events, {len(deps)} deployments, {len(gh)} GitHub repositories")
+
+
+# GitHub: one repository per product that has a NextData deployment, edp-<team>-dp-<key_with_underscores>, so the
+# name rules match it. The to-be state: live products ship to production every week or two, in-test products
+# reach validation, products in development deploy to dev; failures are rare and mostly in dev. Cold Chain
+# Monitoring (failing in NextData) also fails its last production deployments. Two repositories are not on the
+# register yet and two are tooling, to show both filters of the Delivery view.
+GH_TEAM = {"Patient": "patient", "HCP": "hcp", "Market access": "claims", "Channel partner": "ops", "Revenue / vials": "ops", "Medical affairs": "medaff", "TechOps": "techops", "R&D": "rnd", "G&A": "gna"}
+GH_START = date(2026, 7, 27)
+GH_EXTRA = [("rnd", "genomics_raw", "dev"), ("ops", "vendor_returns", "test"), ("gov", "data_control_framework", "live"), ("ops", "sandbox_demo", "dev")]
+
+
+def _github(products: list[tuple[str, str, str, str, int]]) -> dict[str, list[dict]]:
+    """products: (repo, key, kind, live-since date or '', index). Returns the five tables of `dp fetch-github`."""
+    repos, deps, sts = [], [], []
+    dep_id = 5000
+    for repo, key, kind, since, i in products:
+        repos.append({"repo_id": 9000 + i, "repo_name": repo, "full_name": f"example-org/{repo}", "html_url": f"https://github.example/example-org/{repo}", "archived": "False", "data_product_urn": "", "data_product_urn_source": ""})
+        start, end = GH_START, AS_OF
+        if kind == "retired":
+            end = D("2026-09-04")
+        elif kind == "cancelled":
+            continue  # cancelled in June, nothing in the extract's window
+        elif kind == "design":
+            start = AS_OF - timedelta(days=21)
+        every = {"live": 4 + i % 3, "revision": 3, "retired": 7, "test": 3 + i % 2, "dev": 2 + i % 2, "design": 6}[kind]
+        fail_pct = 4 if kind in ("live", "revision", "retired") else 9 if kind == "test" else 14
+        n, d = 0, start + timedelta(days=i % every)
+        while d <= end:
+            envs = ["iac-apply-d"]
+            if kind in ("live", "revision", "retired", "test") and n % 2 == 1:
+                envs.append("iac-apply-v")
+            if kind in ("live", "revision", "retired") and n % 2 == 1 and (not since or d >= D(since) - timedelta(days=21)):
+                envs.append("iac-apply-p")
+            for k, env in enumerate(envs):
+                dep_id += 1
+                at = datetime(d.year, d.month, d.day, 9 + k, (i * 7) % 60, tzinfo=timezone.utc)
+                bad = (i * 31 + n * 17 + k * 7) % 100 < (fail_pct if env != "iac-apply-p" else fail_pct // 2)
+                if key == "cold-chain-monitoring" and env == "iac-apply-p" and d >= AS_OF - timedelta(days=14):
+                    bad = True
+                deps.append({"repo_name": repo, "deployment_id": dep_id, "environment": env, "production_environment": "False", "sha": f"{dep_id:x}", "created_at": at.isoformat().replace("+00:00", "Z")})
+                sts.append({"repo_name": repo, "deployment_id": dep_id, "state": "in_progress", "created_at": (at + timedelta(minutes=1)).isoformat().replace("+00:00", "Z"), "source": "GraphQL"})
+                if not (d == AS_OF and k == len(envs) - 1 and i % 5 == 0):  # a few of today's runs are still running
+                    sts.append({"repo_name": repo, "deployment_id": dep_id, "state": "failure" if bad else "success", "created_at": (at + timedelta(minutes=6)).isoformat().replace("+00:00", "Z"), "source": "GraphQL"})
+            n += 1
+            d += timedelta(days=every)
+    fetch = [{"fetched_at": f"{AS_OF.isoformat()}T06:00:00+00:00", "org": "example-org", "login": "showcase", "repos": len(repos)}]
+    return {"repositories": repos, "deployments": deps, "deployment_statuses": sts, "issues": [], "fetch": fetch}
 
 
 def _write(path: Path, cols: list[str], rows: list[dict]) -> None:

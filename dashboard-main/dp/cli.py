@@ -1,4 +1,4 @@
-"""dp: check, build, preview, approve."""
+"""dp: fetch-github, check, build, preview, approve."""
 
 from __future__ import annotations
 
@@ -87,6 +87,43 @@ def approve(week: str, approved_by: str, inbox: Path, out: Path, state: Path, te
         click.echo(f"Not approved: {exc}")
         sys.exit(1)
     click.echo(f"Approved {week} by {approved_by}. Snapshot stored at {saved}.")
+
+
+@main.command("fetch-github")
+@click.option("--inbox", type=click.Path(path_type=Path), default=Path("inbox"), show_default=True)
+@click.option("--check", "check_only", is_flag=True, help="Only test the connection")
+@click.option("--repos", multiple=True, help="Limit to this repository (repeat the option for more)")
+@click.option("--workers", type=int, default=4, show_default=True)
+def fetch_github(inbox: Path, check_only: bool, repos: tuple[str, ...], workers: int) -> None:
+    """Read the data product repositories from GitHub into <inbox>/github/ (read-only)."""
+    from pipeline.github_fetch import FetchError, GitHub, github_token, write_tables
+    from pipeline.registry import load_platform_config
+
+    cfg = load_platform_config()
+    try:
+        token, source = github_token()
+        gh = GitHub(token, cfg.github_org)
+        conn = gh.check_connection()
+        click.echo(
+            f"Connected as {conn['login']} (token from {source}); {cfg.github_org} membership: {conn['state']}/{conn['role']}; "
+            f"REST rate limit {conn['remaining']}/{conn['limit']}"
+        )
+        if conn["state"] != "active":
+            click.echo(f"  warning: not an active member of {cfg.github_org}; private repositories will be missing")
+        if check_only:
+            return
+        click.echo("Reading repositories and deployments", nl=False)
+        result = gh.fetch(cfg.github_repo_pattern, only=list(repos) or None, workers=workers, login=conn["login"], progress=lambda: click.echo(".", nl=False))
+    except FetchError as exc:
+        click.echo(f"\nNot fetched: {exc}")
+        sys.exit(1)
+    folder = inbox / "github"
+    write_tables(result.tables, folder)
+    click.echo(f"\nDone in {result.seconds:.0f}s -> {folder} (REST rate limit left {result.rate_remaining})")
+    for t in ("repositories", "deployments", "deployment_statuses"):
+        click.echo(f"  {t:<22}{len(result.tables[t]):>6} rows")
+    if result.issues:
+        click.echo(f"{len(result.issues)} requests were unavailable; see {folder / 'issues.csv'} (affected values are blank)")
 
 
 @main.command()

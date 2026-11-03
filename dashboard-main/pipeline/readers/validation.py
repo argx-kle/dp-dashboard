@@ -44,7 +44,10 @@ class ValidationRun:
 
 
 def split_keyid(raw: str) -> tuple[str, str | None]:
-    """'feed (1.0.2)' -> ('feed', '1.0.2')."""
+    """'feed (1.0.2)' -> ('feed', '1.0.2'); an audited folder 'feed-1.0.2-dev (3)' -> ('feed', '1.0.2-dev')."""
+    m = re.match(r"^\s*([^\s(]+?)-(\d+\.\d+(?:\.\d+)?(?:-[A-Za-z0-9.]+)?)\s*(?:\(\d+\))?\s*$", raw or "")
+    if m:
+        return m.group(1), m.group(2)
     m = re.match(r"^\s*([^\s(]+)\s*(?:\(([^)]*)\))?\s*$", raw or "")
     return (m.group(1), m.group(2)) if m else ((raw or "").strip(), None)
 
@@ -71,18 +74,33 @@ def _owner_status(raw_status: str, owner: str) -> str | None:
     return "Declared" if EMAIL.search(owner or "") else ("Missing" if owner else None)
 
 
-def _tables(rows: list[list[str]]) -> list[tuple[list[str], list[list[str]], int]]:
-    """Every header row that names a keyid column starts a table; it runs to the next header or the end."""
-    def is_header(r: list[str]) -> bool:
-        cols = {normalise_header(c) for c in r}
-        return "keyid" in cols and bool(cols & {"score", "completeness", "owner", "owner_status", "business_name", "run_at"})
+def _header(cell: str) -> str:
+    # The audit workbook (catalogue v2.3) heads its tables 'Data product' and 'Completeness score'.
+    h = normalise_header(cell)
+    return {"data_product": "keyid", "completeness_score": "completeness"}.get(h, h)
 
-    starts = [i for i, r in enumerate(rows) if is_header(r)]
+
+def _tables(rows: list[list[str]]) -> list[tuple[list[str], list[list[str]], int]]:
+    """Every header row that names a keyid column starts a table; it runs to the next header or the end.
+
+    A header with none of the known columns still starts a table when the row under it is all scores
+    (blanks allowed: the audit workbook's 'Completeness by repo component' leaves non-applicable components empty)."""
+    def is_header(i: int) -> bool:
+        cols = [_header(c) for c in rows[i]]
+        if "keyid" not in cols:
+            return False
+        if set(cols) & {"score", "completeness", "owner", "owner_status", "business_name", "run_at"}:
+            return True
+        nxt = rows[i + 1] if i + 1 < len(rows) else []
+        vals = [nxt[j] for j, h in enumerate(cols) if h and h != "keyid" and j < len(nxt) and nxt[j].strip()]
+        return len(vals) >= 2 and all(_score(v) is not None for v in vals)
+
+    starts = [i for i in range(len(rows)) if is_header(i)]
     out = []
     for n, s in enumerate(starts):
         end = starts[n + 1] if n + 1 < len(starts) else len(rows)
         body = [r for r in rows[s + 1 : end] if any(c.strip() for c in r)]
-        out.append(([normalise_header(c) for c in rows[s]], body, s + 1))
+        out.append(([_header(c) for c in rows[s]], body, s + 1))
     return out
 
 
@@ -123,7 +141,7 @@ def read_validation(path: Path) -> tuple[ValidationRun | None, list[DQItem]]:
             for k, r in enumerate(body, start=1):
                 rec = dict(zip(header, [*r, *[""] * (len(header) - len(r))]))
                 keyid, version_hint = split_keyid(rec.get("keyid", ""))
-                if not keyid:
+                if not keyid or " " in keyid:  # a note under the table, not a keyid
                     continue
                 if not run_date and rec.get("run_at"):
                     run_date = _run_date([[rec["run_at"]]])

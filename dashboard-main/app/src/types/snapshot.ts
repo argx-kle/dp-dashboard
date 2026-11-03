@@ -49,6 +49,7 @@ export interface Snapshot {
    * The closed trend quarters, each as it stood on its last day, for the quarter selector. Added 2026-10-08.
    */
   quarters?: QuarterView[];
+  delivery?: Delivery;
 }
 export interface SignOff {
   status: "draft" | "approved";
@@ -97,7 +98,7 @@ export interface MetricDefinition {
   /**
    * The reporting item that says how complete this metric's inputs are
    */
-  coverage?: "gates" | "plans" | "reviewed" | "dpo" | "usage" | "consumers" | "validation" | "nextdata";
+  coverage?: "gates" | "plans" | "reviewed" | "dpo" | "usage" | "consumers" | "validation" | "nextdata" | "github";
 }
 export interface FlagDefinition {
   code: string;
@@ -128,7 +129,7 @@ export interface MetricValue {
    */
   values?: number[];
   target?: number | null;
-  source: "register" | "self-reported" | "snowflake" | "nextdata" | "validation";
+  source: "register" | "self-reported" | "snowflake" | "nextdata" | "validation" | "github";
   flag?: "BEHIND" | null;
   /**
    * Why the value is null, or why the flag is raised
@@ -181,6 +182,7 @@ export interface ProductRow {
    * Domain the product is registered under in NextData, e.g. EDP/OPS
    */
   platformDomain?: string;
+  github?: GithubSummary;
   flags: ProductFlag[];
   dpoComment?: string;
   reviewedOn?: string;
@@ -270,6 +272,35 @@ export interface NextDataDeployment {
    */
   url?: string;
 }
+/**
+ * The product's GitHub repository and its deployments as of the as-of date. Added 2026-10-30.
+ */
+export interface GithubSummary {
+  /**
+   * Repository name in the GitHub org
+   */
+  repo: string;
+  /**
+   * Link to the repository
+   */
+  url?: string;
+  /**
+   * Last successful production deployment
+   */
+  lastProdDeploy?: string;
+  /**
+   * Successful production deployments in the last 30 days
+   */
+  prodDeploys30d: number;
+  /**
+   * Deployments with an outcome in the last 30 days, every environment
+   */
+  deploys30d: number;
+  /**
+   * Of those, deployments that ended in failure or error
+   */
+  failed30d: number;
+}
 export interface ProductFlag {
   code: "OVERDUE" | "SLIPPING" | "NO_DPO" | "NOT_UPDATED" | "UNUSED" | "PENDING_URN";
   reason: string;
@@ -295,7 +326,7 @@ export interface DataQualityItem {
   row?: number;
 }
 export interface ReportingItem {
-  kind: "gates" | "plans" | "reviewed" | "dpo" | "usage" | "consumers" | "validation" | "nextdata";
+  kind: "gates" | "plans" | "reviewed" | "dpo" | "usage" | "consumers" | "validation" | "nextdata" | "github";
   /**
    * "org" or a domain id
    */
@@ -314,16 +345,16 @@ export interface HealthItem {
    */
   scope: string;
   /**
-   * Current quarter, by pace = certified / expected: ahead >= 110%, on-track 90-109%, at-risk 70-89%, off-track < 70% (on-track or ahead while expected < 1). Closed quarter: above-target, met-target or below-target. no-target: no target set.
+   * Current quarter, by pace = certified / expected: ahead >= 110%, on-track 90-109%, at-risk (shown as Behind) 70-89%, off-track < 70% (on-track or ahead while expected is 0). Closed quarter: above-target, met-target or below-target. no-target: no target set.
    */
   status: "ahead" | "on-track" | "at-risk" | "off-track" | "above-target" | "met-target" | "below-target" | "no-target";
   certified: number;
   /**
-   * target x elapsed, 1 decimal: what should be certified by the as-of date
+   * target x elapsed, to the nearest whole product (halves up): what should be certified by the as-of date
    */
   expected: number | null;
   /**
-   * certified / (target x elapsed); null without a target above 0
+   * certified / expected; null while expected is 0
    */
   pace: number | null;
   /**
@@ -377,4 +408,137 @@ export interface QuarterProduct {
   status: "In design" | "In build" | "In certification" | "Live" | "Live · in revision" | "Retired" | "Cancelled";
   lastGate?: GateRecord;
   firstG4Date?: string;
+}
+/**
+ * Every data product repository in the GitHub extract and how it deploys, whether or not it is in the register. Present when the inbox has a GitHub extract. Added 2026-11-02.
+ */
+export interface Delivery {
+  /**
+   * When dp fetch-github ran
+   */
+  fetchedAt: string;
+  org?: string;
+  /**
+   * Length of the trailing window of every *30d value
+   */
+  windowDays: number;
+  /**
+   * The promotion path in order, then any other environment
+   */
+  envs: DeliveryEnv[];
+  totals: DeliveryTotals;
+  /**
+   * The last 12 ISO weeks up to the as-of date, oldest first
+   */
+  weekly: DeliveryWeek[];
+  teams: DeliveryTeam[];
+  repos: DeliveryRepo[];
+}
+export interface DeliveryEnv {
+  /**
+   * Environment name in GitHub
+   */
+  id: string;
+  label: string;
+  prod: boolean;
+  /**
+   * A step of the promotion path (registry/platform.yaml github.environments)
+   */
+  path: boolean;
+  /**
+   * Counted repositories with at least one successful deployment here
+   */
+  repos: number;
+  /**
+   * Deployments with an outcome in the window
+   */
+  deploys30d: number;
+  failed30d: number;
+}
+export interface DeliveryTotals {
+  /**
+   * Counted repositories
+   */
+  repos: number;
+  /**
+   * Of those, with a deployment in the window
+   */
+  active30d: number;
+  deploys30d: number;
+  failed30d: number;
+  /**
+   * Production deployments with an outcome in the window
+   */
+  prodAttempts30d: number;
+  prodFailed30d: number;
+  /**
+   * Counted repositories with at least one successful production deployment, ever
+   */
+  reachedProd: number;
+  /**
+   * Counted repositories that match no register product
+   */
+  notInRegister: number;
+  lastProdDeploy?: string;
+  lastProdRepo?: string;
+}
+export interface DeliveryWeek {
+  week: string;
+  /**
+   * Monday of the week
+   */
+  start: string;
+  /**
+   * Deployments started in the week, counted repositories, every environment
+   */
+  deploys: number;
+  failed: number;
+  prodSuccess: number;
+}
+export interface DeliveryTeam {
+  /**
+   * Team segment of the repository name (edp-<team>-dp-...)
+   */
+  team: string;
+  label: string;
+  repos: number;
+  deploys30d: number;
+  failed30d: number;
+  reachedProd: number;
+}
+export interface DeliveryRepo {
+  name: string;
+  url?: string;
+  team?: string;
+  /**
+   * The register product the repository belongs to; absent when it matches none
+   */
+  urn?: string;
+  /**
+   * Why the repository is not counted (tooling, template, test, crosswalk)
+   */
+  excluded?: string;
+  /**
+   * Environments it has deployed to, in the order of Delivery.envs
+   */
+  envs: RepoEnv[];
+  lastDeploy?: string;
+  lastFailure?: string;
+  lastProdDeploy?: string;
+  /**
+   * Successful production deployments, ever
+   */
+  prodDeploys: number;
+  deploys30d: number;
+  failed30d: number;
+  /**
+   * Deployments per week, aligned with Delivery.weekly
+   */
+  weekly: number[];
+}
+export interface RepoEnv {
+  env: string;
+  lastSuccess?: string;
+  deploys30d: number;
+  failed30d: number;
 }

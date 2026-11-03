@@ -26,6 +26,8 @@ def _kinds(ctx: MetricContext) -> list[tuple[str, Callable[[ProductCtx], bool], 
         kinds.append(("validation", lambda pc: pc.d.active, lambda pc: getattr(getattr(pc.platform, "validation", None), "score", None) is not None))
     if ctx.has_nextdata:
         kinds.append(("nextdata", lambda pc: pc.d.active, lambda pc: bool(getattr(pc.platform, "deployments", None))))
+    if ctx.has_github:
+        kinds.append(("github", lambda pc: pc.d.active, lambda pc: pc.github is not None))
     return kinds
 
 

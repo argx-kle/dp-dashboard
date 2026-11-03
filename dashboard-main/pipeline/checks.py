@@ -138,3 +138,28 @@ def run_platform_checks(ctx, res, src, as_of: date) -> list[DQItem]:
         if run.run_date and (as_of - run.run_date).days > VAL_STALE_DAYS:
             issues.append(DQItem("warning", "VAL_STALE", f"Validation results are from {run.run_date}, more than {VAL_STALE_DAYS} days before {as_of}", file=run.file))
     return issues
+
+
+def run_github_checks(ctx, match, run, as_of: date) -> list[DQItem]:
+    """Register against GitHub: Live without a production deployment, repositories missing on the register, a stale extract.
+
+    ctx is the MetricContext with repositories attached; match the GithubMatch; run the GithubRun.
+    """
+    from pipeline.github import STALE_DAYS, last_prod_deploy, repo_names
+
+    issues: list[DQItem] = []
+    for pc in ctx.products:
+        if pc.d.live and pc.github is not None and last_prod_deploy(pc.github, ctx.platform_cfg, as_of) is None:
+            issues.append(DQItem("warning", "GH_STATUS", f"Live in the register, but its repository {pc.github.name} has no successful production deployment", urn=pc.urn, file="github/deployments.csv"))
+    by_team: dict[str, list[str]] = defaultdict(list)
+    for repo in match.unmatched:
+        by_team[repo_names(repo.name)[0] or "no team"].append(repo.name)
+    for team, names in sorted(by_team.items()):
+        many = len(names) != 1
+        issues.append(DQItem("warning", "GH_NOT_IN_REGISTER", f"{len(names)} {team} repositor{'ies match' if many else 'y matches'} no product on the Products sheet (link or exclude in the crosswalk, source github): {', '.join(names)}", file="github/repositories.csv"))
+    for repo, urn, kept in match.duplicates:
+        issues.append(DQItem("warning", "GH_DUPLICATE", f"Repository {repo.name} also matches this product, which uses {kept.name}; its deployments are not counted", urn=urn, file="github/repositories.csv"))
+    fetched = run.fetched_at.date()
+    if (as_of - fetched).days > STALE_DAYS:
+        issues.append(DQItem("warning", "GH_STALE", f"The GitHub extract is from {fetched}, more than {STALE_DAYS} days before {as_of}; run `dp fetch-github`", file="github/fetch.csv"))
+    return issues

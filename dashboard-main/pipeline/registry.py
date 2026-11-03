@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import importlib
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable
 
@@ -159,6 +159,10 @@ class PlatformConfig:
     exclude_demo_only_unvalidated: bool
     env_rank: list[str]
     acronyms: set[str]
+    github_org: str = "argenxDataAI"
+    github_repo_pattern: str = "-dp-"
+    github_prod_environments: list[str] = field(default_factory=list)
+    github_environments: dict[str, str] = field(default_factory=dict)  # promotion path in order: environment -> label
 
     def env_index(self, env: str | None) -> int:
         return self.env_rank.index(env) if env in self.env_rank else len(self.env_rank)
@@ -173,6 +177,7 @@ def load_platform_config(registry_dir: Path = REGISTRY_DIR) -> PlatformConfig:
             if key in product_domains:
                 raise ValueError(f"product-domains.yaml: {key} is listed under {product_domains[key]} and {domain}")
             product_domains[key] = domain
+    gh = raw.get("github") or {}
     return PlatformConfig(
         teams={str(k): str(v) for k, v in raw["teams"].items()},
         default_domain=raw["default_domain"],
@@ -185,6 +190,10 @@ def load_platform_config(registry_dir: Path = REGISTRY_DIR) -> PlatformConfig:
         exclude_demo_only_unvalidated=bool(raw.get("exclude_demo_only_unvalidated", True)),
         env_rank=list(raw.get("env_rank") or []),
         acronyms={a.lower() for a in raw.get("acronyms") or []},
+        github_org=str(gh.get("org") or "argenxDataAI"),
+        github_repo_pattern=str(gh.get("repo_pattern") or "-dp-"),
+        github_prod_environments=[str(e) for e in gh.get("prod_environments") or []],
+        github_environments={str(k): str(v) for k, v in (gh.get("environments") or {}).items()},
     )
 
 

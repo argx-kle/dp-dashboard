@@ -1,6 +1,6 @@
 /* The four core metrics in one ruled strip (no card grid): time to production, time to first consumer, users
-   per live product and certified this quarter; and the same strip for technical readiness. Every value links to
-   its products; an incomplete input says so under the number. */
+   per live product and certified this quarter; and the same strip for technical readiness, one tile per platform
+   source in the inbox. Every value links to its products; an incomplete input says so under the number. */
 
 import { useCallback } from 'react';
 import CountUp from '@/components/reactbits/CountUp';
@@ -13,16 +13,28 @@ import { metricDef, metricValue, reportingItem } from '@/lib/select';
 import type { MetricValue } from '@/types/snapshot';
 
 const IDS = ['cycle_time_g1_g4', 'time_to_first_consumer', 'active_users_median', 'certified_qtd'];
-export const READINESS = ['spec_score_median', 'runtime_failing'];
+/** Technical readiness tiles by the coverage kind they need; a source missing from the inbox drops its tiles. */
+const READINESS_BY_SOURCE: [string, string[]][] = [
+  ['validation', ['spec_score_median']],
+  ['nextdata', ['runtime_failing']],
+  ['github', ['no_prod_deploy', 'prod_deploy_frequency', 'deploy_failure_rate']],
+];
+export const READINESS = READINESS_BY_SOURCE.flatMap(([, ids]) => ids);
+const SOURCE_NAME: Record<string, string> = { validation: 'the validation tool', nextdata: 'NextData', github: 'GitHub' };
 const TITLE: Record<string, string> = {
   cycle_time_g1_g4: 'Median time to production',
   time_to_first_consumer: 'Median time to first consumer',
   active_users_median: 'Median users per live product',
   spec_score_median: 'Median finish-spec score',
   runtime_failing: 'Failing in NextData',
+  no_prod_deploy: 'Never deployed to production',
+  prod_deploy_frequency: 'Production deploys per shipping product, 30 days',
+  deploy_failure_rate: 'Deployment failure rate, 30 days',
 };
 const CAPTION: Record<string, (mv: MetricValue) => string> = {
   runtime_failing: (mv) => `of ${mv.n ?? 0} deployed`,
+  no_prod_deploy: (mv) => `of ${mv.n ?? 0} with a repository`,
+  deploy_failure_rate: (mv) => `of ${mv.n ?? 0} deployments`,
   certified_qtd: (mv) => (mv.target == null ? 'no target set' : `of ${mv.target} targeted`),
 };
 const UNIT: Record<string, string> = { days: 'days', people: 'people', share: '', count: '' };
@@ -58,6 +70,8 @@ function Stat({ id, scope }: { id: string; scope: string }) {
   );
 }
 
+const XL_COLS: Record<number, string> = { 3: 'xl:grid-cols-3', 4: 'xl:grid-cols-4', 5: 'xl:grid-cols-5' };
+
 export default function StatStrip({ scope = 'org', title = 'Speed, adoption and delivery', ids = IDS, note }: { scope?: string; title?: string; ids?: string[]; note?: string }) {
   const hid = `stats-h-${scope}-${ids[0]}`;
   return (
@@ -68,18 +82,23 @@ export default function StatStrip({ scope = 'org', title = 'Speed, adoption and 
         </h2>
         {note && <p className="text-small text-ink-3">{note}</p>}
       </div>
-      <div className={`mt-2 grid gap-px border-t border-line bg-line sm:grid-cols-2 ${ids.length > 2 ? 'xl:grid-cols-4' : ''}`}>
+      <div className={`mt-2 grid gap-px border-t border-line bg-line sm:grid-cols-2 ${XL_COLS[ids.length] ?? ''}`}>
         {ids.map((id) => (
           <Stat key={id} id={id} scope={scope} />
         ))}
+        {/* An odd tile count leaves one slot of the two-column grid empty: fill it so no hairline colour shows. */}
+        {ids.length % 2 === 1 && ids.length > 1 && <div aria-hidden="true" className="hidden bg-panel sm:block xl:hidden" />}
       </div>
     </section>
   );
 }
 
-/** Technical readiness: shown only when the NextData listing or validation results are in the inbox. */
+/** Technical readiness: shown only when platform files (validation results, NextData listing, GitHub extract) are in the inbox. */
 export function TechnicalReadiness({ scope = 'org' }: { scope?: string }) {
   const s = useSnapshot();
-  if (!reportingItem(s, 'validation', scope) && !reportingItem(s, 'nextdata', scope)) return null;
-  return <StatStrip scope={scope} ids={READINESS} title="Technical readiness" note="From the validation tool and NextData." />;
+  const present = READINESS_BY_SOURCE.filter(([kind]) => reportingItem(s, kind, scope));
+  if (present.length === 0) return null;
+  const names = present.map(([kind]) => SOURCE_NAME[kind]);
+  const note = `From ${names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}` : names[0]}.`;
+  return <StatStrip scope={scope} ids={present.flatMap(([, ids]) => ids)} title="Technical readiness" note={note} />;
 }

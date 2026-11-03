@@ -62,3 +62,17 @@ env_rank: [prod, nxd, demo, dev]
 
 # Words written in capitals when a display name is made from a technical name.
 acronyms: [hcp, hco, crm, erp, oci, iqvia, nxd, api, id, kpi, rx, kol, us, eu, ama, hpd, laad, medb, mmit, mg, vs]
+
+# GitHub (dp fetch-github writes inbox/github/). Repositories whose name contains repo_pattern are read.
+# GitHub's production_environment flag is not set on these repositories, so production is recognised by
+# environment name.
+github:
+  org: argenxDataAI
+  repo_pattern: '-dp-'
+  prod_environments: [iac-apply-p]
+  # The promotion path, in order, with the names the Delivery view shows. Other environments (such as the
+  # NextData dev cluster) count in the totals but are not a step of the path.
+  environments:
+    iac-apply-d: Dev
+    iac-apply-v: Validation
+    iac-apply-p: Production

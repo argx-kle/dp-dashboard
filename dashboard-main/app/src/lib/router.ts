@@ -8,6 +8,7 @@ export type Route =
   | { view: 'products'; params: URLSearchParams }
   | { view: 'product'; urn: string }
   | { view: 'definitions' }
+  | { view: 'delivery'; params: URLSearchParams }
   | { view: 'notfound'; path: string };
 
 export function parseHash(hash: string): Route {
@@ -17,6 +18,7 @@ export function parseHash(hash: string): Route {
   const params = new URLSearchParams(queryPart);
   if (path === '/') return { view: 'exec', params };
   if (path === '/definitions') return { view: 'definitions' };
+  if (path === '/delivery') return { view: 'delivery', params };
   if (path === '/products') return { view: 'products', params };
   const domain = path.match(/^\/domain\/([^/]+)$/);
   if (domain) return { view: 'domain', id: decodeURIComponent(domain[1]) };
@@ -53,4 +55,10 @@ export const href = {
   },
   product: (urn: string) => `#/products/${encodeURIComponent(urn)}`,
   definitions: () => '#/definitions',
+  delivery: (params: Record<string, string | undefined> = {}) => {
+    const q = new URLSearchParams();
+    for (const [k, v] of Object.entries(params)) if (v) q.set(k, v);
+    const s = q.toString();
+    return s ? `#/delivery?${s}` : '#/delivery';
+  },
 };

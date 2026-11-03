@@ -35,6 +35,7 @@ export const COVERAGE: Record<string, { label: string; of: string; missing: stri
   consumers: { label: 'First consumer dates', of: 'live products', missing: 'Live products without a first consumer date' },
   validation: { label: 'Validation score', of: 'active products', missing: 'Products without a validation score' },
   nextdata: { label: 'Found in NextData', of: 'active products', missing: 'Products not found in NextData' },
+  github: { label: 'GitHub repository', of: 'active products', missing: 'Products without a GitHub repository' },
 };
 
 export function domainById(s: Snapshot, id: string): DomainInfo | undefined {

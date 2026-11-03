@@ -9,16 +9,19 @@ import { C } from '@/lib/theme';
 const NAV = [
   { id: 'exec', label: 'Executive', href: href.exec() },
   { id: 'products', label: 'Products', href: href.products() },
+  { id: 'delivery', label: 'Delivery', href: href.delivery() },
   { id: 'definitions', label: 'Definitions', href: href.definitions() },
 ] as const;
 
 function current(route: Route): (typeof NAV)[number]['id'] {
   if (route.view === 'products' || route.view === 'product') return 'products';
   if (route.view === 'definitions') return 'definitions';
+  if (route.view === 'delivery') return 'delivery';
   return 'exec';
 }
 
 function NavTabs({ route }: { route: Route }) {
+  const s = useSnapshot();
   const active = current(route);
   const previous = useRef(active);
   const [sweep, setSweep] = useState<string | null>(null);
@@ -38,8 +41,8 @@ function NavTabs({ route }: { route: Route }) {
 
   return (
     <nav aria-label="Views" className="no-print">
-      <ul className="m-0 flex list-none items-center gap-1 p-0">
-        {NAV.map((item) => {
+      <ul className="m-0 flex list-none items-center gap-0.5 p-0 sm:gap-1">
+        {NAV.filter((item) => item.id !== 'delivery' || s.delivery).map((item) => {
           const on = item.id === active;
           return (
             <li key={item.id}>
@@ -61,7 +64,7 @@ function NavTabs({ route }: { route: Route }) {
                   href={item.href}
                   aria-current={on ? 'page' : undefined}
                   data-testid={`nav-${item.id}`}
-                  className={`relative block px-4 py-1.5 text-body font-medium no-underline transition-colors duration-150 ${on ? 'text-ink' : 'text-ink-3 hover:text-ink'}`}
+                  className={`relative block px-2.5 py-1.5 text-body sm:px-4 font-medium no-underline transition-colors duration-150 ${on ? 'text-ink' : 'text-ink-3 hover:text-ink'}`}
                 >
                   {item.label}
                 </a>

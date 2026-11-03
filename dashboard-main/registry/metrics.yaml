@@ -11,9 +11,9 @@
 #   min_n        medians show raw values when n is below this (optional)
 #   exec_tile    true for the headline metrics; everything else is domain view or hidden
 #   order        display order within its group
-#   source       register | self-reported | snowflake | nextdata | validation
+#   source       register | self-reported | snowflake | nextdata | validation | github
 #   fn           dotted path to the metric function
-#   coverage     the input the metric needs (gates | plans | reviewed | dpo | usage | consumers | validation | nextdata);
+#   coverage     the input the metric needs (gates | plans | reviewed | dpo | usage | consumers | validation | nextdata | github);
 #                the app shows how many products have it next to the number (pipeline/reporting.py)
 #
 # Adding a KPI: add an entry here, a function in pipeline/metrics/, a golden case.
@@ -126,7 +126,7 @@
 
 
 # ---------------------------------------------------------------------------
-# Technical readiness, from the platform sources (validation tool, NextData).
+# Technical readiness, from the platform sources (validation tool, NextData, GitHub).
 # Shown on the executive and domain views only when those sources are in the inbox.
 # ---------------------------------------------------------------------------
 - id: spec_score_median
@@ -154,3 +154,43 @@
   source: nextdata
   fn: pipeline.metrics.readiness.runtime_failing
   coverage: nextdata
+
+
+# From the GitHub extract (dp fetch-github). Production is the environment named in registry/platform.yaml
+# (github.prod_environments); a deployment's outcome is its latest success, failure or error status.
+- id: no_prod_deploy
+  label: Products never deployed to production
+  short_label: No prod deploy
+  definition: Active products whose GitHub repository has never deployed to production successfully. Counted over the active products that have a repository.
+  levels: [org, domain]
+  unit: count
+  exec_tile: false
+  order: 18
+  source: github
+  fn: pipeline.metrics.readiness.no_prod_deploy
+  coverage: github
+
+- id: prod_deploy_frequency
+  label: Median production deployments per shipping product (30 days)
+  short_label: Prod deploys / 30 days
+  definition: Median number of successful production deployments in the last 30 days, over active products whose GitHub repository has deployed to production at least once. A product with no production deployment in the period counts as 0.
+  levels: [org, domain]
+  unit: count
+  min_n: 3
+  exec_tile: false
+  order: 19
+  source: github
+  fn: pipeline.metrics.readiness.prod_deploy_frequency
+  coverage: github
+
+- id: deploy_failure_rate
+  label: Deployment failure rate (30 days)
+  short_label: Deploy failure rate
+  definition: Share of deployments in the last 30 days, in every environment, that ended in failure or error. Uses the repositories of active products; deployments still running are not counted. The products listed had at least one failure.
+  levels: [org, domain]
+  unit: share
+  exec_tile: false
+  order: 20
+  source: github
+  fn: pipeline.metrics.readiness.deploy_failure_rate
+  coverage: github

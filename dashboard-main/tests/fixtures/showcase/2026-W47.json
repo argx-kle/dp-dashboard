@@ -120,6 +120,13 @@
       "asOf": "<mtime>",
       "status": "ok",
       "rows": 107
+    },
+    {
+      "name": "GitHub",
+      "file": "github/repositories.csv",
+      "asOf": "<mtime>",
+      "status": "ok",
+      "rows": 60
     }
   ],
   "registry": {
@@ -268,6 +275,49 @@
         "execTile": false,
         "order": 17,
         "coverage": "nextdata"
+      },
+      {
+        "id": "no_prod_deploy",
+        "label": "Products never deployed to production",
+        "shortLabel": "No prod deploy",
+        "definition": "Active products whose GitHub repository has never deployed to production successfully. Counted over the active products that have a repository.",
+        "levels": [
+          "org",
+          "domain"
+        ],
+        "unit": "count",
+        "execTile": false,
+        "order": 18,
+        "coverage": "github"
+      },
+      {
+        "id": "prod_deploy_frequency",
+        "label": "Median production deployments per shipping product (30 days)",
+        "shortLabel": "Prod deploys / 30 days",
+        "definition": "Median number of successful production deployments in the last 30 days, over active products whose GitHub repository has deployed to production at least once. A product with no production deployment in the period counts as 0.",
+        "levels": [
+          "org",
+          "domain"
+        ],
+        "unit": "count",
+        "minN": 3,
+        "execTile": false,
+        "order": 19,
+        "coverage": "github"
+      },
+      {
+        "id": "deploy_failure_rate",
+        "label": "Deployment failure rate (30 days)",
+        "shortLabel": "Deploy failure rate",
+        "definition": "Share of deployments in the last 30 days, in every environment, that ended in failure or error. Uses the repositories of active products; deployments still running are not counted. The products listed had at least one failure.",
+        "levels": [
+          "org",
+          "domain"
+        ],
+        "unit": "share",
+        "execTile": false,
+        "order": 20,
+        "coverage": "github"
       }
     ],
     "flags": [
@@ -1848,6 +1898,500 @@
       "n": 0,
       "source": "nextdata",
       "urns": []
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "org",
+      "value": 21,
+      "n": 55,
+      "source": "github",
+      "urns": [
+        "pending:medical-education-reach",
+        "urn:dp:com:advisory-boards",
+        "urn:dp:com:channel-inventory",
+        "urn:dp:com:kol-network-graph",
+        "urn:dp:com:patient-sentiment",
+        "urn:dp:com:patient-universe",
+        "urn:dp:com:payer-performance",
+        "urn:dp:com:payer-policy-context",
+        "urn:dp:com:pharmacy-claims",
+        "urn:dp:com:rebate-accruals",
+        "urn:dp:com:rep-next-best-action",
+        "urn:dp:com:scientific-publications",
+        "urn:dp:com:speaker-programs",
+        "urn:dp:com:specialty-pharmacy-feed",
+        "urn:dp:ga:legal-matters",
+        "urn:dp:ga:travel-and-expense",
+        "urn:dp:rd:pharmacovigilance-signals",
+        "urn:dp:rd:study-budget-forecast",
+        "urn:dp:tq:inventory-positions",
+        "urn:dp:tq:maintenance-work-orders",
+        "urn:dp:tq:warehouse-temperature"
+      ]
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "patient",
+      "value": 2,
+      "n": 7,
+      "source": "github",
+      "urns": [
+        "urn:dp:com:patient-sentiment",
+        "urn:dp:com:patient-universe"
+      ]
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "hcp",
+      "value": 3,
+      "n": 10,
+      "source": "github",
+      "urns": [
+        "urn:dp:com:kol-network-graph",
+        "urn:dp:com:rep-next-best-action",
+        "urn:dp:com:speaker-programs"
+      ]
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "market-access",
+      "value": 3,
+      "n": 5,
+      "source": "github",
+      "urns": [
+        "urn:dp:com:payer-performance",
+        "urn:dp:com:payer-policy-context",
+        "urn:dp:com:pharmacy-claims"
+      ]
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "channel-partner",
+      "value": 2,
+      "n": 2,
+      "source": "github",
+      "urns": [
+        "urn:dp:com:channel-inventory",
+        "urn:dp:com:specialty-pharmacy-feed"
+      ]
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "revenue-vials",
+      "value": 1,
+      "n": 4,
+      "source": "github",
+      "urns": [
+        "urn:dp:com:rebate-accruals"
+      ]
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "medical-affairs",
+      "value": 3,
+      "n": 5,
+      "source": "github",
+      "urns": [
+        "pending:medical-education-reach",
+        "urn:dp:com:advisory-boards",
+        "urn:dp:com:scientific-publications"
+      ]
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "logistics",
+      "value": 0,
+      "n": 0,
+      "source": "github",
+      "urns": []
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "techops",
+      "value": 3,
+      "n": 11,
+      "source": "github",
+      "urns": [
+        "urn:dp:tq:inventory-positions",
+        "urn:dp:tq:maintenance-work-orders",
+        "urn:dp:tq:warehouse-temperature"
+      ]
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "r-and-d",
+      "value": 2,
+      "n": 6,
+      "source": "github",
+      "urns": [
+        "urn:dp:rd:pharmacovigilance-signals",
+        "urn:dp:rd:study-budget-forecast"
+      ]
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "g-and-a",
+      "value": 2,
+      "n": 5,
+      "source": "github",
+      "urns": [
+        "urn:dp:ga:legal-matters",
+        "urn:dp:ga:travel-and-expense"
+      ]
+    },
+    {
+      "id": "no_prod_deploy",
+      "scope": "unknown",
+      "value": 0,
+      "n": 0,
+      "source": "github",
+      "urns": []
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "org",
+      "value": 3,
+      "n": 34,
+      "source": "github",
+      "urns": [
+        "urn:dp:com:call-interaction",
+        "urn:dp:com:field-medical-insights",
+        "urn:dp:com:gross-to-net",
+        "urn:dp:com:hcp-hco-master",
+        "urn:dp:com:hcp-targeting",
+        "urn:dp:com:media-interaction",
+        "urn:dp:com:medical-claims",
+        "urn:dp:com:medical-inquiries",
+        "urn:dp:com:net-revenue-bridge",
+        "urn:dp:com:omnichannel-engagement",
+        "urn:dp:com:patient-journey-360",
+        "urn:dp:com:patient-master",
+        "urn:dp:com:patient-program-enrollment",
+        "urn:dp:com:patient-support-calls",
+        "urn:dp:com:patient-treatment-adherence",
+        "urn:dp:com:payer-master",
+        "urn:dp:com:survey-interaction",
+        "urn:dp:com:territory-and-alignment",
+        "urn:dp:com:vials-sold",
+        "urn:dp:ga:finance-close-tracker",
+        "urn:dp:ga:headcount-and-cost",
+        "urn:dp:ga:procurement-spend",
+        "urn:dp:rd:biomarker-discovery-feed",
+        "urn:dp:rd:clinical-trial-enrollment",
+        "urn:dp:rd:lab-results-harmonised",
+        "urn:dp:rd:site-performance",
+        "urn:dp:tq:batch-genealogy",
+        "urn:dp:tq:cold-chain-monitoring",
+        "urn:dp:tq:deviation-and-capa",
+        "urn:dp:tq:equipment-calibration",
+        "urn:dp:tq:lot-release-cycle-time",
+        "urn:dp:tq:plant-capacity",
+        "urn:dp:tq:serialization-events",
+        "urn:dp:tq:supplier-quality-scorecard"
+      ]
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "patient",
+      "value": 3,
+      "n": 5,
+      "source": "github",
+      "urns": [
+        "urn:dp:com:patient-journey-360",
+        "urn:dp:com:patient-master",
+        "urn:dp:com:patient-program-enrollment",
+        "urn:dp:com:patient-support-calls",
+        "urn:dp:com:patient-treatment-adherence"
+      ]
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "hcp",
+      "value": 3,
+      "n": 7,
+      "source": "github",
+      "urns": [
+        "urn:dp:com:call-interaction",
+        "urn:dp:com:hcp-hco-master",
+        "urn:dp:com:hcp-targeting",
+        "urn:dp:com:media-interaction",
+        "urn:dp:com:omnichannel-engagement",
+        "urn:dp:com:survey-interaction",
+        "urn:dp:com:territory-and-alignment"
+      ]
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "market-access",
+      "value": 3,
+      "n": 2,
+      "values": [
+        3,
+        3
+      ],
+      "source": "github",
+      "urns": [
+        "urn:dp:com:medical-claims",
+        "urn:dp:com:payer-master"
+      ]
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "channel-partner",
+      "n": 0,
+      "source": "github",
+      "reason": "No product's repository has deployed to production",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "revenue-vials",
+      "value": 3,
+      "n": 3,
+      "source": "github",
+      "urns": [
+        "urn:dp:com:gross-to-net",
+        "urn:dp:com:net-revenue-bridge",
+        "urn:dp:com:vials-sold"
+      ]
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "medical-affairs",
+      "value": 3,
+      "n": 2,
+      "values": [
+        3,
+        3
+      ],
+      "source": "github",
+      "urns": [
+        "urn:dp:com:field-medical-insights",
+        "urn:dp:com:medical-inquiries"
+      ]
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "logistics",
+      "n": 0,
+      "source": "github",
+      "reason": "No product's repository has deployed to production",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "techops",
+      "value": 3,
+      "n": 8,
+      "source": "github",
+      "urns": [
+        "urn:dp:tq:batch-genealogy",
+        "urn:dp:tq:cold-chain-monitoring",
+        "urn:dp:tq:deviation-and-capa",
+        "urn:dp:tq:equipment-calibration",
+        "urn:dp:tq:lot-release-cycle-time",
+        "urn:dp:tq:plant-capacity",
+        "urn:dp:tq:serialization-events",
+        "urn:dp:tq:supplier-quality-scorecard"
+      ]
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "r-and-d",
+      "value": 3,
+      "n": 4,
+      "source": "github",
+      "urns": [
+        "urn:dp:rd:biomarker-discovery-feed",
+        "urn:dp:rd:clinical-trial-enrollment",
+        "urn:dp:rd:lab-results-harmonised",
+        "urn:dp:rd:site-performance"
+      ]
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "g-and-a",
+      "value": 3,
+      "n": 3,
+      "source": "github",
+      "urns": [
+        "urn:dp:ga:finance-close-tracker",
+        "urn:dp:ga:headcount-and-cost",
+        "urn:dp:ga:procurement-spend"
+      ]
+    },
+    {
+      "id": "prod_deploy_frequency",
+      "scope": "unknown",
+      "n": 0,
+      "source": "github",
+      "reason": "No product's repository has deployed to production",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "org",
+      "value": 0.0528,
+      "n": 625,
+      "source": "github",
+      "urns": [
+        "urn:dp:com:advisory-boards",
+        "urn:dp:com:channel-inventory",
+        "urn:dp:com:hcp-hco-master",
+        "urn:dp:com:hcp-targeting",
+        "urn:dp:com:kol-network-graph",
+        "urn:dp:com:net-revenue-bridge",
+        "urn:dp:com:patient-journey-360",
+        "urn:dp:com:patient-sentiment",
+        "urn:dp:com:patient-treatment-adherence",
+        "urn:dp:com:payer-master",
+        "urn:dp:com:pharmacy-claims",
+        "urn:dp:com:rebate-accruals",
+        "urn:dp:com:rep-next-best-action",
+        "urn:dp:com:scientific-publications",
+        "urn:dp:com:specialty-pharmacy-feed",
+        "urn:dp:com:territory-and-alignment",
+        "urn:dp:com:vials-sold",
+        "urn:dp:ga:finance-close-tracker",
+        "urn:dp:rd:pharmacovigilance-signals",
+        "urn:dp:rd:study-budget-forecast",
+        "urn:dp:tq:cold-chain-monitoring",
+        "urn:dp:tq:deviation-and-capa",
+        "urn:dp:tq:inventory-positions",
+        "urn:dp:tq:plant-capacity",
+        "urn:dp:tq:serialization-events",
+        "urn:dp:tq:supplier-quality-scorecard",
+        "urn:dp:tq:warehouse-temperature"
+      ]
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "patient",
+      "value": 0.0375,
+      "n": 80,
+      "source": "github",
+      "urns": [
+        "urn:dp:com:patient-journey-360",
+        "urn:dp:com:patient-sentiment",
+        "urn:dp:com:patient-treatment-adherence"
+      ]
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "hcp",
+      "value": 0.0439,
+      "n": 114,
+      "source": "github",
+      "urns": [
+        "urn:dp:com:hcp-hco-master",
+        "urn:dp:com:hcp-targeting",
+        "urn:dp:com:kol-network-graph",
+        "urn:dp:com:rep-next-best-action",
+        "urn:dp:com:territory-and-alignment"
+      ]
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "market-access",
+      "value": 0.0385,
+      "n": 52,
+      "source": "github",
+      "urns": [
+        "urn:dp:com:payer-master",
+        "urn:dp:com:pharmacy-claims"
+      ]
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "channel-partner",
+      "value": 0.2105,
+      "n": 19,
+      "source": "github",
+      "urns": [
+        "urn:dp:com:channel-inventory",
+        "urn:dp:com:specialty-pharmacy-feed"
+      ]
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "revenue-vials",
+      "value": 0.08,
+      "n": 50,
+      "source": "github",
+      "urns": [
+        "urn:dp:com:net-revenue-bridge",
+        "urn:dp:com:rebate-accruals",
+        "urn:dp:com:vials-sold"
+      ]
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "medical-affairs",
+      "value": 0.0385,
+      "n": 52,
+      "source": "github",
+      "urns": [
+        "urn:dp:com:advisory-boards",
+        "urn:dp:com:scientific-publications"
+      ]
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "logistics",
+      "n": 0,
+      "source": "github",
+      "reason": "No deployments in the last 30 days",
+      "urns": [],
+      "value": null
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "techops",
+      "value": 0.0687,
+      "n": 131,
+      "source": "github",
+      "urns": [
+        "urn:dp:tq:cold-chain-monitoring",
+        "urn:dp:tq:deviation-and-capa",
+        "urn:dp:tq:inventory-positions",
+        "urn:dp:tq:plant-capacity",
+        "urn:dp:tq:serialization-events",
+        "urn:dp:tq:supplier-quality-scorecard",
+        "urn:dp:tq:warehouse-temperature"
+      ]
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "r-and-d",
+      "value": 0.0385,
+      "n": 78,
+      "source": "github",
+      "urns": [
+        "urn:dp:rd:pharmacovigilance-signals",
+        "urn:dp:rd:study-budget-forecast"
+      ]
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "g-and-a",
+      "value": 0.0204,
+      "n": 49,
+      "source": "github",
+      "urns": [
+        "urn:dp:ga:finance-close-tracker"
+      ]
+    },
+    {
+      "id": "deploy_failure_rate",
+      "scope": "unknown",
+      "n": 0,
+      "source": "github",
+      "reason": "No deployments in the last 30 days",
+      "urns": [],
+      "value": null
     }
   ],
   "products": [
@@ -2003,6 +2547,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-patient-dp-patient_journey_360",
+        "url": "https://github.example/example-org/edp-patient-dp-patient_journey_360",
+        "lastProdDeploy": "2026-11-12",
+        "prodDeploys30d": 3,
+        "deploys30d": 15,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-20"
     },
@@ -2144,6 +2696,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-patient-dp-patient_master",
+        "url": "https://github.example/example-org/edp-patient-dp-patient_master",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys30d": 3,
+        "deploys30d": 12,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-19"
     },
@@ -2284,6 +2844,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-patient-dp-patient_program_enrollment",
+        "url": "https://github.example/example-org/edp-patient-dp-patient_program_enrollment",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys30d": 3,
+        "deploys30d": 11,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-18"
     },
@@ -2379,6 +2947,13 @@
         "runtime": "Not deployed",
         "team": "Patient team",
         "deployments": []
+      },
+      "github": {
+        "repo": "edp-patient-dp-patient_sentiment",
+        "url": "https://github.example/example-org/edp-patient-dp-patient_sentiment",
+        "prodDeploys30d": 0,
+        "deploys30d": 4,
+        "failed30d": 1
       },
       "flags": [],
       "reviewedOn": "2026-11-20"
@@ -2518,6 +3093,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-patient-dp-patient_support_calls",
+        "url": "https://github.example/example-org/edp-patient-dp-patient_support_calls",
+        "lastProdDeploy": "2026-11-13",
+        "prodDeploys30d": 3,
+        "deploys30d": 12,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-16"
     },
@@ -2657,6 +3240,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-patient-dp-patient_treatment_adherence",
+        "url": "https://github.example/example-org/edp-patient-dp-patient_treatment_adherence",
+        "lastProdDeploy": "2026-11-15",
+        "prodDeploys30d": 4,
+        "deploys30d": 16,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-17"
     },
@@ -2778,6 +3369,13 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-patient-dp-patient_universe",
+        "url": "https://github.example/example-org/edp-patient-dp-patient_universe",
+        "prodDeploys30d": 0,
+        "deploys30d": 10,
+        "failed30d": 0
+      },
       "flags": [],
       "dpoComment": "Certification evidence pack in review.",
       "reviewedOn": "2026-11-15"
@@ -2919,6 +3517,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-hcp-dp-call_interaction",
+        "url": "https://github.example/example-org/edp-hcp-dp-call_interaction",
+        "lastProdDeploy": "2026-11-13",
+        "prodDeploys30d": 3,
+        "deploys30d": 13,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-17"
     },
@@ -3061,6 +3667,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-hcp-dp-hcp_hco_master",
+        "url": "https://github.example/example-org/edp-hcp-dp-hcp_hco_master",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys30d": 3,
+        "deploys30d": 11,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-18"
     },
@@ -3200,6 +3814,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-hcp-dp-hcp_targeting",
+        "url": "https://github.example/example-org/edp-hcp-dp-hcp_targeting",
+        "lastProdDeploy": "2026-11-11",
+        "prodDeploys30d": 2,
+        "deploys30d": 9,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-15"
     },
@@ -3314,6 +3936,13 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-hcp-dp-kol_network_graph",
+        "url": "https://github.example/example-org/edp-hcp-dp-kol_network_graph",
+        "prodDeploys30d": 0,
+        "deploys30d": 15,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-16"
     },
@@ -3453,6 +4082,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-hcp-dp-media_interaction",
+        "url": "https://github.example/example-org/edp-hcp-dp-media_interaction",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys30d": 4,
+        "deploys30d": 16,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-20"
     },
@@ -3591,6 +4228,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-hcp-dp-omnichannel_engagement",
+        "url": "https://github.example/example-org/edp-hcp-dp-omnichannel_engagement",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys30d": 3,
+        "deploys30d": 11,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-18"
     },
@@ -3711,6 +4356,13 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-hcp-dp-rep_next_best_action",
+        "url": "https://github.example/example-org/edp-hcp-dp-rep_next_best_action",
+        "prodDeploys30d": 0,
+        "deploys30d": 12,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-17"
     },
@@ -3804,6 +4456,13 @@
         "names": [],
         "runtime": "Not deployed",
         "deployments": []
+      },
+      "github": {
+        "repo": "edp-hcp-dp-speaker_programs",
+        "url": "https://github.example/example-org/edp-hcp-dp-speaker_programs",
+        "prodDeploys30d": 0,
+        "deploys30d": 3,
+        "failed30d": 0
       },
       "flags": [
         {
@@ -3947,6 +4606,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-hcp-dp-survey_interaction",
+        "url": "https://github.example/example-org/edp-hcp-dp-survey_interaction",
+        "lastProdDeploy": "2026-11-12",
+        "prodDeploys30d": 3,
+        "deploys30d": 12,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-19"
     },
@@ -4084,6 +4751,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-hcp-dp-territory_and_alignment",
+        "url": "https://github.example/example-org/edp-hcp-dp-territory_and_alignment",
+        "lastProdDeploy": "2026-11-19",
+        "prodDeploys30d": 3,
+        "deploys30d": 12,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-16"
     },
@@ -4224,6 +4899,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-claims-dp-medical_claims",
+        "url": "https://github.example/example-org/edp-claims-dp-medical_claims",
+        "lastProdDeploy": "2026-11-13",
+        "prodDeploys30d": 3,
+        "deploys30d": 12,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-19"
     },
@@ -4362,6 +5045,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-claims-dp-payer_master",
+        "url": "https://github.example/example-org/edp-claims-dp-payer_master",
+        "lastProdDeploy": "2026-11-14",
+        "prodDeploys30d": 3,
+        "deploys30d": 13,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-20"
     },
@@ -4485,6 +5176,13 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-claims-dp-payer_performance",
+        "url": "https://github.example/example-org/edp-claims-dp-payer_performance",
+        "prodDeploys30d": 0,
+        "deploys30d": 14,
+        "failed30d": 0
+      },
       "flags": [
         {
           "code": "OVERDUE",
@@ -4585,6 +5283,13 @@
         "names": [],
         "runtime": "Not deployed",
         "deployments": []
+      },
+      "github": {
+        "repo": "edp-claims-dp-payer_policy_context",
+        "url": "https://github.example/example-org/edp-claims-dp-payer_policy_context",
+        "prodDeploys30d": 0,
+        "deploys30d": 3,
+        "failed30d": 0
       },
       "flags": [],
       "reviewedOn": "2026-11-16"
@@ -4701,6 +5406,13 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-claims-dp-pharmacy_claims",
+        "url": "https://github.example/example-org/edp-claims-dp-pharmacy_claims",
+        "prodDeploys30d": 0,
+        "deploys30d": 10,
+        "failed30d": 1
+      },
       "flags": [
         {
           "code": "SLIPPING",
@@ -4904,6 +5616,13 @@
         "runtime": "Not deployed",
         "deployments": []
       },
+      "github": {
+        "repo": "edp-ops-dp-channel_inventory",
+        "url": "https://github.example/example-org/edp-ops-dp-channel_inventory",
+        "prodDeploys30d": 0,
+        "deploys30d": 4,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-19"
     },
@@ -5018,6 +5737,13 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-ops-dp-specialty_pharmacy_feed",
+        "url": "https://github.example/example-org/edp-ops-dp-specialty_pharmacy_feed",
+        "prodDeploys30d": 0,
+        "deploys30d": 15,
+        "failed30d": 3
+      },
       "flags": [],
       "reviewedOn": "2026-11-20"
     },
@@ -5172,6 +5898,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-ops-dp-gross_to_net",
+        "url": "https://github.example/example-org/edp-ops-dp-gross_to_net",
+        "lastProdDeploy": "2026-11-11",
+        "prodDeploys30d": 2,
+        "deploys30d": 9,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-15"
     },
@@ -5298,6 +6032,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-ops-dp-legacy_sales_cube",
+        "url": "https://github.example/example-org/edp-ops-dp-legacy_sales_cube",
+        "lastProdDeploy": "2026-08-31",
+        "prodDeploys30d": 0,
+        "deploys30d": 0,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-16"
     },
@@ -5429,6 +6171,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-ops-dp-net_revenue_bridge",
+        "url": "https://github.example/example-org/edp-ops-dp-net_revenue_bridge",
+        "lastProdDeploy": "2026-11-15",
+        "prodDeploys30d": 4,
+        "deploys30d": 16,
+        "failed30d": 2
+      },
       "flags": [
         {
           "code": "UNUSED",
@@ -5550,6 +6300,13 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-ops-dp-rebate_accruals",
+        "url": "https://github.example/example-org/edp-ops-dp-rebate_accruals",
+        "prodDeploys30d": 0,
+        "deploys30d": 14,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-20"
     },
@@ -5688,6 +6445,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-ops-dp-vials_sold",
+        "url": "https://github.example/example-org/edp-ops-dp-vials_sold",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys30d": 3,
+        "deploys30d": 11,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-18"
     },
@@ -5802,6 +6567,13 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-medaff-dp-advisory_boards",
+        "url": "https://github.example/example-org/edp-medaff-dp-advisory_boards",
+        "prodDeploys30d": 0,
+        "deploys30d": 9,
+        "failed30d": 1
+      },
       "flags": [
         {
           "code": "NOT_UPDATED",
@@ -5944,6 +6716,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-medaff-dp-field_medical_insights",
+        "url": "https://github.example/example-org/edp-medaff-dp-field_medical_insights",
+        "lastProdDeploy": "2026-11-13",
+        "prodDeploys30d": 3,
+        "deploys30d": 13,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-17"
     },
@@ -6038,6 +6818,13 @@
         "names": [],
         "runtime": "Not deployed",
         "deployments": []
+      },
+      "github": {
+        "repo": "edp-medaff-dp-medical_education_reach",
+        "url": "https://github.example/example-org/edp-medaff-dp-medical_education_reach",
+        "prodDeploys30d": 0,
+        "deploys30d": 4,
+        "failed30d": 0
       },
       "flags": [
         {
@@ -6181,6 +6968,14 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-medaff-dp-medical_inquiries",
+        "url": "https://github.example/example-org/edp-medaff-dp-medical_inquiries",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys30d": 3,
+        "deploys30d": 11,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-18"
     },
@@ -6301,6 +7096,13 @@
         ]
       },
       "platformDomain": "EDP/COMMERCIAL",
+      "github": {
+        "repo": "edp-medaff-dp-scientific_publications",
+        "url": "https://github.example/example-org/edp-medaff-dp-scientific_publications",
+        "prodDeploys30d": 0,
+        "deploys30d": 15,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-16"
     },
@@ -6454,6 +7256,14 @@
         ]
       },
       "platformDomain": "EDP/TECHOPS",
+      "github": {
+        "repo": "edp-techops-dp-batch_genealogy",
+        "url": "https://github.example/example-org/edp-techops-dp-batch_genealogy",
+        "lastProdDeploy": "2026-11-16",
+        "prodDeploys30d": 5,
+        "deploys30d": 20,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-19"
     },
@@ -6591,6 +7401,14 @@
         ]
       },
       "platformDomain": "EDP/TECHOPS",
+      "github": {
+        "repo": "edp-techops-dp-cold_chain_monitoring",
+        "url": "https://github.example/example-org/edp-techops-dp-cold_chain_monitoring",
+        "lastProdDeploy": "2026-10-30",
+        "prodDeploys30d": 1,
+        "deploys30d": 9,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-15"
     },
@@ -6726,6 +7544,14 @@
         ]
       },
       "platformDomain": "EDP/TECHOPS",
+      "github": {
+        "repo": "edp-techops-dp-deviation_and_capa",
+        "url": "https://github.example/example-org/edp-techops-dp-deviation_and_capa",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys30d": 3,
+        "deploys30d": 11,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-18"
     },
@@ -6861,6 +7687,14 @@
         ]
       },
       "platformDomain": "EDP/TECHOPS",
+      "github": {
+        "repo": "edp-techops-dp-equipment_calibration",
+        "url": "https://github.example/example-org/edp-techops-dp-equipment_calibration",
+        "lastProdDeploy": "2026-11-19",
+        "prodDeploys30d": 3,
+        "deploys30d": 12,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-16"
     },
@@ -6975,6 +7809,13 @@
         ]
       },
       "platformDomain": "EDP/TECHOPS",
+      "github": {
+        "repo": "edp-techops-dp-inventory_positions",
+        "url": "https://github.example/example-org/edp-techops-dp-inventory_positions",
+        "prodDeploys30d": 0,
+        "deploys30d": 15,
+        "failed30d": 3
+      },
       "flags": [
         {
           "code": "OVERDUE",
@@ -7117,6 +7958,14 @@
         ]
       },
       "platformDomain": "EDP/TECHOPS",
+      "github": {
+        "repo": "edp-techops-dp-lot_release_cycle_time",
+        "url": "https://github.example/example-org/edp-techops-dp-lot_release_cycle_time",
+        "lastProdDeploy": "2026-11-12",
+        "prodDeploys30d": 3,
+        "deploys30d": 12,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-19"
     },
@@ -7210,6 +8059,13 @@
         "names": [],
         "runtime": "Not deployed",
         "deployments": []
+      },
+      "github": {
+        "repo": "edp-techops-dp-maintenance_work_orders",
+        "url": "https://github.example/example-org/edp-techops-dp-maintenance_work_orders",
+        "prodDeploys30d": 0,
+        "deploys30d": 3,
+        "failed30d": 0
       },
       "flags": [
         {
@@ -7351,6 +8207,14 @@
         ]
       },
       "platformDomain": "EDP/TECHOPS",
+      "github": {
+        "repo": "edp-techops-dp-plant_capacity",
+        "url": "https://github.example/example-org/edp-techops-dp-plant_capacity",
+        "lastProdDeploy": "2026-11-14",
+        "prodDeploys30d": 3,
+        "deploys30d": 13,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-20"
     },
@@ -7486,6 +8350,14 @@
         ]
       },
       "platformDomain": "EDP/TECHOPS",
+      "github": {
+        "repo": "edp-techops-dp-serialization_events",
+        "url": "https://github.example/example-org/edp-techops-dp-serialization_events",
+        "lastProdDeploy": "2026-11-08",
+        "prodDeploys30d": 1,
+        "deploys30d": 10,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-18"
     },
@@ -7621,6 +8493,14 @@
         ]
       },
       "platformDomain": "EDP/TECHOPS",
+      "github": {
+        "repo": "edp-techops-dp-supplier_quality_scorecard",
+        "url": "https://github.example/example-org/edp-techops-dp-supplier_quality_scorecard",
+        "lastProdDeploy": "2026-11-15",
+        "prodDeploys30d": 4,
+        "deploys30d": 16,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-17"
     },
@@ -7741,6 +8621,13 @@
         ]
       },
       "platformDomain": "EDP/TECHOPS",
+      "github": {
+        "repo": "edp-techops-dp-warehouse_temperature",
+        "url": "https://github.example/example-org/edp-techops-dp-warehouse_temperature",
+        "prodDeploys30d": 0,
+        "deploys30d": 10,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-17"
     },
@@ -7872,6 +8759,14 @@
         ]
       },
       "platformDomain": "EDP/RND",
+      "github": {
+        "repo": "edp-rnd-dp-biomarker_discovery_feed",
+        "url": "https://github.example/example-org/edp-rnd-dp-biomarker_discovery_feed",
+        "lastProdDeploy": "2026-11-15",
+        "prodDeploys30d": 3,
+        "deploys30d": 15,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-17"
     },
@@ -8009,6 +8904,14 @@
         ]
       },
       "platformDomain": "EDP/RND",
+      "github": {
+        "repo": "edp-rnd-dp-clinical_trial_enrollment",
+        "url": "https://github.example/example-org/edp-rnd-dp-clinical_trial_enrollment",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys30d": 4,
+        "deploys30d": 16,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-20"
     },
@@ -8144,6 +9047,14 @@
         ]
       },
       "platformDomain": "EDP/RND",
+      "github": {
+        "repo": "edp-rnd-dp-lab_results_harmonised",
+        "url": "https://github.example/example-org/edp-rnd-dp-lab_results_harmonised",
+        "lastProdDeploy": "2026-11-13",
+        "prodDeploys30d": 3,
+        "deploys30d": 12,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-19"
     },
@@ -8258,6 +9169,13 @@
         ]
       },
       "platformDomain": "EDP/RND",
+      "github": {
+        "repo": "edp-rnd-dp-pharmacovigilance_signals",
+        "url": "https://github.example/example-org/edp-rnd-dp-pharmacovigilance_signals",
+        "prodDeploys30d": 0,
+        "deploys30d": 10,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-15"
     },
@@ -8395,6 +9313,14 @@
         ]
       },
       "platformDomain": "EDP/RND",
+      "github": {
+        "repo": "edp-rnd-dp-site_performance",
+        "url": "https://github.example/example-org/edp-rnd-dp-site_performance",
+        "lastProdDeploy": "2026-11-08",
+        "prodDeploys30d": 2,
+        "deploys30d": 10,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-18"
     },
@@ -8515,6 +9441,13 @@
         ]
       },
       "platformDomain": "EDP/RND",
+      "github": {
+        "repo": "edp-rnd-dp-study_budget_forecast",
+        "url": "https://github.example/example-org/edp-rnd-dp-study_budget_forecast",
+        "prodDeploys30d": 0,
+        "deploys30d": 15,
+        "failed30d": 2
+      },
       "flags": [],
       "reviewedOn": "2026-11-16"
     },
@@ -8650,6 +9583,14 @@
         ]
       },
       "platformDomain": "EDP/GNA",
+      "github": {
+        "repo": "edp-gna-dp-finance_close_tracker",
+        "url": "https://github.example/example-org/edp-gna-dp-finance_close_tracker",
+        "lastProdDeploy": "2026-11-19",
+        "prodDeploys30d": 3,
+        "deploys30d": 12,
+        "failed30d": 1
+      },
       "flags": [],
       "reviewedOn": "2026-11-19"
     },
@@ -8785,6 +9726,14 @@
         ]
       },
       "platformDomain": "EDP/GNA",
+      "github": {
+        "repo": "edp-gna-dp-headcount_and_cost",
+        "url": "https://github.example/example-org/edp-gna-dp-headcount_and_cost",
+        "lastProdDeploy": "2026-11-14",
+        "prodDeploys30d": 3,
+        "deploys30d": 13,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-20"
     },
@@ -8879,6 +9828,13 @@
         "names": [],
         "runtime": "Not deployed",
         "deployments": []
+      },
+      "github": {
+        "repo": "edp-gna-dp-legal_matters",
+        "url": "https://github.example/example-org/edp-gna-dp-legal_matters",
+        "prodDeploys30d": 0,
+        "deploys30d": 3,
+        "failed30d": 0
       },
       "flags": [
         {
@@ -9020,6 +9976,14 @@
         ]
       },
       "platformDomain": "EDP/GNA",
+      "github": {
+        "repo": "edp-gna-dp-procurement_spend",
+        "url": "https://github.example/example-org/edp-gna-dp-procurement_spend",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys30d": 3,
+        "deploys30d": 11,
+        "failed30d": 0
+      },
       "flags": [],
       "reviewedOn": "2026-11-18"
     },
@@ -9140,6 +10104,13 @@
         ]
       },
       "platformDomain": "EDP/GNA",
+      "github": {
+        "repo": "edp-gna-dp-travel_and_expense",
+        "url": "https://github.example/example-org/edp-gna-dp-travel_and_expense",
+        "prodDeploys30d": 0,
+        "deploys30d": 10,
+        "failed30d": 0
+      },
       "flags": [
         {
           "code": "OVERDUE",
@@ -9511,6 +10482,18 @@
     },
     {
       "severity": "warning",
+      "rule": "GH_NOT_IN_REGISTER",
+      "message": "1 ops repository matches no product on the Products sheet (link or exclude in the crosswalk, source github): edp-ops-dp-vendor_returns",
+      "file": "github/repositories.csv"
+    },
+    {
+      "severity": "warning",
+      "rule": "GH_NOT_IN_REGISTER",
+      "message": "1 rnd repository matches no product on the Products sheet (link or exclude in the crosswalk, source github): edp-rnd-dp-genomics_raw",
+      "file": "github/repositories.csv"
+    },
+    {
+      "severity": "warning",
       "rule": "ND_STATUS",
       "message": "Live in the register, but NextData shows no running production deployment (Started in dev)",
       "urn": "urn:dp:tq:cold-chain-monitoring",
@@ -9665,6 +10648,17 @@
       ]
     },
     {
+      "kind": "github",
+      "scope": "org",
+      "have": 55,
+      "of": 58,
+      "missing": [
+        "urn:dp:com:caregiver-insights",
+        "urn:dp:com:demand-forecast",
+        "urn:dp:ga:workforce-planning"
+      ]
+    },
+    {
       "kind": "gates",
       "scope": "patient",
       "have": 7,
@@ -9732,6 +10726,15 @@
       ]
     },
     {
+      "kind": "github",
+      "scope": "patient",
+      "have": 7,
+      "of": 8,
+      "missing": [
+        "urn:dp:com:caregiver-insights"
+      ]
+    },
+    {
       "kind": "gates",
       "scope": "hcp",
       "have": 10,
@@ -9790,6 +10793,13 @@
       "missing": [
         "urn:dp:com:speaker-programs"
       ]
+    },
+    {
+      "kind": "github",
+      "scope": "hcp",
+      "have": 10,
+      "of": 10,
+      "missing": []
     },
     {
       "kind": "gates",
@@ -9850,6 +10860,13 @@
       ]
     },
     {
+      "kind": "github",
+      "scope": "market-access",
+      "have": 5,
+      "of": 5,
+      "missing": []
+    },
+    {
       "kind": "gates",
       "scope": "channel-partner",
       "have": 2,
@@ -9906,6 +10923,13 @@
       "missing": [
         "urn:dp:com:channel-inventory"
       ]
+    },
+    {
+      "kind": "github",
+      "scope": "channel-partner",
+      "have": 2,
+      "of": 2,
+      "missing": []
     },
     {
       "kind": "gates",
@@ -9976,6 +11000,15 @@
       ]
     },
     {
+      "kind": "github",
+      "scope": "revenue-vials",
+      "have": 4,
+      "of": 5,
+      "missing": [
+        "urn:dp:com:demand-forecast"
+      ]
+    },
+    {
       "kind": "gates",
       "scope": "medical-affairs",
       "have": 5,
@@ -10034,6 +11067,13 @@
       ]
     },
     {
+      "kind": "github",
+      "scope": "medical-affairs",
+      "have": 5,
+      "of": 5,
+      "missing": []
+    },
+    {
       "kind": "gates",
       "scope": "logistics",
       "have": 0,
@@ -10084,6 +11124,13 @@
     },
     {
       "kind": "nextdata",
+      "scope": "logistics",
+      "have": 0,
+      "of": 0,
+      "missing": []
+    },
+    {
+      "kind": "github",
       "scope": "logistics",
       "have": 0,
       "of": 0,
@@ -10150,6 +11197,13 @@
       ]
     },
     {
+      "kind": "github",
+      "scope": "techops",
+      "have": 11,
+      "of": 11,
+      "missing": []
+    },
+    {
       "kind": "gates",
       "scope": "r-and-d",
       "have": 6,
@@ -10202,6 +11256,13 @@
     },
     {
       "kind": "nextdata",
+      "scope": "r-and-d",
+      "have": 6,
+      "of": 6,
+      "missing": []
+    },
+    {
+      "kind": "github",
       "scope": "r-and-d",
       "have": 6,
       "of": 6,
@@ -10275,6 +11336,15 @@
       ]
     },
     {
+      "kind": "github",
+      "scope": "g-and-a",
+      "have": 5,
+      "of": 6,
+      "missing": [
+        "urn:dp:ga:workforce-planning"
+      ]
+    },
+    {
       "kind": "gates",
       "scope": "unknown",
       "have": 0,
@@ -10325,6 +11395,13 @@
     },
     {
       "kind": "nextdata",
+      "scope": "unknown",
+      "have": 0,
+      "of": 0,
+      "missing": []
+    },
+    {
+      "kind": "github",
       "scope": "unknown",
       "have": 0,
       "of": 0,
@@ -12688,6 +13765,330 @@
           "reason": "No NextData listing in the inbox",
           "urns": [],
           "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "org",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "patient",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "hcp",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "market-access",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "channel-partner",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "revenue-vials",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "medical-affairs",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "logistics",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "techops",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "r-and-d",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "g-and-a",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "unknown",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "org",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "patient",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "hcp",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "market-access",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "channel-partner",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "revenue-vials",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "medical-affairs",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "logistics",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "techops",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "r-and-d",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "g-and-a",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "unknown",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "org",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "patient",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "hcp",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "market-access",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "channel-partner",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "revenue-vials",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "medical-affairs",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "logistics",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "techops",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "r-and-d",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "g-and-a",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "unknown",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
         }
       ],
       "products": [
@@ -14193,6 +15594,330 @@
           "n": 0,
           "source": "nextdata",
           "reason": "No NextData listing in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "org",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "patient",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "hcp",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "market-access",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "channel-partner",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "revenue-vials",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "medical-affairs",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "logistics",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "techops",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "r-and-d",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "g-and-a",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "unknown",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "org",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "patient",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "hcp",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "market-access",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "channel-partner",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "revenue-vials",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "medical-affairs",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "logistics",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "techops",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "r-and-d",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "g-and-a",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "unknown",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "org",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "patient",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "hcp",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "market-access",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "channel-partner",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "revenue-vials",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "medical-affairs",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "logistics",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "techops",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "r-and-d",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "g-and-a",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "unknown",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
           "urns": [],
           "value": null
         }
@@ -16033,6 +17758,330 @@
           "reason": "No NextData listing in the inbox",
           "urns": [],
           "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "org",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "patient",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "hcp",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "market-access",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "channel-partner",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "revenue-vials",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "medical-affairs",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "logistics",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "techops",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "r-and-d",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "g-and-a",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "no_prod_deploy",
+          "scope": "unknown",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "org",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "patient",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "hcp",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "market-access",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "channel-partner",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "revenue-vials",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "medical-affairs",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "logistics",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "techops",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "r-and-d",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "g-and-a",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "prod_deploy_frequency",
+          "scope": "unknown",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "org",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "patient",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "hcp",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "market-access",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "channel-partner",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "revenue-vials",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "medical-affairs",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "logistics",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "techops",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "r-and-d",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "g-and-a",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
+        },
+        {
+          "id": "deploy_failure_rate",
+          "scope": "unknown",
+          "n": 0,
+          "source": "github",
+          "reason": "No GitHub extract in the inbox",
+          "urns": [],
+          "value": null
         }
       ],
       "products": [
@@ -16645,5 +18694,2687 @@
         }
       ]
     }
-  ]
+  ],
+  "delivery": {
+    "fetchedAt": "2026-11-20T06:00:00+00:00",
+    "org": "example-org",
+    "windowDays": 30,
+    "envs": [
+      {
+        "id": "iac-apply-d",
+        "label": "Dev",
+        "prod": false,
+        "path": true,
+        "repos": 58,
+        "deploys30d": 406,
+        "failed30d": 27
+      },
+      {
+        "id": "iac-apply-v",
+        "label": "Validation",
+        "prod": false,
+        "path": true,
+        "repos": 43,
+        "deploys30d": 139,
+        "failed30d": 7
+      },
+      {
+        "id": "iac-apply-p",
+        "label": "Production",
+        "prod": true,
+        "path": true,
+        "repos": 35,
+        "deploys30d": 104,
+        "failed30d": 2
+      }
+    ],
+    "totals": {
+      "repos": 58,
+      "active30d": 57,
+      "deploys30d": 649,
+      "failed30d": 36,
+      "prodAttempts30d": 104,
+      "prodFailed30d": 2,
+      "reachedProd": 35,
+      "notInRegister": 2,
+      "lastProdDeploy": "2026-11-20",
+      "lastProdRepo": "edp-techops-dp-deviation_and_capa"
+    },
+    "weekly": [
+      {
+        "week": "2026-W36",
+        "start": "2026-08-31",
+        "deploys": 144,
+        "failed": 8,
+        "prodSuccess": 17
+      },
+      {
+        "week": "2026-W37",
+        "start": "2026-09-07",
+        "deploys": 146,
+        "failed": 10,
+        "prodSuccess": 20
+      },
+      {
+        "week": "2026-W38",
+        "start": "2026-09-14",
+        "deploys": 133,
+        "failed": 10,
+        "prodSuccess": 16
+      },
+      {
+        "week": "2026-W39",
+        "start": "2026-09-21",
+        "deploys": 150,
+        "failed": 10,
+        "prodSuccess": 19
+      },
+      {
+        "week": "2026-W40",
+        "start": "2026-09-28",
+        "deploys": 145,
+        "failed": 7,
+        "prodSuccess": 22
+      },
+      {
+        "week": "2026-W41",
+        "start": "2026-10-05",
+        "deploys": 132,
+        "failed": 7,
+        "prodSuccess": 16
+      },
+      {
+        "week": "2026-W42",
+        "start": "2026-10-12",
+        "deploys": 147,
+        "failed": 11,
+        "prodSuccess": 22
+      },
+      {
+        "week": "2026-W43",
+        "start": "2026-10-19",
+        "deploys": 142,
+        "failed": 8,
+        "prodSuccess": 21
+      },
+      {
+        "week": "2026-W44",
+        "start": "2026-10-26",
+        "deploys": 153,
+        "failed": 9,
+        "prodSuccess": 28
+      },
+      {
+        "week": "2026-W45",
+        "start": "2026-11-02",
+        "deploys": 169,
+        "failed": 7,
+        "prodSuccess": 27
+      },
+      {
+        "week": "2026-W46",
+        "start": "2026-11-09",
+        "deploys": 153,
+        "failed": 7,
+        "prodSuccess": 24
+      },
+      {
+        "week": "2026-W47",
+        "start": "2026-11-16",
+        "deploys": 111,
+        "failed": 9,
+        "prodSuccess": 14
+      }
+    ],
+    "teams": [
+      {
+        "team": "techops",
+        "label": "techops",
+        "repos": 11,
+        "deploys30d": 131,
+        "failed30d": 9,
+        "reachedProd": 8
+      },
+      {
+        "team": "hcp",
+        "label": "HCP team",
+        "repos": 10,
+        "deploys30d": 114,
+        "failed30d": 5,
+        "reachedProd": 7
+      },
+      {
+        "team": "ops",
+        "label": "Source systems",
+        "repos": 8,
+        "deploys30d": 79,
+        "failed30d": 10,
+        "reachedProd": 4
+      },
+      {
+        "team": "patient",
+        "label": "Patient team",
+        "repos": 7,
+        "deploys30d": 80,
+        "failed30d": 3,
+        "reachedProd": 5
+      },
+      {
+        "team": "rnd",
+        "label": "rnd",
+        "repos": 7,
+        "deploys30d": 92,
+        "failed30d": 4,
+        "reachedProd": 4
+      },
+      {
+        "team": "claims",
+        "label": "Claims team",
+        "repos": 5,
+        "deploys30d": 52,
+        "failed30d": 2,
+        "reachedProd": 2
+      },
+      {
+        "team": "gna",
+        "label": "gna",
+        "repos": 5,
+        "deploys30d": 49,
+        "failed30d": 1,
+        "reachedProd": 3
+      },
+      {
+        "team": "medaff",
+        "label": "medaff",
+        "repos": 5,
+        "deploys30d": 52,
+        "failed30d": 2,
+        "reachedProd": 2
+      }
+    ],
+    "repos": [
+      {
+        "name": "edp-claims-dp-medical_claims",
+        "url": "https://github.example/example-org/edp-claims-dp-medical_claims",
+        "team": "claims",
+        "urn": "urn:dp:com:medical-claims",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-18",
+            "deploys30d": 6,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-13",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-13",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-18",
+        "lastProdDeploy": "2026-11-13",
+        "prodDeploys": 10,
+        "deploys30d": 12,
+        "failed30d": 0,
+        "weekly": [
+          3,
+          1,
+          4,
+          3,
+          4,
+          1,
+          3,
+          4,
+          1,
+          4,
+          3,
+          1
+        ]
+      },
+      {
+        "name": "edp-claims-dp-payer_master",
+        "url": "https://github.example/example-org/edp-claims-dp-payer_master",
+        "team": "claims",
+        "urn": "urn:dp:com:payer-master",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-18",
+            "deploys30d": 7,
+            "failed30d": 1
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-14",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-14",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-18",
+        "lastFailure": "2026-11-10",
+        "lastProdDeploy": "2026-11-14",
+        "prodDeploys": 14,
+        "deploys30d": 13,
+        "failed30d": 1,
+        "weekly": [
+          3,
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4,
+          4,
+          1
+        ]
+      },
+      {
+        "name": "edp-claims-dp-payer_performance",
+        "url": "https://github.example/example-org/edp-claims-dp-payer_performance",
+        "team": "claims",
+        "urn": "urn:dp:com:payer-performance",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-17",
+            "deploys30d": 9,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-17",
+            "deploys30d": 5,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastFailure": "2026-08-31",
+        "prodDeploys": 0,
+        "deploys30d": 14,
+        "failed30d": 0,
+        "weekly": [
+          5,
+          3,
+          3,
+          4,
+          3,
+          3,
+          5,
+          3,
+          3,
+          4,
+          3,
+          3
+        ]
+      },
+      {
+        "name": "edp-claims-dp-payer_policy_context",
+        "url": "https://github.example/example-org/edp-claims-dp-payer_policy_context",
+        "team": "claims",
+        "urn": "urn:dp:com:payer-policy-context",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-15",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-15",
+        "prodDeploys": 0,
+        "deploys30d": 3,
+        "failed30d": 0,
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          0
+        ]
+      },
+      {
+        "name": "edp-claims-dp-pharmacy_claims",
+        "url": "https://github.example/example-org/edp-claims-dp-pharmacy_claims",
+        "team": "claims",
+        "urn": "urn:dp:com:pharmacy-claims",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-18",
+            "deploys30d": 10,
+            "failed30d": 1
+          }
+        ],
+        "lastDeploy": "2026-11-18",
+        "lastFailure": "2026-11-03",
+        "prodDeploys": 0,
+        "deploys30d": 10,
+        "failed30d": 1,
+        "weekly": [
+          2,
+          3,
+          2,
+          2,
+          3,
+          2,
+          2,
+          3,
+          2,
+          2,
+          3,
+          1
+        ]
+      },
+      {
+        "name": "edp-gna-dp-finance_close_tracker",
+        "url": "https://github.example/example-org/edp-gna-dp-finance_close_tracker",
+        "team": "gna",
+        "urn": "urn:dp:ga:finance-close-tracker",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-19",
+            "deploys30d": 6,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-09",
+            "deploys30d": 3,
+            "failed30d": 1
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-19",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-19",
+        "lastFailure": "2026-11-19",
+        "lastProdDeploy": "2026-11-19",
+        "prodDeploys": 8,
+        "deploys30d": 12,
+        "failed30d": 1,
+        "weekly": [
+          3,
+          3,
+          4,
+          1,
+          3,
+          4,
+          1,
+          4,
+          3,
+          1,
+          4,
+          3
+        ]
+      },
+      {
+        "name": "edp-gna-dp-headcount_and_cost",
+        "url": "https://github.example/example-org/edp-gna-dp-headcount_and_cost",
+        "team": "gna",
+        "urn": "urn:dp:ga:headcount-and-cost",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-18",
+            "deploys30d": 7,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-14",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-14",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-18",
+        "lastFailure": "2026-09-19",
+        "lastProdDeploy": "2026-11-14",
+        "prodDeploys": 14,
+        "deploys30d": 13,
+        "failed30d": 0,
+        "weekly": [
+          3,
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4,
+          4,
+          1
+        ]
+      },
+      {
+        "name": "edp-gna-dp-legal_matters",
+        "url": "https://github.example/example-org/edp-gna-dp-legal_matters",
+        "team": "gna",
+        "urn": "urn:dp:ga:legal-matters",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-15",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-15",
+        "prodDeploys": 0,
+        "deploys30d": 3,
+        "failed30d": 0,
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          0
+        ]
+      },
+      {
+        "name": "edp-gna-dp-procurement_spend",
+        "url": "https://github.example/example-org/edp-gna-dp-procurement_spend",
+        "team": "gna",
+        "urn": "urn:dp:ga:procurement-spend",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 5,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys": 4,
+        "deploys30d": 11,
+        "failed30d": 0,
+        "weekly": [
+          1,
+          2,
+          1,
+          3,
+          2,
+          1,
+          3,
+          1,
+          3,
+          4,
+          1,
+          3
+        ]
+      },
+      {
+        "name": "edp-gna-dp-travel_and_expense",
+        "url": "https://github.example/example-org/edp-gna-dp-travel_and_expense",
+        "team": "gna",
+        "urn": "urn:dp:ga:travel-and-expense",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-17",
+            "deploys30d": 7,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-13",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-17",
+        "lastFailure": "2026-10-16",
+        "prodDeploys": 0,
+        "deploys30d": 10,
+        "failed30d": 0,
+        "weekly": [
+          3,
+          2,
+          3,
+          3,
+          3,
+          1,
+          3,
+          3,
+          3,
+          2,
+          3,
+          1
+        ]
+      },
+      {
+        "name": "edp-gov-dp-data_control_framework",
+        "url": "https://github.example/example-org/edp-gov-dp-data_control_framework",
+        "team": "gov",
+        "excluded": "Governance tooling, not a business data product",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-18",
+            "deploys30d": 7,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-14",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-14",
+            "deploys30d": 3,
+            "failed30d": 1
+          }
+        ],
+        "lastDeploy": "2026-11-18",
+        "lastFailure": "2026-11-06",
+        "lastProdDeploy": "2026-11-14",
+        "prodDeploys": 13,
+        "deploys30d": 13,
+        "failed30d": 1,
+        "weekly": [
+          3,
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4,
+          4,
+          1
+        ]
+      },
+      {
+        "name": "edp-hcp-dp-call_interaction",
+        "url": "https://github.example/example-org/edp-hcp-dp-call_interaction",
+        "team": "hcp",
+        "urn": "urn:dp:com:call-interaction",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-17",
+            "deploys30d": 7,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-13",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-13",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-17",
+        "lastFailure": "2026-10-12",
+        "lastProdDeploy": "2026-11-13",
+        "prodDeploys": 14,
+        "deploys30d": 13,
+        "failed30d": 0,
+        "weekly": [
+          4,
+          3,
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4,
+          1
+        ]
+      },
+      {
+        "name": "edp-hcp-dp-hcp_hco_master",
+        "url": "https://github.example/example-org/edp-hcp-dp-hcp_hco_master",
+        "team": "hcp",
+        "urn": "urn:dp:com:hcp-hco-master",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 5,
+            "failed30d": 1
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastFailure": "2026-10-27",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys": 10,
+        "deploys30d": 11,
+        "failed30d": 1,
+        "weekly": [
+          1,
+          3,
+          1,
+          4,
+          3,
+          1,
+          3,
+          1,
+          3,
+          4,
+          1,
+          3
+        ]
+      },
+      {
+        "name": "edp-hcp-dp-hcp_targeting",
+        "url": "https://github.example/example-org/edp-hcp-dp-hcp_targeting",
+        "team": "hcp",
+        "urn": "urn:dp:com:hcp-targeting",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-17",
+            "deploys30d": 5,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-11",
+            "deploys30d": 2,
+            "failed30d": 1
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-11",
+            "deploys30d": 2,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-17",
+        "lastFailure": "2026-10-30",
+        "lastProdDeploy": "2026-11-11",
+        "prodDeploys": 9,
+        "deploys30d": 9,
+        "failed30d": 1,
+        "weekly": [
+          4,
+          3,
+          1,
+          3,
+          1,
+          3,
+          4,
+          1,
+          3,
+          1,
+          3,
+          1
+        ]
+      },
+      {
+        "name": "edp-hcp-dp-kol_network_graph",
+        "url": "https://github.example/example-org/edp-hcp-dp-kol_network_graph",
+        "team": "hcp",
+        "urn": "urn:dp:com:kol-network-graph",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 15,
+            "failed30d": 1
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastFailure": "2026-10-31",
+        "prodDeploys": 0,
+        "deploys30d": 15,
+        "failed30d": 1,
+        "weekly": [
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          3
+        ]
+      },
+      {
+        "name": "edp-hcp-dp-media_interaction",
+        "url": "https://github.example/example-org/edp-hcp-dp-media_interaction",
+        "team": "hcp",
+        "urn": "urn:dp:com:media-interaction",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 8,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 4,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 4,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastFailure": "2026-10-11",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys": 11,
+        "deploys30d": 16,
+        "failed30d": 0,
+        "weekly": [
+          4,
+          4,
+          3,
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4
+        ]
+      },
+      {
+        "name": "edp-hcp-dp-omnichannel_engagement",
+        "url": "https://github.example/example-org/edp-hcp-dp-omnichannel_engagement",
+        "team": "hcp",
+        "urn": "urn:dp:com:omnichannel-engagement",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 5,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastFailure": "2026-08-22",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys": 3,
+        "deploys30d": 11,
+        "failed30d": 0,
+        "weekly": [
+          1,
+          2,
+          1,
+          3,
+          2,
+          1,
+          2,
+          1,
+          3,
+          4,
+          1,
+          3
+        ]
+      },
+      {
+        "name": "edp-hcp-dp-rep_next_best_action",
+        "url": "https://github.example/example-org/edp-hcp-dp-rep_next_best_action",
+        "team": "hcp",
+        "urn": "urn:dp:com:rep-next-best-action",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-19",
+            "deploys30d": 8,
+            "failed30d": 1
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-15",
+            "deploys30d": 4,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-19",
+        "lastFailure": "2026-11-11",
+        "prodDeploys": 0,
+        "deploys30d": 12,
+        "failed30d": 1,
+        "weekly": [
+          3,
+          3,
+          3,
+          1,
+          3,
+          3,
+          3,
+          2,
+          3,
+          3,
+          3,
+          1
+        ]
+      },
+      {
+        "name": "edp-hcp-dp-speaker_programs",
+        "url": "https://github.example/example-org/edp-hcp-dp-speaker_programs",
+        "team": "hcp",
+        "urn": "urn:dp:com:speaker-programs",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-16",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-16",
+        "prodDeploys": 0,
+        "deploys30d": 3,
+        "failed30d": 0,
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "edp-hcp-dp-survey_interaction",
+        "url": "https://github.example/example-org/edp-hcp-dp-survey_interaction",
+        "team": "hcp",
+        "urn": "urn:dp:com:survey-interaction",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-17",
+            "deploys30d": 6,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-12",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-12",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-17",
+        "lastFailure": "2026-07-30",
+        "lastProdDeploy": "2026-11-12",
+        "prodDeploys": 3,
+        "deploys30d": 12,
+        "failed30d": 0,
+        "weekly": [
+          2,
+          3,
+          1,
+          2,
+          3,
+          1,
+          3,
+          3,
+          1,
+          4,
+          3,
+          1
+        ]
+      },
+      {
+        "name": "edp-hcp-dp-territory_and_alignment",
+        "url": "https://github.example/example-org/edp-hcp-dp-territory_and_alignment",
+        "team": "hcp",
+        "urn": "urn:dp:com:territory-and-alignment",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-14",
+            "deploys30d": 6,
+            "failed30d": 1
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-19",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-19",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-19",
+        "lastFailure": "2026-11-19",
+        "lastProdDeploy": "2026-11-19",
+        "prodDeploys": 12,
+        "deploys30d": 12,
+        "failed30d": 1,
+        "weekly": [
+          4,
+          3,
+          4,
+          1,
+          3,
+          4,
+          1,
+          4,
+          3,
+          1,
+          4,
+          3
+        ]
+      },
+      {
+        "name": "edp-medaff-dp-advisory_boards",
+        "url": "https://github.example/example-org/edp-medaff-dp-advisory_boards",
+        "team": "medaff",
+        "urn": "urn:dp:com:advisory-boards",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-17",
+            "deploys30d": 9,
+            "failed30d": 1
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastFailure": "2026-10-30",
+        "prodDeploys": 0,
+        "deploys30d": 9,
+        "failed30d": 1,
+        "weekly": [
+          3,
+          2,
+          2,
+          3,
+          2,
+          2,
+          3,
+          2,
+          2,
+          3,
+          2,
+          2
+        ]
+      },
+      {
+        "name": "edp-medaff-dp-field_medical_insights",
+        "url": "https://github.example/example-org/edp-medaff-dp-field_medical_insights",
+        "team": "medaff",
+        "urn": "urn:dp:com:field-medical-insights",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-17",
+            "deploys30d": 7,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-13",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-13",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-17",
+        "lastProdDeploy": "2026-11-13",
+        "prodDeploys": 6,
+        "deploys30d": 13,
+        "failed30d": 0,
+        "weekly": [
+          3,
+          2,
+          3,
+          3,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4,
+          1
+        ]
+      },
+      {
+        "name": "edp-medaff-dp-medical_education_reach",
+        "url": "https://github.example/example-org/edp-medaff-dp-medical_education_reach",
+        "team": "medaff",
+        "urn": "pending:medical-education-reach",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-17",
+            "deploys30d": 4,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-17",
+        "prodDeploys": 0,
+        "deploys30d": 4,
+        "failed30d": 0,
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "edp-medaff-dp-medical_inquiries",
+        "url": "https://github.example/example-org/edp-medaff-dp-medical_inquiries",
+        "team": "medaff",
+        "urn": "urn:dp:com:medical-inquiries",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 5,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys": 10,
+        "deploys30d": 11,
+        "failed30d": 0,
+        "weekly": [
+          1,
+          3,
+          1,
+          4,
+          3,
+          1,
+          3,
+          1,
+          3,
+          4,
+          1,
+          3
+        ]
+      },
+      {
+        "name": "edp-medaff-dp-scientific_publications",
+        "url": "https://github.example/example-org/edp-medaff-dp-scientific_publications",
+        "team": "medaff",
+        "urn": "urn:dp:com:scientific-publications",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-16",
+            "deploys30d": 10,
+            "failed30d": 1
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-16",
+            "deploys30d": 5,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-19",
+        "lastFailure": "2026-11-19",
+        "prodDeploys": 0,
+        "deploys30d": 15,
+        "failed30d": 1,
+        "weekly": [
+          3,
+          3,
+          4,
+          3,
+          3,
+          5,
+          3,
+          3,
+          4,
+          3,
+          3,
+          3
+        ]
+      },
+      {
+        "name": "edp-ops-dp-channel_inventory",
+        "url": "https://github.example/example-org/edp-ops-dp-channel_inventory",
+        "team": "ops",
+        "urn": "urn:dp:com:channel-inventory",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-18",
+            "deploys30d": 4,
+            "failed30d": 1
+          }
+        ],
+        "lastDeploy": "2026-11-18",
+        "lastFailure": "2026-11-12",
+        "prodDeploys": 0,
+        "deploys30d": 4,
+        "failed30d": 1,
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "edp-ops-dp-gross_to_net",
+        "url": "https://github.example/example-org/edp-ops-dp-gross_to_net",
+        "team": "ops",
+        "urn": "urn:dp:com:gross-to-net",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-17",
+            "deploys30d": 5,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-11",
+            "deploys30d": 2,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-11",
+            "deploys30d": 2,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-17",
+        "lastFailure": "2026-10-12",
+        "lastProdDeploy": "2026-11-11",
+        "prodDeploys": 3,
+        "deploys30d": 9,
+        "failed30d": 0,
+        "weekly": [
+          3,
+          2,
+          1,
+          2,
+          1,
+          2,
+          4,
+          1,
+          3,
+          1,
+          3,
+          1
+        ]
+      },
+      {
+        "name": "edp-ops-dp-legacy_sales_cube",
+        "url": "https://github.example/example-org/edp-ops-dp-legacy_sales_cube",
+        "team": "ops",
+        "urn": "urn:dp:com:legacy-sales-cube",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-08-31",
+            "deploys30d": 0,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-08-31",
+            "deploys30d": 0,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-08-31",
+            "deploys30d": 0,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-08-31",
+        "lastFailure": "2026-08-10",
+        "lastProdDeploy": "2026-08-31",
+        "prodDeploys": 3,
+        "deploys30d": 0,
+        "failed30d": 0,
+        "weekly": [
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "edp-ops-dp-net_revenue_bridge",
+        "url": "https://github.example/example-org/edp-ops-dp-net_revenue_bridge",
+        "team": "ops",
+        "urn": "urn:dp:com:net-revenue-bridge",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-19",
+            "deploys30d": 8,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-07",
+            "deploys30d": 4,
+            "failed30d": 2
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-15",
+            "deploys30d": 4,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-19",
+        "lastFailure": "2026-11-15",
+        "lastProdDeploy": "2026-11-15",
+        "prodDeploys": 14,
+        "deploys30d": 16,
+        "failed30d": 2,
+        "weekly": [
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4,
+          4,
+          4,
+          1
+        ]
+      },
+      {
+        "name": "edp-ops-dp-rebate_accruals",
+        "url": "https://github.example/example-org/edp-ops-dp-rebate_accruals",
+        "team": "ops",
+        "urn": "urn:dp:com:rebate-accruals",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-18",
+            "deploys30d": 14,
+            "failed30d": 1
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastFailure": "2026-10-27",
+        "prodDeploys": 0,
+        "deploys30d": 14,
+        "failed30d": 1,
+        "weekly": [
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          3
+        ]
+      },
+      {
+        "name": "edp-ops-dp-sandbox_demo",
+        "url": "https://github.example/example-org/edp-ops-dp-sandbox_demo",
+        "team": "ops",
+        "excluded": "Sandbox or synthetic data",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-19",
+            "deploys30d": 10,
+            "failed30d": 2
+          }
+        ],
+        "lastDeploy": "2026-11-19",
+        "lastFailure": "2026-11-13",
+        "prodDeploys": 0,
+        "deploys30d": 10,
+        "failed30d": 2,
+        "weekly": [
+          2,
+          2,
+          3,
+          2,
+          2,
+          3,
+          2,
+          2,
+          3,
+          2,
+          2,
+          2
+        ]
+      },
+      {
+        "name": "edp-ops-dp-specialty_pharmacy_feed",
+        "url": "https://github.example/example-org/edp-ops-dp-specialty_pharmacy_feed",
+        "team": "ops",
+        "urn": "urn:dp:com:specialty-pharmacy-feed",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 15,
+            "failed30d": 3
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastFailure": "2026-11-18",
+        "prodDeploys": 0,
+        "deploys30d": 15,
+        "failed30d": 3,
+        "weekly": [
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          3
+        ]
+      },
+      {
+        "name": "edp-ops-dp-vendor_returns",
+        "url": "https://github.example/example-org/edp-ops-dp-vendor_returns",
+        "team": "ops",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-13",
+            "deploys30d": 7,
+            "failed30d": 2
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-13",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-17",
+        "lastFailure": "2026-11-17",
+        "prodDeploys": 0,
+        "deploys30d": 10,
+        "failed30d": 2,
+        "weekly": [
+          3,
+          2,
+          3,
+          3,
+          3,
+          1,
+          3,
+          3,
+          3,
+          2,
+          3,
+          1
+        ]
+      },
+      {
+        "name": "edp-ops-dp-vials_sold",
+        "url": "https://github.example/example-org/edp-ops-dp-vials_sold",
+        "team": "ops",
+        "urn": "urn:dp:com:vials-sold",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 5,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 3,
+            "failed30d": 1
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastFailure": "2026-11-08",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys": 10,
+        "deploys30d": 11,
+        "failed30d": 1,
+        "weekly": [
+          1,
+          3,
+          1,
+          4,
+          3,
+          1,
+          3,
+          1,
+          3,
+          4,
+          1,
+          3
+        ]
+      },
+      {
+        "name": "edp-patient-dp-patient_journey_360",
+        "url": "https://github.example/example-org/edp-patient-dp-patient_journey_360",
+        "team": "patient",
+        "urn": "urn:dp:com:patient-journey-360",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 8,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-12",
+            "deploys30d": 4,
+            "failed30d": 1
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-12",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastFailure": "2026-11-20",
+        "lastProdDeploy": "2026-11-12",
+        "prodDeploys": 13,
+        "deploys30d": 15,
+        "failed30d": 1,
+        "weekly": [
+          4,
+          4,
+          3,
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4
+        ]
+      },
+      {
+        "name": "edp-patient-dp-patient_master",
+        "url": "https://github.example/example-org/edp-patient-dp-patient_master",
+        "team": "patient",
+        "urn": "urn:dp:com:patient-master",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 6,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastFailure": "2026-10-16",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys": 11,
+        "deploys30d": 12,
+        "failed30d": 0,
+        "weekly": [
+          4,
+          3,
+          1,
+          4,
+          3,
+          4,
+          1,
+          3,
+          4,
+          1,
+          4,
+          3
+        ]
+      },
+      {
+        "name": "edp-patient-dp-patient_program_enrollment",
+        "url": "https://github.example/example-org/edp-patient-dp-patient_program_enrollment",
+        "team": "patient",
+        "urn": "urn:dp:com:patient-program-enrollment",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 5,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastFailure": "2026-10-21",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys": 10,
+        "deploys30d": 11,
+        "failed30d": 0,
+        "weekly": [
+          1,
+          3,
+          1,
+          4,
+          3,
+          1,
+          3,
+          1,
+          3,
+          4,
+          1,
+          3
+        ]
+      },
+      {
+        "name": "edp-patient-dp-patient_sentiment",
+        "url": "https://github.example/example-org/edp-patient-dp-patient_sentiment",
+        "team": "patient",
+        "urn": "urn:dp:com:patient-sentiment",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-17",
+            "deploys30d": 4,
+            "failed30d": 1
+          }
+        ],
+        "lastDeploy": "2026-11-17",
+        "lastFailure": "2026-11-05",
+        "prodDeploys": 0,
+        "deploys30d": 4,
+        "failed30d": 1,
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "edp-patient-dp-patient_support_calls",
+        "url": "https://github.example/example-org/edp-patient-dp-patient_support_calls",
+        "team": "patient",
+        "urn": "urn:dp:com:patient-support-calls",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-18",
+            "deploys30d": 6,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-13",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-13",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-18",
+        "lastProdDeploy": "2026-11-13",
+        "prodDeploys": 6,
+        "deploys30d": 12,
+        "failed30d": 0,
+        "weekly": [
+          2,
+          1,
+          3,
+          3,
+          4,
+          1,
+          3,
+          4,
+          1,
+          4,
+          3,
+          1
+        ]
+      },
+      {
+        "name": "edp-patient-dp-patient_treatment_adherence",
+        "url": "https://github.example/example-org/edp-patient-dp-patient_treatment_adherence",
+        "team": "patient",
+        "urn": "urn:dp:com:patient-treatment-adherence",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-19",
+            "deploys30d": 8,
+            "failed30d": 1
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-15",
+            "deploys30d": 4,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-15",
+            "deploys30d": 4,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-19",
+        "lastFailure": "2026-11-03",
+        "lastProdDeploy": "2026-11-15",
+        "prodDeploys": 14,
+        "deploys30d": 16,
+        "failed30d": 1,
+        "weekly": [
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4,
+          4,
+          4,
+          1
+        ]
+      },
+      {
+        "name": "edp-patient-dp-patient_universe",
+        "url": "https://github.example/example-org/edp-patient-dp-patient_universe",
+        "team": "patient",
+        "urn": "urn:dp:com:patient-universe",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-17",
+            "deploys30d": 7,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-13",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-17",
+        "lastFailure": "2026-09-02",
+        "prodDeploys": 0,
+        "deploys30d": 10,
+        "failed30d": 0,
+        "weekly": [
+          3,
+          2,
+          3,
+          3,
+          3,
+          1,
+          3,
+          3,
+          3,
+          2,
+          3,
+          1
+        ]
+      },
+      {
+        "name": "edp-rnd-dp-biomarker_discovery_feed",
+        "url": "https://github.example/example-org/edp-rnd-dp-biomarker_discovery_feed",
+        "team": "rnd",
+        "urn": "urn:dp:rd:biomarker-discovery-feed",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-19",
+            "deploys30d": 8,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-15",
+            "deploys30d": 4,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-15",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-19",
+        "lastFailure": "2026-09-20",
+        "lastProdDeploy": "2026-11-15",
+        "prodDeploys": 3,
+        "deploys30d": 15,
+        "failed30d": 0,
+        "weekly": [
+          3,
+          3,
+          3,
+          1,
+          3,
+          3,
+          3,
+          2,
+          4,
+          4,
+          4,
+          1
+        ]
+      },
+      {
+        "name": "edp-rnd-dp-clinical_trial_enrollment",
+        "url": "https://github.example/example-org/edp-rnd-dp-clinical_trial_enrollment",
+        "team": "rnd",
+        "urn": "urn:dp:rd:clinical-trial-enrollment",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 8,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 4,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 4,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys": 15,
+        "deploys30d": 16,
+        "failed30d": 0,
+        "weekly": [
+          4,
+          4,
+          3,
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4
+        ]
+      },
+      {
+        "name": "edp-rnd-dp-genomics_raw",
+        "url": "https://github.example/example-org/edp-rnd-dp-genomics_raw",
+        "team": "rnd",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-18",
+            "deploys30d": 14,
+            "failed30d": 1
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastFailure": "2026-11-10",
+        "prodDeploys": 0,
+        "deploys30d": 14,
+        "failed30d": 1,
+        "weekly": [
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          3
+        ]
+      },
+      {
+        "name": "edp-rnd-dp-lab_results_harmonised",
+        "url": "https://github.example/example-org/edp-rnd-dp-lab_results_harmonised",
+        "team": "rnd",
+        "urn": "urn:dp:rd:lab-results-harmonised",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-18",
+            "deploys30d": 6,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-13",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-13",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-18",
+        "lastProdDeploy": "2026-11-13",
+        "prodDeploys": 9,
+        "deploys30d": 12,
+        "failed30d": 0,
+        "weekly": [
+          3,
+          1,
+          4,
+          3,
+          4,
+          1,
+          3,
+          4,
+          1,
+          4,
+          3,
+          1
+        ]
+      },
+      {
+        "name": "edp-rnd-dp-pharmacovigilance_signals",
+        "url": "https://github.example/example-org/edp-rnd-dp-pharmacovigilance_signals",
+        "team": "rnd",
+        "urn": "urn:dp:rd:pharmacovigilance-signals",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 10,
+            "failed30d": 1
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastFailure": "2026-11-05",
+        "prodDeploys": 0,
+        "deploys30d": 10,
+        "failed30d": 1,
+        "weekly": [
+          3,
+          2,
+          2,
+          3,
+          2,
+          2,
+          3,
+          2,
+          2,
+          3,
+          2,
+          2
+        ]
+      },
+      {
+        "name": "edp-rnd-dp-site_performance",
+        "url": "https://github.example/example-org/edp-rnd-dp-site_performance",
+        "team": "rnd",
+        "urn": "urn:dp:rd:site-performance",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 5,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-08",
+            "deploys30d": 2,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastFailure": "2026-09-21",
+        "lastProdDeploy": "2026-11-08",
+        "prodDeploys": 4,
+        "deploys30d": 10,
+        "failed30d": 0,
+        "weekly": [
+          1,
+          2,
+          1,
+          3,
+          3,
+          1,
+          3,
+          1,
+          3,
+          4,
+          1,
+          3
+        ]
+      },
+      {
+        "name": "edp-rnd-dp-study_budget_forecast",
+        "url": "https://github.example/example-org/edp-rnd-dp-study_budget_forecast",
+        "team": "rnd",
+        "urn": "urn:dp:rd:study-budget-forecast",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-19",
+            "deploys30d": 10,
+            "failed30d": 2
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-16",
+            "deploys30d": 5,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-19",
+        "lastFailure": "2026-11-10",
+        "prodDeploys": 0,
+        "deploys30d": 15,
+        "failed30d": 2,
+        "weekly": [
+          3,
+          3,
+          4,
+          3,
+          3,
+          5,
+          3,
+          3,
+          4,
+          3,
+          3,
+          3
+        ]
+      },
+      {
+        "name": "edp-techops-dp-batch_genealogy",
+        "url": "https://github.example/example-org/edp-techops-dp-batch_genealogy",
+        "team": "techops",
+        "urn": "urn:dp:tq:batch-genealogy",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-19",
+            "deploys30d": 10,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-16",
+            "deploys30d": 5,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-16",
+            "deploys30d": 5,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-19",
+        "lastFailure": "2026-09-11",
+        "lastProdDeploy": "2026-11-16",
+        "prodDeploys": 19,
+        "deploys30d": 20,
+        "failed30d": 0,
+        "weekly": [
+          4,
+          4,
+          5,
+          4,
+          4,
+          7,
+          4,
+          4,
+          5,
+          4,
+          4,
+          4
+        ]
+      },
+      {
+        "name": "edp-techops-dp-cold_chain_monitoring",
+        "url": "https://github.example/example-org/edp-techops-dp-cold_chain_monitoring",
+        "team": "techops",
+        "urn": "urn:dp:tq:cold-chain-monitoring",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-17",
+            "deploys30d": 5,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-11",
+            "deploys30d": 2,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-10-30",
+            "deploys30d": 2,
+            "failed30d": 1
+          }
+        ],
+        "lastDeploy": "2026-11-17",
+        "lastFailure": "2026-11-11",
+        "lastProdDeploy": "2026-10-30",
+        "prodDeploys": 5,
+        "deploys30d": 9,
+        "failed30d": 1,
+        "weekly": [
+          3,
+          3,
+          1,
+          3,
+          1,
+          3,
+          4,
+          1,
+          3,
+          1,
+          3,
+          1
+        ]
+      },
+      {
+        "name": "edp-techops-dp-deviation_and_capa",
+        "url": "https://github.example/example-org/edp-techops-dp-deviation_and_capa",
+        "team": "techops",
+        "urn": "urn:dp:tq:deviation-and-capa",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-14",
+            "deploys30d": 5,
+            "failed30d": 1
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastFailure": "2026-11-20",
+        "lastProdDeploy": "2026-11-20",
+        "prodDeploys": 10,
+        "deploys30d": 11,
+        "failed30d": 1,
+        "weekly": [
+          1,
+          3,
+          1,
+          4,
+          3,
+          1,
+          3,
+          1,
+          3,
+          4,
+          1,
+          3
+        ]
+      },
+      {
+        "name": "edp-techops-dp-equipment_calibration",
+        "url": "https://github.example/example-org/edp-techops-dp-equipment_calibration",
+        "team": "techops",
+        "urn": "urn:dp:tq:equipment-calibration",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-19",
+            "deploys30d": 6,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-19",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-19",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-19",
+        "lastFailure": "2026-10-10",
+        "lastProdDeploy": "2026-11-19",
+        "prodDeploys": 9,
+        "deploys30d": 12,
+        "failed30d": 0,
+        "weekly": [
+          4,
+          3,
+          4,
+          1,
+          3,
+          4,
+          1,
+          4,
+          3,
+          1,
+          4,
+          3
+        ]
+      },
+      {
+        "name": "edp-techops-dp-inventory_positions",
+        "url": "https://github.example/example-org/edp-techops-dp-inventory_positions",
+        "team": "techops",
+        "urn": "urn:dp:tq:inventory-positions",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-18",
+            "deploys30d": 15,
+            "failed30d": 3
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastFailure": "2026-11-20",
+        "prodDeploys": 0,
+        "deploys30d": 15,
+        "failed30d": 3,
+        "weekly": [
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          4,
+          3,
+          3
+        ]
+      },
+      {
+        "name": "edp-techops-dp-lot_release_cycle_time",
+        "url": "https://github.example/example-org/edp-techops-dp-lot_release_cycle_time",
+        "team": "techops",
+        "urn": "urn:dp:tq:lot-release-cycle-time",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-17",
+            "deploys30d": 6,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-12",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-12",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-17",
+        "lastFailure": "2026-09-18",
+        "lastProdDeploy": "2026-11-12",
+        "prodDeploys": 3,
+        "deploys30d": 12,
+        "failed30d": 0,
+        "weekly": [
+          2,
+          3,
+          1,
+          2,
+          3,
+          1,
+          3,
+          3,
+          1,
+          4,
+          3,
+          1
+        ]
+      },
+      {
+        "name": "edp-techops-dp-maintenance_work_orders",
+        "url": "https://github.example/example-org/edp-techops-dp-maintenance_work_orders",
+        "team": "techops",
+        "urn": "urn:dp:tq:maintenance-work-orders",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-16",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-16",
+        "prodDeploys": 0,
+        "deploys30d": 3,
+        "failed30d": 0,
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "edp-techops-dp-plant_capacity",
+        "url": "https://github.example/example-org/edp-techops-dp-plant_capacity",
+        "team": "techops",
+        "urn": "urn:dp:tq:plant-capacity",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-18",
+            "deploys30d": 7,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-14",
+            "deploys30d": 3,
+            "failed30d": 1
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-14",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-18",
+        "lastFailure": "2026-10-29",
+        "lastProdDeploy": "2026-11-14",
+        "prodDeploys": 8,
+        "deploys30d": 13,
+        "failed30d": 1,
+        "weekly": [
+          2,
+          3,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4,
+          4,
+          1
+        ]
+      },
+      {
+        "name": "edp-techops-dp-serialization_events",
+        "url": "https://github.example/example-org/edp-techops-dp-serialization_events",
+        "team": "techops",
+        "urn": "urn:dp:tq:serialization-events",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 5,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-20",
+            "deploys30d": 3,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-08",
+            "deploys30d": 2,
+            "failed30d": 1
+          }
+        ],
+        "lastDeploy": "2026-11-20",
+        "lastFailure": "2026-11-20",
+        "lastProdDeploy": "2026-11-08",
+        "prodDeploys": 1,
+        "deploys30d": 10,
+        "failed30d": 1,
+        "weekly": [
+          1,
+          2,
+          1,
+          3,
+          2,
+          1,
+          2,
+          1,
+          2,
+          4,
+          1,
+          3
+        ]
+      },
+      {
+        "name": "edp-techops-dp-supplier_quality_scorecard",
+        "url": "https://github.example/example-org/edp-techops-dp-supplier_quality_scorecard",
+        "team": "techops",
+        "urn": "urn:dp:tq:supplier-quality-scorecard",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-19",
+            "deploys30d": 8,
+            "failed30d": 1
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-15",
+            "deploys30d": 4,
+            "failed30d": 0
+          },
+          {
+            "env": "iac-apply-p",
+            "lastSuccess": "2026-11-15",
+            "deploys30d": 4,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-19",
+        "lastFailure": "2026-10-30",
+        "lastProdDeploy": "2026-11-15",
+        "prodDeploys": 14,
+        "deploys30d": 16,
+        "failed30d": 1,
+        "weekly": [
+          4,
+          4,
+          4,
+          1,
+          4,
+          4,
+          4,
+          3,
+          4,
+          4,
+          4,
+          1
+        ]
+      },
+      {
+        "name": "edp-techops-dp-warehouse_temperature",
+        "url": "https://github.example/example-org/edp-techops-dp-warehouse_temperature",
+        "team": "techops",
+        "urn": "urn:dp:tq:warehouse-temperature",
+        "envs": [
+          {
+            "env": "iac-apply-d",
+            "lastSuccess": "2026-11-17",
+            "deploys30d": 7,
+            "failed30d": 1
+          },
+          {
+            "env": "iac-apply-v",
+            "lastSuccess": "2026-11-13",
+            "deploys30d": 3,
+            "failed30d": 0
+          }
+        ],
+        "lastDeploy": "2026-11-17",
+        "lastFailure": "2026-11-01",
+        "prodDeploys": 0,
+        "deploys30d": 10,
+        "failed30d": 1,
+        "weekly": [
+          3,
+          2,
+          3,
+          3,
+          3,
+          1,
+          3,
+          3,
+          3,
+          2,
+          3,
+          1
+        ]
+      }
+    ]
+  }
 }
