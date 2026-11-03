@@ -1,0 +1,15 @@
+repo_name,deployment_id,environment,production_environment,sha,created_at
+edp-ops-dp-crmsys,101,iac-apply-p,False,a1,2026-08-01T10:00:00Z
+edp-ops-dp-crmsys,102,iac-apply-p,False,a2,2026-09-25T10:00:00Z
+edp-ops-dp-crmsys,103,iac-apply-p,False,a3,2026-10-05T10:00:00Z
+edp-ops-dp-crmsys,104,iac-apply-d,False,a4,2026-10-01T10:00:00Z
+edp-ops-dp-crmsys,105,iac-apply-d,False,a5,2026-10-08T10:00:00Z
+edp-ops-dp-crmsys,106,iac-apply-p,False,a6,2026-10-12T10:00:00Z
+edp-ops-dp-crmsys,107,iac-apply-d,False,a7,2026-10-02T10:00:00Z
+edp-hcp-dp-hcp_master,201,iac-apply-d,False,b1,2026-10-06T10:00:00Z
+edp-hcp-dp-hcp_master,202,iac-apply-v,False,b2,2026-09-20T10:00:00Z
+edp-patient-dp-journey_insights,301,iac-apply-d,False,c1,2026-09-30T10:00:00Z
+edp-ops-dp-legacy_cube,401,iac-apply-p,False,d1,2026-07-01T10:00:00Z
+edp-patient-dp-crmsys,501,iac-apply-p,False,e1,2026-10-01T10:00:00Z
+edp-ops-dp-orphan_feed,601,iac-apply-p,False,f1,2026-10-01T10:00:00Z
+edp-nxd-dp-template,701,iac-apply-d,False,g1,2026-10-01T10:00:00Z

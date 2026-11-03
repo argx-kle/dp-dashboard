@@ -1,0 +1,196 @@
+# Metric registry. Every number on the dashboard comes from an entry here.
+#
+# Fields
+#   id           stable identifier, used in the snapshot and in URLs
+#   label        full label (definitions page)
+#   short_label  tile and table label
+#   definition   plain-language rule, approved at checkpoint H1
+#   levels       org and/or domain
+#   unit         count | days | share | people
+#   compare_to   target   (optional; the value is shown against the Targets sheet)
+#   min_n        medians show raw values when n is below this (optional)
+#   exec_tile    true for the headline metrics; everything else is domain view or hidden
+#   order        display order within its group
+#   source       register | self-reported | snowflake | nextdata | validation | github
+#   fn           dotted path to the metric function
+#   coverage     the input the metric needs (gates | plans | reviewed | dpo | usage | consumers | validation | nextdata | github);
+#                the app shows how many products have it next to the number (pipeline/reporting.py)
+#
+# Adding a KPI: add an entry here, a function in pipeline/metrics/, a golden case.
+
+# ---------------------------------------------------------------------------
+# Headline metrics (leadership set). exec_tile: true.
+# ---------------------------------------------------------------------------
+- id: certified_qtd
+  label: Certified this quarter
+  short_label: Certified QTD
+  definition: Products that pass G4 Certify for the first time in the current calendar quarter. A new certification after a G5 does not count.
+  levels: [org, domain]
+  unit: count
+  compare_to: target
+  exec_tile: true
+  order: 1
+  source: register
+  fn: pipeline.metrics.headline.certified_in_quarter
+  coverage: gates
+
+- id: cycle_time_g1_g4
+  label: Median time to production
+  short_label: Time to production
+  definition: Median number of days from G1 Intake to the first G4 Certify. It uses products certified in the last 182 days. A product with a later gate but no G1 is a blocker in the data-quality report.
+  levels: [org, domain]
+  unit: days
+  min_n: 3
+  exec_tile: true
+  order: 2
+  source: register
+  fn: pipeline.metrics.headline.cycle_time
+  coverage: gates
+
+- id: time_to_first_consumer
+  label: Median time to first consumer
+  short_label: Time to first consumer
+  definition: Median number of days from G1 Intake to the first consumer. It uses products with a first consumer in the last 182 days. The owners report this date.
+  levels: [org, domain]
+  unit: days
+  min_n: 3
+  exec_tile: true
+  order: 3
+  source: self-reported
+  fn: pipeline.metrics.headline.time_to_first_consumer
+  coverage: consumers
+
+- id: active_users_median
+  label: Median active users per live product
+  short_label: Active users (median)
+  definition: Median number of active users in the last 30 days, over live products. The dashboard does not add users across products. A live product without a usage number is not used, and the report shows a warning.
+  levels: [org, domain]
+  unit: people
+  min_n: 3
+  exec_tile: true
+  order: 4
+  source: self-reported
+  fn: pipeline.metrics.headline.active_users_median
+  coverage: usage
+
+# ---------------------------------------------------------------------------
+# Supporting counts behind the domain table, the rings and the Behind flag (not shown as a list).
+# ---------------------------------------------------------------------------
+- id: live_count
+  label: Live products
+  short_label: Live
+  definition: Products that are Live (also during a revision).
+  levels: [org, domain]
+  unit: count
+  exec_tile: false
+  order: 10
+  source: register
+  fn: pipeline.metrics.headline.live_count
+  coverage: gates
+
+- id: pipeline_count
+  label: Products in pipeline
+  short_label: In pipeline
+  definition: Products that are In design, In development or In testing.
+  levels: [org, domain]
+  unit: count
+  exec_tile: false
+  order: 11
+  source: register
+  fn: pipeline.metrics.headline.pipeline_count
+  coverage: gates
+
+- id: certified_unused
+  label: Certified but unused
+  short_label: Unused
+  definition: Live products certified 60 or more days ago, with zero active users and no product that uses them. A missing usage number gives a warning, not a flag.
+  levels: [org, domain]
+  unit: count
+  exec_tile: false
+  order: 12
+  source: self-reported
+  fn: pipeline.metrics.headline.certified_unused
+  coverage: usage
+
+- id: g4_forecast
+  label: Forecast to go live this quarter
+  short_label: Forecast
+  definition: Products not yet certified, with a planned go-live date from today to the end of the quarter, and a next gate that is not overdue.
+  levels: [org, domain]
+  unit: count
+  exec_tile: false
+  order: 13
+  source: register
+  fn: pipeline.metrics.headline.g4_forecast
+  coverage: plans
+
+
+# ---------------------------------------------------------------------------
+# Technical readiness, from the platform sources (validation tool, NextData, GitHub).
+# Shown on the executive and domain views only when those sources are in the inbox.
+# ---------------------------------------------------------------------------
+- id: spec_score_median
+  label: Median finish-spec score
+  short_label: Spec score
+  definition: Median finish-spec score from the validation tool, over active products that have a score. The score is the weighted part of the checks that pass. It shows how complete the specification is. It is not a launch approval.
+  levels: [org, domain]
+  unit: share
+  min_n: 3
+  exec_tile: false
+  order: 15
+  source: validation
+  fn: pipeline.metrics.readiness.spec_score_median
+  coverage: validation
+
+
+- id: runtime_failing
+  label: Products failing on the platform
+  short_label: Failing in NextData
+  definition: Active products in NextData that have no running deployment. All their deployments are Failed or Unreachable.
+  levels: [org, domain]
+  unit: count
+  exec_tile: false
+  order: 17
+  source: nextdata
+  fn: pipeline.metrics.readiness.runtime_failing
+  coverage: nextdata
+
+
+# From the GitHub extract (dp fetch-github). Production is the environment named in registry/platform.yaml
+# (github.prod_environments); a deployment's outcome is its latest success, failure or error status.
+- id: no_prod_deploy
+  label: Products never deployed to production
+  short_label: No prod deploy
+  definition: Active products whose GitHub repository has never deployed to production successfully. Counted over the active products that have a repository.
+  levels: [org, domain]
+  unit: count
+  exec_tile: false
+  order: 18
+  source: github
+  fn: pipeline.metrics.readiness.no_prod_deploy
+  coverage: github
+
+- id: prod_deploy_frequency
+  label: Median production deployments per shipping product (30 days)
+  short_label: Prod deploys / 30 days
+  definition: Median number of successful production deployments in the last 30 days, over active products whose GitHub repository has deployed to production at least once. A product with no production deployment in the period counts as 0.
+  levels: [org, domain]
+  unit: count
+  min_n: 3
+  exec_tile: false
+  order: 19
+  source: github
+  fn: pipeline.metrics.readiness.prod_deploy_frequency
+  coverage: github
+
+- id: deploy_failure_rate
+  label: Deployment failure rate (30 days)
+  short_label: Deploy failure rate
+  definition: Share of deployments in the last 30 days, in every environment, that ended in failure or error. Uses the repositories of active products; deployments still running are not counted. The products listed had at least one failure.
+  levels: [org, domain]
+  unit: share
+  exec_tile: false
+  order: 20
+  source: github
+  fn: pipeline.metrics.readiness.deploy_failure_rate
+  coverage: github
