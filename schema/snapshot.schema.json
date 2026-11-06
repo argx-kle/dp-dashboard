@@ -273,22 +273,37 @@
       "title": "GithubSummary",
       "type": "object",
       "additionalProperties": false,
-      "required": ["repo", "prodDeploys30d", "deploys30d", "failed30d"],
-      "description": "The product's GitHub repository and its deployments as of the as-of date. Added 2026-10-30.",
+      "required": ["repo", "prodDeploys30d", "deploys30d", "failed30d", "failingNow", "recent", "weekly"],
+      "description": "The product's GitHub repository and its deployments as of the as-of date. Added 2026-10-30; reached, failingNow, recent and weekly added 2026-11-03.",
       "properties": {
         "repo": { "type": "string", "description": "Repository name in the GitHub org" },
         "url": { "type": "string", "description": "Link to the repository" },
         "lastProdDeploy": { "type": "string", "format": "date", "description": "Last successful production deployment" },
         "prodDeploys30d": { "type": "integer", "minimum": 0, "description": "Successful production deployments in the last 30 days" },
         "deploys30d": { "type": "integer", "minimum": 0, "description": "Deployments with an outcome in the last 30 days, every environment" },
-        "failed30d": { "type": "integer", "minimum": 0, "description": "Of those, deployments that ended in failure or error" }
+        "failed30d": { "type": "integer", "minimum": 0, "description": "Of those, deployments that ended in failure or error" },
+        "reached": { "type": "string", "description": "Furthest environment of the promotion path with a successful deployment (a Delivery.envs id); absent when none succeeded" },
+        "failingNow": { "type": "array", "items": { "type": "string" }, "description": "Path environments whose latest deployment with an outcome failed" },
+        "recent": { "type": "array", "items": { "$ref": "#/definitions/GithubDeploy" }, "description": "The last 10 deployments up to the as-of date, newest first" },
+        "weekly": { "type": "array", "items": { "type": "integer", "minimum": 0 }, "description": "Deployments per week over the last 12 ISO weeks, oldest first" }
+      }
+    },
+    "GithubDeploy": {
+      "title": "GithubDeploy",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["env", "at", "outcome"],
+      "properties": {
+        "env": { "type": "string" },
+        "at": { "type": "string", "format": "date-time" },
+        "outcome": { "type": "string", "enum": ["success", "failure", "error", "pending"] }
       }
     },
     "Delivery": {
       "title": "Delivery",
       "type": "object",
       "additionalProperties": false,
-      "required": ["fetchedAt", "windowDays", "envs", "totals", "weekly", "teams", "repos"],
+      "required": ["fetchedAt", "windowDays", "envs", "totals", "weekly", "teams", "repos", "broken", "bypass"],
       "description": "The GitHub extract seen on the as-of date. Totals, environments and teams count the repositories that are counted (not tooling, template or test); repos lists every repository. Added 2026-11-02.",
       "properties": {
         "fetchedAt": { "type": "string", "format": "date-time", "description": "When dp fetch-github ran" },
@@ -298,7 +313,34 @@
         "totals": { "$ref": "#/definitions/DeliveryTotals" },
         "weekly": { "type": "array", "items": { "$ref": "#/definitions/DeliveryWeek" }, "description": "The last 12 ISO weeks up to the as-of date, oldest first" },
         "teams": { "type": "array", "items": { "$ref": "#/definitions/DeliveryTeam" } },
-        "repos": { "type": "array", "items": { "$ref": "#/definitions/DeliveryRepo" } }
+        "repos": { "type": "array", "items": { "$ref": "#/definitions/DeliveryRepo" } },
+        "broken": { "type": "array", "items": { "$ref": "#/definitions/DeliveryBroken" }, "description": "Counted repositories and path environments whose latest deployment failed, longest-failing first. Added 2026-11-03." },
+        "bypass": { "type": "array", "items": { "$ref": "#/definitions/DeliveryBypass" }, "description": "Successful production deployments in the window whose commit was never deployed to validation successfully before, newest first. Added 2026-11-03." }
+      }
+    },
+    "DeliveryBroken": {
+      "title": "DeliveryBroken",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repo", "env", "since"],
+      "properties": {
+        "repo": { "type": "string" },
+        "urn": { "type": "string" },
+        "env": { "type": "string" },
+        "since": { "type": "string", "format": "date", "description": "First failure after the last success" },
+        "lastSuccess": { "type": "string", "format": "date" }
+      }
+    },
+    "DeliveryBypass": {
+      "title": "DeliveryBypass",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repo", "sha", "at"],
+      "properties": {
+        "repo": { "type": "string" },
+        "urn": { "type": "string" },
+        "sha": { "type": "string", "description": "Commit, first 7 characters" },
+        "at": { "type": "string", "format": "date" }
       }
     },
     "DeliveryEnv": {
@@ -320,7 +362,7 @@
       "title": "DeliveryTotals",
       "type": "object",
       "additionalProperties": false,
-      "required": ["repos", "active30d", "deploys30d", "failed30d", "prodAttempts30d", "prodFailed30d", "reachedProd", "notInRegister"],
+      "required": ["repos", "active30d", "deploys30d", "failed30d", "prodAttempts30d", "prodFailed30d", "reachedProd", "notInRegister", "brokenNow", "pathEnvs", "bypass30d", "prodCommits30d", "onboarded"],
       "properties": {
         "repos": { "type": "integer", "minimum": 0, "description": "Counted repositories" },
         "active30d": { "type": "integer", "minimum": 0, "description": "Of those, with a deployment in the window" },
@@ -331,20 +373,27 @@
         "reachedProd": { "type": "integer", "minimum": 0, "description": "Counted repositories with at least one successful production deployment, ever" },
         "notInRegister": { "type": "integer", "minimum": 0, "description": "Counted repositories that match no register product" },
         "lastProdDeploy": { "type": "string", "format": "date" },
-        "lastProdRepo": { "type": "string" }
+        "lastProdRepo": { "type": "string" },
+        "brokenNow": { "type": "integer", "minimum": 0, "description": "Repository and path-environment pairs whose latest deployment failed" },
+        "pathEnvs": { "type": "integer", "minimum": 0, "description": "Repository and path-environment pairs with at least one deployment with an outcome" },
+        "bypass30d": { "type": "integer", "minimum": 0, "description": "Production commits in the window never deployed to validation successfully before" },
+        "prodCommits30d": { "type": "integer", "minimum": 0, "description": "Distinct commits deployed to production successfully in the window" },
+        "recoveryHours30d": { "type": "number", "minimum": 0, "description": "Median hours from a failed deployment in the window to the next successful one in the same repository and environment" },
+        "onboarded": { "type": "integer", "minimum": 0, "description": "Counted repositories with at least one deployment" }
       }
     },
     "DeliveryWeek": {
       "title": "DeliveryWeek",
       "type": "object",
       "additionalProperties": false,
-      "required": ["week", "start", "deploys", "failed", "prodSuccess"],
+      "required": ["week", "start", "deploys", "failed", "prodSuccess", "firstDeploys"],
       "properties": {
         "week": { "type": "string", "pattern": "^[0-9]{4}-W[0-9]{2}$" },
         "start": { "type": "string", "format": "date", "description": "Monday of the week" },
         "deploys": { "type": "integer", "minimum": 0, "description": "Deployments started in the week, counted repositories, every environment" },
         "failed": { "type": "integer", "minimum": 0 },
-        "prodSuccess": { "type": "integer", "minimum": 0 }
+        "prodSuccess": { "type": "integer", "minimum": 0 },
+        "firstDeploys": { "type": "integer", "minimum": 0, "description": "Counted repositories whose first deployment falls in the week" }
       }
     },
     "DeliveryTeam": {
@@ -377,7 +426,7 @@
       "title": "DeliveryRepo",
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "envs", "prodDeploys", "deploys30d", "failed30d", "weekly"],
+      "required": ["name", "envs", "prodDeploys", "deploys30d", "failed30d", "weekly", "failingNow"],
       "properties": {
         "name": { "type": "string" },
         "url": { "type": "string" },
@@ -391,7 +440,9 @@
         "prodDeploys": { "type": "integer", "minimum": 0, "description": "Successful production deployments, ever" },
         "deploys30d": { "type": "integer", "minimum": 0 },
         "failed30d": { "type": "integer", "minimum": 0 },
-        "weekly": { "type": "array", "items": { "type": "integer", "minimum": 0 }, "description": "Deployments per week, aligned with Delivery.weekly" }
+        "weekly": { "type": "array", "items": { "type": "integer", "minimum": 0 }, "description": "Deployments per week, aligned with Delivery.weekly" },
+        "reached": { "type": "string", "description": "Furthest environment of the promotion path with a successful deployment" },
+        "failingNow": { "type": "array", "items": { "type": "string" }, "description": "Path environments whose latest deployment with an outcome failed" }
       }
     },
     "ReportingItem": {

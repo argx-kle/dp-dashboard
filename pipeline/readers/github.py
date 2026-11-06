@@ -26,6 +26,7 @@ class GhDeployment:
     env: str
     created_at: datetime
     outcome: str  # success | failure | error | pending
+    sha: str = ""
 
     @property
     def day(self) -> date:
@@ -92,7 +93,7 @@ def read_github(folder: Path) -> tuple[GithubRun | None, list[DQItem]]:
                     continue
                 dep_id = r.get("deployment_id", "").strip()
                 terminal = sorted(statuses.get(dep_id, []))
-                repo.deployments.append(GhDeployment(id=dep_id, env=r.get("environment", "").strip(), created_at=t, outcome=terminal[-1][1] if terminal else "pending"))
+                repo.deployments.append(GhDeployment(id=dep_id, env=r.get("environment", "").strip(), created_at=t, outcome=terminal[-1][1] if terminal else "pending", sha=r.get("sha", "").strip()))
         if bad:
             issues.append(DQItem("warning", "GH_FETCH", f"{bad} deployments name no known repository or have no date and were ignored", file="github/deployments.csv"))
 

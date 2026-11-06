@@ -2,28 +2,35 @@
 
 Built from the extract alone, so it shows real numbers while the register is still being filled. A repository
 is counted unless it is tooling, a template or a test (pipeline/github.py exclusion(), or the crosswalk);
-excluded repositories are listed but left out of every total. Rules: docs/metric-definitions.md, section
-"Delivery".
+excluded repositories are listed but left out of every total. Delivery health (failing now, production commits
+that skipped validation, recovery time, onboarding) comes from the same deployments. Rules:
+docs/metric-definitions.md, sections "Delivery" and "Delivery health".
 """
 
 from __future__ import annotations
 
 from collections import Counter
 from datetime import date, timedelta
+from statistics import median
 
-from pipeline.contracts import Delivery, DeliveryEnv, DeliveryRepo, DeliveryTeam, DeliveryTotals, DeliveryWeek, RepoEnv
+from pipeline.contracts import Delivery, DeliveryBroken, DeliveryBypass, DeliveryEnv, DeliveryRepo, DeliveryTeam, DeliveryTotals, DeliveryWeek, RepoEnv
 from pipeline.dates import iso, week_of
-from pipeline.github import WINDOW_DAYS, GithubMatch, failed, in_window, recent, repo_names
+from pipeline.github import (
+    WINDOW_DAYS,
+    GithubMatch,
+    failed,
+    failing_streaks,
+    in_window,
+    reached,
+    recent,
+    recovery_hours,
+    repo_names,
+    unvalidated_prod,
+    weekly_counts,
+    weeks,
+)
 from pipeline.readers.github import FAILED, GhDeployment, GithubRepo, GithubRun
 from pipeline.registry import PlatformConfig
-
-WEEKS = 12
-
-
-def _weeks(as_of: date) -> list[date]:
-    """Mondays of the last WEEKS ISO weeks up to the as-of date, oldest first."""
-    monday = as_of - timedelta(days=as_of.weekday())
-    return [monday - timedelta(weeks=WEEKS - 1 - i) for i in range(WEEKS)]
 
 
 def _envs(run: GithubRun, cfg: PlatformConfig) -> list[str]:
@@ -37,7 +44,7 @@ def _repo(repo: GithubRepo, deps: list[GhDeployment], envs: list[str], mondays: 
     prod = set(cfg.github_prod_environments)
     window = recent(repo, as_of)
     prod_ok = [d for d in deps if d.env in prod and d.outcome == "success"]
-    weekly = [sum(1 for d in deps if m <= d.day < m + timedelta(days=7)) for m in mondays]
+    weekly = weekly_counts(deps, mondays)
     by_env = []
     for e in envs:
         here = [d for d in deps if d.env == e]
@@ -59,13 +66,15 @@ def _repo(repo: GithubRepo, deps: list[GhDeployment], envs: list[str], mondays: 
         deploys30d=len(window),
         failed30d=len(failed(window)),
         weekly=weekly,
+        reached=reached(repo, cfg, as_of),
+        failingNow=[s.env for s in failing_streaks(repo, cfg, as_of)],
     )
 
 
 def compute_delivery(run: GithubRun, match: GithubMatch, cfg: PlatformConfig, as_of: date) -> Delivery:
     envs = _envs(run, cfg)
     prod = set(cfg.github_prod_environments)
-    mondays = _weeks(as_of)
+    mondays = weeks(as_of)
     urn_of = {r.name: urn for urn, r in match.by_urn.items()} | {r.name: urn for r, urn, _ in match.duplicates}
 
     repos, counted = [], []
@@ -79,6 +88,20 @@ def compute_delivery(run: GithubRun, match: GithubMatch, cfg: PlatformConfig, as
     window = [d for repo, _, _ in counted for d in recent(repo, as_of)]
     prod_window = [d for d in window if d.env in prod]
     last_prod = max(((r.lastProdDeploy, r.name) for _, _, r in counted if r.lastProdDeploy), default=(None, None))
+
+    broken, bypass, recovery = [], [], []
+    path_envs = prod_commits = 0
+    for repo, deps, row in counted:
+        path_envs += sum(1 for e in row.envs if e.env in cfg.github_environments and any(d.env == e.env and d.outcome != "pending" for d in deps))
+        for s in failing_streaks(repo, cfg, as_of):
+            broken.append(DeliveryBroken(repo=repo.name, urn=row.urn, env=s.env, since=s.since.isoformat(), lastSuccess=iso(s.last_success)))
+        skipped, commits = unvalidated_prod(repo, cfg, as_of)
+        prod_commits += commits
+        bypass += [DeliveryBypass(repo=repo.name, urn=row.urn, sha=d.sha[:7], at=d.day.isoformat()) for d in skipped]
+        recovery += recovery_hours(repo, as_of)
+    broken.sort(key=lambda b: (b.since, b.repo, b.env))
+    bypass.sort(key=lambda b: (b.at, b.repo), reverse=True)
+    first_deploy = [min(d.day for d in deps) for _, deps, _ in counted if deps]
     totals = DeliveryTotals(
         repos=len(counted),
         active30d=sum(1 for repo, deps, _ in counted if any(in_window(d, as_of) for d in deps)),
@@ -90,6 +113,12 @@ def compute_delivery(run: GithubRun, match: GithubMatch, cfg: PlatformConfig, as
         notInRegister=sum(1 for _, _, r in counted if r.urn is None),
         lastProdDeploy=last_prod[0],
         lastProdRepo=last_prod[1],
+        brokenNow=len(broken),
+        pathEnvs=path_envs,
+        bypass30d=len(bypass),
+        prodCommits30d=prod_commits,
+        recoveryHours30d=round(median(recovery), 1) if recovery else None,
+        onboarded=len(first_deploy),
     )
 
     env_rows = []
@@ -117,6 +146,7 @@ def compute_delivery(run: GithubRun, match: GithubMatch, cfg: PlatformConfig, as
                 deploys=len(week),
                 failed=sum(1 for d in week if d.outcome in FAILED),
                 prodSuccess=sum(1 for d in week if d.env in prod and d.outcome == "success"),
+                firstDeploys=sum(1 for f in first_deploy if m <= f < m + timedelta(days=7)),
             )
         )
 
@@ -144,4 +174,6 @@ def compute_delivery(run: GithubRun, match: GithubMatch, cfg: PlatformConfig, as
         weekly=weekly,
         teams=teams,
         repos=repos,
+        broken=broken,
+        bypass=bypass,
     )

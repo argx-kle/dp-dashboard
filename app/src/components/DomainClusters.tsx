@@ -1,11 +1,13 @@
 /* Executive "Domains" panel: cluster map by default, the domain table on request (and in print).
    The map groups domains under their area (Commercial, TechOps, R&D, G&A) and shows only domains with
-   products in them. Health is the domain's verdict on its label; each bubble is a product in its stage. */
+   products in them. Health is the domain's verdict on its label; each bubble is a product in its stage (its
+   platform stage while the register has no gate dates). */
 
 import { useState } from 'react';
 import ClusterMap, { type ClusterGroup } from '@/components/ClusterMap';
 import DomainSummaryTable from '@/components/DomainSummaryTable';
-import StageMark from '@/components/StageMark';
+import StageMark, { PlatformMark } from '@/components/StageMark';
+import { failingProducts, hasGates, platformStage, platformStages } from '@/lib/platform';
 import { useSnapshot } from '@/lib/context';
 import { fmtDate, plural } from '@/lib/format';
 import { href } from '@/lib/router';
@@ -13,7 +15,47 @@ import { displayAreas, hasProducts } from '@/lib/select';
 import { ATTENTION, stagesShown } from '@/lib/theme';
 import type { ProductRow } from '@/types/snapshot';
 
+const DOT = (
+  <svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true">
+    <circle r={4.2} fill={ATTENTION} stroke="#001A22" strokeWidth={1.5} />
+  </svg>
+);
+
+/** The platform stages present, then failing now; each links to its products. */
+function PlatformLegend({ products, domain }: { products: ProductRow[]; domain?: string }) {
+  const s = useSnapshot();
+  const failing = failingProducts(s, domain).filter((p) => products.includes(p)).length;
+  return (
+    <ul className="m-0 flex list-none flex-wrap items-center gap-x-5 gap-y-2 p-0 text-small text-ink-2" aria-label="Platform stages">
+      {platformStages(s).map((st) => {
+        const n = products.filter((p) => platformStage(s, p).key === st.key).length;
+        if (!n) return null;
+        return (
+          <li key={st.key}>
+            <a href={href.products({ pstage: st.key, domain })} className="inline-flex items-center gap-1.5 text-ink-2 no-underline hover:text-ink" data-testid={`legend-count-${st.key}`} data-count={n} aria-label={`${n} ${st.label.toLowerCase()}`}>
+              <PlatformMark stage={st} />
+              {st.label}
+              <span className="font-semibold text-ink tnum">{n}</span>
+            </a>
+          </li>
+        );
+      })}
+      {failing > 0 && (
+        <li>
+          <a href={href.products({ failing: '1', domain })} className="inline-flex items-center gap-1.5 text-ink-2 no-underline hover:text-ink" data-testid="legend-count-failing" data-count={failing}>
+            {DOT}
+            Failing now
+            <span className="font-semibold text-ink tnum">{failing}</span>
+          </a>
+        </li>
+      )}
+    </ul>
+  );
+}
+
 export function StageLegend({ products, domain }: { products: ProductRow[]; domain?: string }) {
+  const s = useSnapshot();
+  if (!hasGates(s)) return <PlatformLegend products={products} domain={domain} />;
   return (
     <ul className="m-0 flex list-none flex-wrap items-center gap-x-5 gap-y-2 p-0 text-small text-ink-2" aria-label="Lifecycle stages">
       {stagesShown(products).map((st) => {
@@ -31,9 +73,7 @@ export function StageLegend({ products, domain }: { products: ProductRow[]; doma
       {products.some((p) => p.flags.length > 0) && (
         <li>
           <a href={href.products({ flagged: '1', domain })} className="inline-flex items-center gap-1.5 text-ink-2 no-underline hover:text-ink" data-testid="legend-count-attention" data-count={products.filter((p) => p.flags.length > 0).length}>
-            <svg width="12" height="12" viewBox="-6 -6 12 12" aria-hidden="true">
-              <circle r={4.2} fill={ATTENTION} stroke="#001A22" strokeWidth={1.5} />
-            </svg>
+            {DOT}
             Needs attention
             <span className="font-semibold text-ink tnum">{products.filter((p) => p.flags.length > 0).length}</span>
           </a>
@@ -66,6 +106,7 @@ function Segmented({ value, onChange }: { value: 'map' | 'table'; onChange: (v: 
 export default function DomainClusters() {
   const s = useSnapshot();
   const [view, setView] = useState<'map' | 'table'>('map');
+  const platform = !hasGates(s);
   const shown = displayAreas(s, hasProducts(s));
   const group = (id: string, name: string): ClusterGroup => {
     const items = s.products.filter((p) => p.domain === id);
@@ -82,7 +123,7 @@ export default function DomainClusters() {
     <section aria-labelledby="domains-h" className="flex min-w-0 flex-col rounded-panel border border-line bg-panel print-break-avoid">
       <div className="flex flex-wrap items-center justify-between gap-3 px-6 pt-6">
         <h2 id="domains-h" className="text-heading font-semibold text-ink">
-          Products by domain <span className="ml-1 text-small font-normal text-ink-3">as of {fmtDate(s.asOfDate)}</span>
+          {platform ? 'Products on the platform' : 'Products by domain'} <span className="ml-1 text-small font-normal text-ink-3">as of {fmtDate(s.asOfDate)}</span>
         </h2>
         <Segmented value={view} onChange={setView} />
       </div>
@@ -99,7 +140,7 @@ export default function DomainClusters() {
               )}
               <ClusterMap
                 groups={a.domains.map((d) => group(d.id, d.name))}
-                ariaLabel={`${a.name || a.domains.map((d) => d.name).join(', ')} data products by domain. Each circle is a product; its ring shows its lifecycle stage, a yellow dot that it needs attention.`}
+                ariaLabel={`${a.name || a.domains.map((d) => d.name).join(', ')} data products by domain. Each circle is a product; ${platform ? 'its ring shows how far it has got on the promotion path, a yellow dot that it is failing now' : 'its ring shows its lifecycle stage, a yellow dot that it needs attention'}.`}
                 testId={`cluster-map-${a.name || 'other'}`}
               />
             </div>

@@ -3,6 +3,7 @@
 import type { DomainInfo, FlagDefinition, MetricDefinition, MetricValue, ProductRow, ReportingItem, Snapshot } from '@/types/snapshot';
 import { SIGNALS, STAGES, type Stage } from '@/lib/theme';
 import { healthOf } from '@/lib/quarter';
+import { failingProducts, platformStage, platformStages } from '@/lib/platform';
 
 export const ORG = 'org';
 
@@ -150,6 +151,19 @@ export function filterProducts(s: Snapshot, params: URLSearchParams): Filter {
     products = products.filter((p) => p.lifecycle === stage);
     chips.push({ key: 'stage', label: stage });
     if (!metricId && !status) title = `${stage} products`;
+  }
+  const pstage = params.get('pstage');
+  const pst = pstage ? platformStages(s).find((x) => x.key === pstage) : undefined;
+  if (pst) {
+    products = products.filter((p) => platformStage(s, p).key === pst.key);
+    chips.push({ key: 'pstage', label: pst.label });
+    if (!metricId) title = pst.step < 0 ? 'Products not on GitHub' : pst.step === 0 ? 'Products never deployed successfully' : `Products that got as far as ${pst.label}`;
+  }
+  if (params.get('failing')) {
+    const order = new Map(failingProducts(s).map((p, i) => [p.urn, i]));
+    products = products.filter((p) => order.has(p.urn)).sort((a, b) => order.get(a.urn)! - order.get(b.urn)!);
+    chips.push({ key: 'failing', label: 'Failing now' });
+    if (!metricId) title = 'Products failing now';
   }
   const late = params.get('late');
   if (late) {

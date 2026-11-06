@@ -1,12 +1,14 @@
 /* Executive "Table" view: one summary row per domain, numbers first, each row opening with its
-   disclosure triangle to the domain's products. Every number links to the products behind it. */
+   disclosure triangle to the domain's products. Every number links to the products behind it. While the register
+   has no gate dates, the figures are the platform stages and the products failing now. */
 
 import { Fragment, useState } from 'react';
 import ProductTable from '@/components/ProductTable';
 import StageCounts from '@/components/StageCounts';
 import { TriangleIcon } from '@/components/Icons';
 import { useSnapshot } from '@/lib/context';
-import { domainSummary } from '@/lib/domainSummary';
+import { domainSummary, platformHeaders, platformSummary } from '@/lib/domainSummary';
+import { hasGates } from '@/lib/platform';
 import { href } from '@/lib/router';
 import { inPlay } from '@/lib/select';
 
@@ -14,6 +16,8 @@ const HEADERS = ['Products', 'Live', 'In pipeline', 'Certified', 'Time to produc
 
 export default function DomainSummaryTable() {
   const s = useSnapshot();
+  const platform = !hasGates(s);
+  const headers = platform ? platformHeaders(s) : HEADERS;
   const domains = s.domains.filter(inPlay(s));
   const [open, setOpen] = useState<Set<string>>(new Set());
   const allOpen = open.size === domains.length;
@@ -33,7 +37,7 @@ export default function DomainSummaryTable() {
               <th scope="col" className="border-b border-line px-4 py-3 text-left text-small font-medium text-ink-3">
                 Domain
               </th>
-              {HEADERS.map((h) => (
+              {headers.map((h) => (
                 <th key={h} scope="col" className="border-b border-line px-3 py-3 text-right text-small font-medium whitespace-nowrap text-ink-3">
                   {h}
                 </th>
@@ -43,7 +47,7 @@ export default function DomainSummaryTable() {
           <tbody>
             {domains.map((d) => {
               const isOpen = open.has(d.id);
-              const figures = domainSummary(s, d.id);
+              const figures = platform ? platformSummary(s, d.id) : domainSummary(s, d.id);
               const products = s.products.filter((p) => p.domain === d.id);
               return (
                 <Fragment key={d.id}>
@@ -67,7 +71,7 @@ export default function DomainSummaryTable() {
                               {d.name}
                             </a>
                           </div>
-                          {!isOpen && <StageCounts id={d.id} className="mt-1" />}
+                          {!isOpen && !platform && <StageCounts id={d.id} className="mt-1" />}
                         </div>
                       </div>
                     </th>
@@ -86,7 +90,7 @@ export default function DomainSummaryTable() {
                   </tr>
                   {isOpen && (
                     <tr id={`domain-rows-${d.id}`} data-testid={`domain-rows-${d.id}`}>
-                      <td colSpan={HEADERS.length + 1} className="border-b border-line bg-bg/40 px-4 pt-1 pb-4">
+                      <td colSpan={headers.length + 1} className="border-b border-line bg-bg/40 px-4 pt-1 pb-4">
                         <ProductTable products={products} compact caption={`${d.name} products`} />
                       </td>
                     </tr>

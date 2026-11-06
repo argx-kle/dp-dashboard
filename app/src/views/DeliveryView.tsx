@@ -1,6 +1,7 @@
 /* #/delivery  Every data product repository in the GitHub extract and how it deploys, whether or not it is in
    the register (snapshot.delivery): the headline numbers, the promotion path dev → validation → production,
-   twelve weeks of deployments, teams, and every repository. #/delivery?env=iac-apply-p lists the repositories
+   delivery health (failing now, production commits that skipped validation, recovery time, onboarding), twelve
+   weeks of deployments, teams, and every repository. #/delivery?env=iac-apply-p lists the repositories
    that reached that environment; ?all=1 adds the tooling, template and test repositories that are not counted. */
 
 import { useMemo, useState } from 'react';
@@ -12,7 +13,7 @@ import { fmtDateTimeZone, fmtShort, fmtValue, plural } from '@/lib/format';
 import { href } from '@/lib/router';
 import { C, SIGNALS } from '@/lib/theme';
 import { useWidth } from '@/lib/useWidth';
-import type { Delivery, DeliveryRepo, DeliveryWeek } from '@/types/snapshot';
+import type { Delivery, DeliveryRepo, DeliveryWeek, Snapshot } from '@/types/snapshot';
 
 /* Succeeded and failed fill the bars (validated pair on the panel surface); production successes are a
    labelled marker above the bar, never a third fill. */
@@ -24,6 +25,15 @@ const DAY = 86_400_000;
 const pct = (n: number, of: number) => (of ? fmtValue(n / of, 'share') : '–');
 const daysBetween = (from: string, to: string) => Math.round((Date.parse(to) - Date.parse(from)) / DAY);
 const prodEnv = (d: Delivery) => d.envs.find((e) => e.prod)?.id;
+const envName = (d: Delivery, id: string) => d.envs.find((e) => e.id === id)?.label ?? id;
+
+/** Hours as the reader thinks of them: minutes under an hour, days from two days. */
+export function fmtHours(h: number | undefined): string {
+  if (h === undefined) return '–';
+  if (h < 1) return `${Math.max(1, Math.round(h * 60))} min`;
+  if (h < 48) return `${Math.round(h * 10) / 10} h`;
+  return `${Math.round(h / 24)} days`;
+}
 
 function Tile({ title, value, caption, link, testId }: { title: string; value: string; caption: string; link?: string; testId: string }) {
   return (
@@ -387,6 +397,131 @@ function Repos({ d, params }: { d: Delivery; params: URLSearchParams }) {
   );
 }
 
+function productLink(s: Snapshot, repo: string, urn?: string) {
+  return urn && s.products.some((p) => p.urn === urn) ? (
+    <a href={href.product(urn)} className="font-semibold whitespace-nowrap text-ink no-underline hover:text-clear hover:underline">{repo}</a>
+  ) : (
+    <span className="font-semibold whitespace-nowrap text-ink">{repo}</span>
+  );
+}
+
+/** Repositories whose first deployment falls in each of the twelve weeks: the pace of onboarding. */
+function Onboarding({ d }: { d: Delivery }) {
+  const max = Math.max(1, ...d.weekly.map((w) => w.firstDeploys));
+  return (
+    <div className="border-t border-line px-6 py-5" data-testid="del-onboarding">
+      <h3 className="text-small font-medium text-ink-2">Repositories deploying for the first time, per week</h3>
+      <ol className="m-0 mt-3 grid list-none grid-cols-12 items-end gap-1.5 p-0" aria-label="Repositories deploying for the first time, per week">
+        {d.weekly.map((w) => (
+          <li key={w.week} className="flex flex-col items-center gap-1" aria-label={`${w.week}: ${w.firstDeploys}`}>
+            <span className="text-small text-ink-2 tnum">{w.firstDeploys || ''}</span>
+            <span className="block w-full max-w-8 rounded-[3px]" style={{ height: w.firstDeploys ? Math.max(3, (w.firstDeploys / max) * 48) : 1, background: w.firstDeploys ? C.data1 : C.line }} />
+            <span className="text-small text-ink-3">W{w.week.slice(-2)}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+/** Repository and environment pairs whose latest deployment failed, longest-failing first. */
+function Broken({ d }: { d: Delivery }) {
+  const s = useSnapshot();
+  const day = d.fetchedAt.slice(0, 10);
+  return (
+    <div className="border-t border-line" data-testid="del-broken">
+      <h3 className="px-6 pt-5 pb-3 text-small font-medium text-ink-2">Failing now: the latest deployment failed</h3>
+      {d.broken.length === 0 ? (
+        <p className="px-6 pb-5 text-body text-ink-3">Nothing: every latest deployment succeeded.</p>
+      ) : (
+        <ScrollTable label="Failing now" maxHeight="50dvh" testId="del-broken-scroll">
+          <table className="w-full border-separate border-spacing-0 text-body" data-testid="del-broken-table" data-count={d.broken.length}>
+            <thead className="sticky top-0 z-20">
+              <tr>
+                <th scope="col" className={TH}>Repository</th>
+                <th scope="col" className={TH}>Environment</th>
+                <th scope="col" className={TH}>Failing since</th>
+                <th scope="col" className={TH}>Last success there</th>
+              </tr>
+            </thead>
+            <tbody>
+              {d.broken.map((b) => (
+                <tr key={`${b.repo}-${b.env}`} className="hover:bg-panel-2" data-repo={b.repo}>
+                  <td className={TD}>{productLink(s, b.repo, b.urn)}</td>
+                  <td className={`${TD} whitespace-nowrap text-ink-2`}>{envName(d, b.env)}</td>
+                  <td className={`${TD} whitespace-nowrap`}>
+                    <span className="text-ink">{fmtShort(b.since)}</span> <span className="text-small text-ink-3 tnum">{plural(Math.max(0, daysBetween(b.since, day)), 'day')}</span>
+                  </td>
+                  <td className={`${TD} whitespace-nowrap ${b.lastSuccess ? 'text-ink-2' : 'text-ink-3'}`}>{b.lastSuccess ? fmtShort(b.lastSuccess) : 'Never'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </ScrollTable>
+      )}
+    </div>
+  );
+}
+
+function Bypass({ d }: { d: Delivery }) {
+  const s = useSnapshot();
+  if (!d.bypass.length) return null;
+  return (
+    <details className="border-t border-line px-6 py-4" data-testid="del-bypass">
+      <summary className="cursor-pointer text-small font-medium text-ink-2 hover:text-ink">
+        {plural(d.bypass.length, 'production deployment')} in {d.windowDays} days of a commit never deployed to validation first
+      </summary>
+      <ul className="m-0 mt-3 list-none space-y-1.5 p-0 text-body">
+        {d.bypass.map((b) => (
+          <li key={`${b.repo}-${b.sha}`} className="flex flex-wrap items-baseline gap-x-3">
+            {productLink(s, b.repo, b.urn)}
+            <code className="text-small text-ink-3">{b.sha}</code>
+            <span className="text-small text-ink-2">{fmtShort(b.at)}</span>
+          </li>
+        ))}
+      </ul>
+    </details>
+  );
+}
+
+/** Delivery health: what is failing now, production commits that skipped validation, how fast teams recover,
+    and how fast repositories come onto the platform. The overview shows the tiles; the Delivery view the detail. */
+export function DeliveryHealth({ detail = false }: { detail?: boolean }) {
+  const s = useSnapshot();
+  const d = s.delivery;
+  if (!d) return null;
+  const t = d.totals;
+  const thisWeek = d.weekly.at(-1)?.firstDeploys ?? 0;
+  const month = d.weekly.slice(-4).reduce((a, w) => a + w.firstDeploys, 0);
+  return (
+    <section aria-labelledby="del-health-h" className="overflow-hidden rounded-panel border border-line bg-panel print-break-avoid" data-testid="delivery-health">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 px-6 pt-6 pb-4">
+        <h2 id="del-health-h" className="flex items-center gap-2 text-heading font-semibold text-ink">
+          Delivery health <SourceLabel source="github" />
+        </h2>
+        {!detail && (
+          <a href={href.delivery()} className="text-small" data-testid="delivery-health-open">
+            What is failing, and where
+          </a>
+        )}
+      </div>
+      <div className="grid gap-px border-t border-line bg-line sm:grid-cols-2 xl:grid-cols-4">
+        <Tile testId="del-broken-now" title="Failing now" value={String(t.brokenNow)} caption={`of ${t.pathEnvs} repository steps on the path: the latest deployment failed`} />
+        <Tile testId="del-bypass-30d" title={`Production without validation, ${d.windowDays} days`} value={t.prodCommits30d ? `${t.bypass30d} of ${t.prodCommits30d}` : '–'} caption={t.prodCommits30d ? 'commits deployed to production that never went through validation' : 'No commit reached production in the window'} />
+        <Tile testId="del-recovery" title={`Time to recover, ${d.windowDays} days`} value={fmtHours(t.recoveryHours30d)} caption={t.recoveryHours30d !== undefined ? 'median, from a failed deployment to the next success' : 'No failure was followed by a success'} />
+        <Tile testId="del-onboarded" title="Repositories onboarded" value={String(t.onboarded)} caption={`${thisWeek} this week, ${month} in the last 4 weeks`} />
+      </div>
+      {detail && (
+        <>
+          <Onboarding d={d} />
+          <Broken d={d} />
+          <Bypass d={d} />
+        </>
+      )}
+    </section>
+  );
+}
+
 export default function DeliveryView({ params }: { params: URLSearchParams }) {
   const s = useSnapshot();
   const d = s.delivery;
@@ -400,6 +535,7 @@ export default function DeliveryView({ params }: { params: URLSearchParams }) {
   return (
     <div className="space-y-6" data-testid="delivery-view">
       <DeliverySummary />
+      <DeliveryHealth detail />
       <Weekly d={d} />
       <Teams d={d} />
       <Repos d={d} params={params} />

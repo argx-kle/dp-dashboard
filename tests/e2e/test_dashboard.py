@@ -537,3 +537,106 @@ def test_at_e2e_30_delivery_fits_a_phone(browser, github_pack):
     pg.wait_for_selector("[data-testid=delivery-view]")
     assert pg.evaluate("document.documentElement.scrollWidth") <= 390
     ctx.close()
+
+
+# --- No gate dates yet (the real register today): the same GitHub week with gate_events.csv emptied -----------
+
+
+@pytest.fixture(scope="module")
+def nogates_pack(tmp_path_factory, regs) -> Path:
+    import shutil
+
+    from conftest import FIXTURES
+
+    base = tmp_path_factory.mktemp("nogates-pack")
+    shutil.copytree(PLATFORM_INBOX, base / "inbox")
+    shutil.copytree(FIXTURES / "github", base / "inbox" / "github")
+    events = base / "inbox" / "gate_events.csv"
+    events.write_text(events.read_text(encoding="utf-8").splitlines()[0] + "\n", encoding="utf-8")
+    res = run_build(base / "inbox", WEEK, base / "out", base / "state", regs=regs)
+    assert res.built
+    return base
+
+
+@pytest.fixture
+def npage(browser, nogates_pack):
+    ctx = browser.new_context(viewport={"width": 1400, "height": 900}, reduced_motion="reduce")
+    pg = ctx.new_page()
+    errors: list[str] = []
+    pg.on("pageerror", lambda e: errors.append(str(e)))
+    pg.on("console", lambda m: errors.append(m.text) if m.type == "error" else None)
+    pg.goto((nogates_pack / "out" / WEEK / "index.html").as_uri())
+    pg.wait_for_selector("[data-testid=exec-view]")
+    yield pg
+    assert errors == [], errors
+    ctx.close()
+
+
+def test_at_e2e_31_overview_is_built_from_the_platform(npage):
+    assert npage.get_attribute("[data-testid=exec-view]", "data-mode") == "platform"
+    for gone in ["quarter-verdict", "attention", "stat-strip", "trend-chart"]:
+        assert npage.locator(f"[data-testid={gone}]").count() == 0, gone
+    order = npage.evaluate("[...document.querySelectorAll('[data-testid=delivery-summary],[data-testid=delivery-health],[data-testid=cluster-map],[data-testid=readiness-strip]')].map(e => e.dataset.testid)")
+    assert order == ["delivery-summary", "delivery-health", "cluster-map", "readiness-strip"]
+    assert npage.locator("[data-testid=cluster-bubble][data-stage=Ideation]").count() == 0
+    assert [a.inner_text() for a in npage.query_selector_all("[data-testid=failing-item]")] == ["HCP master", "Rx claims"]
+    assert npage.locator("[data-testid=reporting-strip] >> text=Gate dates").count() == 0
+
+
+def test_at_e2e_32_platform_legend_links_to_its_products(npage):
+    for sel in ["[data-testid=legend-count-failing]", "[data-testid=legend-count-iac-apply-p]"]:
+        npage.goto(npage.url.split("#")[0] + "#/")
+        expected = _count(npage, sel)
+        npage.click(sel)
+        npage.wait_for_selector("[data-testid=products-view]")
+        assert _count(npage, "[data-testid=products-count]") == expected, sel
+
+
+def test_at_e2e_33_product_page_leads_with_delivery(npage):
+    npage.goto(npage.url.split("#")[0] + "#/products/nxd:dp-hcp-hcp-master")
+    npage.wait_for_selector("[data-testid=platform-github]")
+    assert npage.locator("text=Stage history").count() == 0
+    assert "Failing now: Dev deploys failing" in npage.inner_text("[data-testid=delivery-failing]")
+    first = npage.evaluate("document.querySelector('[data-testid=product-view] section').dataset.testid")
+    assert first == "platform-github"
+    npage.goto(npage.url.split("#")[0] + "#/products/nxd:dp-ops-crmsys")
+    npage.wait_for_selector("[data-testid=delivery-recent]")
+    assert npage.locator("[data-testid=delivery-recent] tbody tr").count() == 6
+
+
+def test_at_e2e_34_products_list_without_gate_columns(npage):
+    npage.goto(npage.url.split("#")[0] + "#/products")
+    headers = npage.locator("[data-testid=product-table] thead th").all_inner_texts()
+    assert any(h.startswith("Delivery") for h in headers)
+    assert not any(h.startswith(("Stage", "Next gate", "Flags", "Data product owner")) for h in headers)
+    npage.click("[data-testid=pstage-filter] >> text=Production")
+    npage.wait_for_function("location.hash.includes('pstage=iac-apply-p')")
+    assert _count(npage, "[data-testid=products-count]") == 2
+
+
+def test_at_e2e_35_definitions_and_delivery_health(npage):
+    npage.goto(npage.url.split("#")[0] + "#/definitions")
+    npage.wait_for_selector("[data-testid=definitions-view]")
+    assert npage.locator("#gates-h").count() == 0 and npage.locator("#health-h").count() == 0
+    assert npage.locator("#pstages-h").count() == 1 and npage.locator("#dhealth-h").count() == 1
+    npage.goto(npage.url.split("#")[0] + "#/delivery")
+    npage.wait_for_selector("[data-testid=del-broken-table]")
+    assert _count(npage, "[data-testid=del-broken-table]") == 2
+
+
+@pytest.mark.skipif(not AXE.exists(), reason="axe-core not installed in app/node_modules")
+@pytest.mark.parametrize("route", ["#/", "#/products", "#/products/nxd:dp-hcp-hcp-master", "#/products/nxd:dp-claims-rx-claims", "#/domain/hcp", "#/delivery", "#/definitions"])
+def test_at_e2e_36_axe_without_gates(npage, route):
+    npage.goto(npage.url.split("#")[0] + route)
+    npage.wait_for_selector("main [data-testid]")
+    _axe(npage)
+
+
+@pytest.mark.parametrize("route", ["#/", "#/products/nxd:dp-ops-crmsys", "#/delivery"])
+def test_at_e2e_37_platform_views_fit_a_phone(browser, nogates_pack, route):
+    ctx = browser.new_context(viewport={"width": 390, "height": 844})
+    pg = ctx.new_page()
+    pg.goto((nogates_pack / "out" / WEEK / "index.html").as_uri() + route)
+    pg.wait_for_selector("main [data-testid]")
+    assert pg.evaluate("document.documentElement.scrollWidth") <= 390, route
+    ctx.close()

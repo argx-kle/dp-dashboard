@@ -239,6 +239,12 @@ class NextDataSummary(_Model):
     deployments: list[NextDataDeployment]
 
 
+class GithubDeploy(_Model):
+    env: str
+    at: str
+    outcome: Literal["success", "failure", "error", "pending"]
+
+
 class GithubSummary(_Model):
     repo: str
     url: str | None = None
@@ -246,6 +252,10 @@ class GithubSummary(_Model):
     prodDeploys30d: int
     deploys30d: int
     failed30d: int
+    reached: str | None = None
+    failingNow: list[str]
+    recent: list[GithubDeploy]
+    weekly: list[int]
 
 
 class DeliveryEnv(_Model):
@@ -269,6 +279,12 @@ class DeliveryTotals(_Model):
     notInRegister: int
     lastProdDeploy: str | None = None
     lastProdRepo: str | None = None
+    brokenNow: int
+    pathEnvs: int
+    bypass30d: int
+    prodCommits30d: int
+    recoveryHours30d: float | None = None
+    onboarded: int
 
 
 class DeliveryWeek(_Model):
@@ -277,6 +293,7 @@ class DeliveryWeek(_Model):
     deploys: int
     failed: int
     prodSuccess: int
+    firstDeploys: int
 
 
 class DeliveryTeam(_Model):
@@ -309,6 +326,23 @@ class DeliveryRepo(_Model):
     deploys30d: int
     failed30d: int
     weekly: list[int]
+    reached: str | None = None
+    failingNow: list[str]
+
+
+class DeliveryBroken(_Model):
+    repo: str
+    urn: str | None = None
+    env: str
+    since: str
+    lastSuccess: str | None = None
+
+
+class DeliveryBypass(_Model):
+    repo: str
+    urn: str | None = None
+    sha: str
+    at: str
 
 
 class Delivery(_Model):
@@ -320,6 +354,8 @@ class Delivery(_Model):
     weekly: list[DeliveryWeek]
     teams: list[DeliveryTeam]
     repos: list[DeliveryRepo]
+    broken: list[DeliveryBroken]
+    bypass: list[DeliveryBypass]
 
 
 class ReportingItem(_Model):

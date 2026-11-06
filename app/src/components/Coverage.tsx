@@ -4,11 +4,14 @@
 import { useSnapshot } from '@/lib/context';
 import { href } from '@/lib/router';
 import { COVERAGE, metricCoverage, reportingItem } from '@/lib/select';
+import { hasGates } from '@/lib/platform';
 
 /** When every input is at or above this share, the strip steps aside (the notes under each number stay). */
 export const COVERAGE_COMPLETE = 0.8;
 
 const ORDER = ['gates', 'plans', 'reviewed', 'dpo', 'usage', 'consumers', 'validation', 'nextdata', 'github'];
+/** The platform inputs: all the strip shows while the register has no gate dates. */
+const PLATFORM = ['validation', 'nextdata', 'github'];
 
 /** One line under a number when the input it needs is incomplete: "Gate dates for 5 of 6 active products". */
 export function CoverageNote({ id, scope, className = '' }: { id: string; scope: string; className?: string }) {
@@ -30,7 +33,7 @@ export function CoverageNote({ id, scope, className = '' }: { id: string; scope:
 
 export default function ReportingStrip({ scope = 'org' }: { scope?: string }) {
   const s = useSnapshot();
-  const items = ORDER.map((k) => reportingItem(s, k, scope)).filter((r) => r && r.of > 0) as NonNullable<ReturnType<typeof reportingItem>>[];
+  const items = (hasGates(s) ? ORDER : PLATFORM).map((k) => reportingItem(s, k, scope)).filter((r) => r && r.of > 0) as NonNullable<ReturnType<typeof reportingItem>>[];
   if (items.length === 0 || items.every((r) => r.have / r.of >= COVERAGE_COMPLETE)) return null;
   return (
     <section aria-labelledby={`coverage-h-${scope}`} className="overflow-hidden rounded-panel border border-line bg-panel print-break-avoid" data-testid="reporting-strip">

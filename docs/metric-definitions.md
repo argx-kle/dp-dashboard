@@ -156,13 +156,32 @@ GitHub rules: production is an environment listed in `github.prod_environments` 
 
 ## Delivery (added 2026-11-02)
 
-The `#/delivery` view and the Delivery panel on the executive overview come from the GitHub extract alone, so they show real numbers while the register is still being filled. The panel sits at the top of the overview while no product has a gate, and next to Technical readiness once products do. It is shown for the current week only.
+The `#/delivery` view and the Delivery panel on the executive overview come from the GitHub extract alone, so they show real numbers while the register is still being filled. The panel opens the overview while no product has a gate (see "Without gate dates" below), and sits next to Technical readiness once products do. It is shown for the current week only.
 
 - **Counted repositories:** every `*-dp-*` repository except tooling teams, template, test and placeholder names (the `exclude_*` rules in `registry/platform.yaml`) and crosswalk rows marked not counted. Excluded repositories are listed behind a toggle and left out of every total. Counted repositories that match no register product are tagged "Not in register".
 - **Promotion path:** `github.environments` in `registry/platform.yaml`, in order (Dev `iac-apply-d`, Validation `iac-apply-v`, Production `iac-apply-p`). A repository "reached" a step when at least one deployment there ended in success. Other environments count in the totals only.
 - **Window:** `(asOf − 30 days, asOf]`. Deployments are counted when they have an outcome; the failure rate is failure or error over those.
 - **Weekly:** the last 12 ISO weeks up to the as-of date, by the day each deployment started. "Succeeded or running" is every deployment that did not fail; production successes are marked above the bar.
 - **Last production deploy:** the latest successful production deployment of any counted repository. The tile counts days back from the extract date.
+
+### Delivery health (added 2026-11-03)
+
+From the same deployments, over counted repositories (`pipeline/github.py`, `pipeline/delivery.py`). Only deployments with an outcome count; a pending one says nothing yet.
+
+| Figure | Rule |
+| --- | --- |
+| Failing now | A repository and step of the promotion path whose latest deployment failed or ended in error. Failing since = the first failure after the last success there. Out of every repository and step with at least one outcome. |
+| Production without validation | Commits deployed to production successfully in the window that had no successful deployment of the same commit in the step before production (Validation) earlier in the same repository. Counted once per commit. Commits are matched exactly: a production deployment of a different commit (a merge commit, say) counts even when its changes were validated. |
+| Time to recover | Median hours from a failed deployment in the window to the next successful deployment in the same repository and environment, measured from the first failure of a run of failures. Failures never followed by a success are left out. |
+| Repositories onboarded | Counted repositories with at least one deployment; per week, those whose first deployment falls in it. |
+
+### Platform stage (added 2026-11-03)
+
+A product's furthest step on the promotion path with a successful deployment (`ProductRow.github.reached`): Production, Validation or Dev; Repository when it has a repository but nothing succeeded; Not on GitHub when no repository matches. GitHub decides, never the register: a gate is a governance decision and the dashboard does not infer one from a deployment. A product is **failing now** when the latest deployment of one of its steps failed (`ProductRow.github.failingNow`) or NextData reports it Failed or Unreachable.
+
+## Without gate dates (added 2026-11-03)
+
+While no product in the register has a gate event, the app hides what the gates drive: the quarter and domain health, lifecycle stages, flags and Needs attention, Speed and adoption, the trend, the gate columns of the product table, the register inputs of Reporting coverage and their definitions. The pipeline still computes all of it. In their place the overview leads with Delivery and Delivery health, the map rings each product by its platform stage with a dot for failing now, a "Failing now" list replaces Needs attention, and each product page opens with its delivery: the promotion path, what is failing, twelve weeks and the latest deployments. Everything comes back by itself once gate dates are in the register.
 
 ## Data coverage (added 2026-10-07)
 

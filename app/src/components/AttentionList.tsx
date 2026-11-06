@@ -3,14 +3,15 @@
    as fit; a footer names the rest. No inner scroll. Hovering an item lights the product on the cluster map. */
 
 import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
-import StageMark from '@/components/StageMark';
+import StageMark, { PlatformMark } from '@/components/StageMark';
+import { failingProducts, failingReasons, platformStage } from '@/lib/platform';
 import { AlertIcon, ArrowRightIcon, FLAG_ICONS } from '@/components/Icons';
 import { useSnapshot } from '@/lib/context';
 import { useFocusTarget } from '@/lib/focus';
 import { href } from '@/lib/router';
 import { fmtShort, humanize, plural, quarterLabel } from '@/lib/format';
 import { domainName, flaggedProducts, flagDef } from '@/lib/select';
-import { flagColor, stageText } from '@/lib/theme';
+import { SIGNALS, flagColor, stageText } from '@/lib/theme';
 import type { ProductRow } from '@/types/snapshot';
 
 /** Items shown when the list does not sit beside a panel (narrow screens). */
@@ -203,6 +204,59 @@ export function DeliveredList() {
           {rest.length > 0 && (
             <a href={href.products({ metric: 'certified_qtd', scope: 'org' })} className="flex shrink-0 items-center justify-between gap-3 border-t border-line px-6 py-3.5 text-small text-ink-2 no-underline hover:bg-panel-2 hover:text-ink">
               <span className="line-clamp-2">
+                <span className="font-semibold text-ink">{rest.length} more:</span> {rest.map((p) => p.name).join(', ')}
+              </span>
+              <ArrowRightIcon width={14} height={14} className="shrink-0" />
+            </a>
+          )}
+        </>
+      )}
+    </Frame>
+  );
+}
+
+/** While the register has no gate dates, in place of the attention list: products whose latest deployment failed
+    in a step of the promotion path, or that NextData reports Failed or Unreachable; the furthest along first. */
+export function FailingList({ domain }: { domain?: string }) {
+  const s = useSnapshot();
+  const wide = useWide();
+  const all = failingProducts(s, domain);
+  const { section, head, list, fit } = useFit(all.length, wide);
+  const items = wide ? all : all.slice(0, fit);
+  const rest = all.slice(fit);
+  return (
+    <Frame sectionRef={section} headRef={head} title="Failing now" testId="failing" count={<span className="text-small text-ink-3 tnum" data-testid="failing-count">{plural(all.length, 'product')}</span>}>
+      {all.length === 0 ? (
+        <p className="px-6 pb-6 text-body text-ink-3">Nothing is failing: every latest deployment succeeded.</p>
+      ) : (
+        <>
+          <ul ref={list} className="m-0 min-h-0 flex-1 list-none overflow-hidden p-0" aria-label="Products failing now">
+            {items.map((p, i) => {
+              const st = platformStage(s, p);
+              return (
+                <Item key={p.urn} urn={p.urn} hidden={i >= fit} icon={<AlertIcon width={16} height={16} style={{ color: SIGNALS.red.color }} aria-hidden="true" />}>
+                  <a href={href.product(p.urn)} className="block truncate text-body font-semibold text-ink no-underline hover:underline" data-testid={i < fit ? 'failing-item' : undefined} tabIndex={i < fit ? undefined : -1}>
+                    {p.name}
+                  </a>
+                  <p className="mt-0.5 text-small text-pretty text-ink-2">{failingReasons(s, p).join(' · ')}</p>
+                  <p className="mt-0.5 inline-flex items-center gap-1.5 text-small text-ink-3">
+                    <PlatformMark stage={st} size={14} />
+                    <span>
+                      {st.step > 0 ? `Got as far as ${st.label}` : st.label} · {domainName(s, p.domain)}
+                    </span>
+                  </p>
+                </Item>
+              );
+            })}
+          </ul>
+          {rest.length > 0 && (
+            <a
+              href={href.products({ failing: '1', domain })}
+              className="flex shrink-0 items-center justify-between gap-3 border-t border-line px-6 py-3.5 text-small text-ink-2 no-underline transition-colors hover:bg-panel-2 hover:text-ink"
+              data-testid="failing-more"
+              data-count={rest.length}
+            >
+              <span className="line-clamp-2 text-pretty">
                 <span className="font-semibold text-ink">{rest.length} more:</span> {rest.map((p) => p.name).join(', ')}
               </span>
               <ArrowRightIcon width={14} height={14} className="shrink-0" />

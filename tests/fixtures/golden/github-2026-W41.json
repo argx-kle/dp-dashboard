@@ -1935,7 +1935,30 @@
         "url": "https://github.example/example-org/edp-patient-dp-journey_insights",
         "prodDeploys30d": 0,
         "deploys30d": 1,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-d",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-09-30T10:00:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-10-02"
@@ -2065,7 +2088,55 @@
         "lastProdDeploy": "2026-10-05",
         "prodDeploys30d": 2,
         "deploys30d": 4,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-08T10:00:00Z",
+            "outcome": "pending"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-10-05T10:00:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-02T10:00:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-01T10:00:00Z",
+            "outcome": "failure"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-09-25T10:00:00Z",
+            "outcome": "success"
+          },
+          {
+            "env": "iac-apply-p",
+            "at": "2026-08-01T10:00:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          2
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-10-06"
@@ -2185,7 +2256,37 @@
         "url": "https://github.example/example-org/edp-hcp-dp-hcp_master",
         "prodDeploys30d": 0,
         "deploys30d": 2,
-        "failed30d": 1
+        "failed30d": 1,
+        "reached": "iac-apply-v",
+        "failingNow": [
+          "iac-apply-d"
+        ],
+        "recent": [
+          {
+            "env": "iac-apply-d",
+            "at": "2026-10-06T10:00:00Z",
+            "outcome": "error"
+          },
+          {
+            "env": "iac-apply-v",
+            "at": "2026-09-20T10:00:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-10-07"
@@ -2254,7 +2355,23 @@
         "url": "https://github.example/example-org/edp-claims-dp-rx_claims",
         "prodDeploys30d": 0,
         "deploys30d": 0,
-        "failed30d": 0
+        "failed30d": 0,
+        "failingNow": [],
+        "recent": [],
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       },
       "flags": []
     },
@@ -2302,7 +2419,30 @@
         "lastProdDeploy": "2026-07-01",
         "prodDeploys30d": 0,
         "deploys30d": 0,
-        "failed30d": 0
+        "failed30d": 0,
+        "reached": "iac-apply-p",
+        "failingNow": [],
+        "recent": [
+          {
+            "env": "iac-apply-p",
+            "at": "2026-07-01T10:00:00Z",
+            "outcome": "success"
+          }
+        ],
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       },
       "flags": [],
       "reviewedOn": "2026-10-05"
@@ -2367,7 +2507,23 @@
         "url": "https://github.example/example-org/edp-patient-dp-pj_app",
         "prodDeploys30d": 0,
         "deploys30d": 0,
-        "failed30d": 0
+        "failed30d": 0,
+        "failingNow": [],
+        "recent": [],
+        "weekly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       },
       "flags": []
     }
@@ -8916,7 +9072,13 @@
       "reachedProd": 3,
       "notInRegister": 1,
       "lastProdDeploy": "2026-10-05",
-      "lastProdRepo": "edp-ops-dp-crmsys"
+      "lastProdRepo": "edp-ops-dp-crmsys",
+      "brokenNow": 2,
+      "pathEnvs": 8,
+      "bypass30d": 3,
+      "prodCommits30d": 3,
+      "recoveryHours30d": 24.0,
+      "onboarded": 6
     },
     "weekly": [
       {
@@ -8924,84 +9086,96 @@
         "start": "2026-07-20",
         "deploys": 0,
         "failed": 0,
-        "prodSuccess": 0
+        "prodSuccess": 0,
+        "firstDeploys": 0
       },
       {
         "week": "2026-W31",
         "start": "2026-07-27",
         "deploys": 1,
         "failed": 0,
-        "prodSuccess": 1
+        "prodSuccess": 1,
+        "firstDeploys": 1
       },
       {
         "week": "2026-W32",
         "start": "2026-08-03",
         "deploys": 0,
         "failed": 0,
-        "prodSuccess": 0
+        "prodSuccess": 0,
+        "firstDeploys": 0
       },
       {
         "week": "2026-W33",
         "start": "2026-08-10",
         "deploys": 0,
         "failed": 0,
-        "prodSuccess": 0
+        "prodSuccess": 0,
+        "firstDeploys": 0
       },
       {
         "week": "2026-W34",
         "start": "2026-08-17",
         "deploys": 0,
         "failed": 0,
-        "prodSuccess": 0
+        "prodSuccess": 0,
+        "firstDeploys": 0
       },
       {
         "week": "2026-W35",
         "start": "2026-08-24",
         "deploys": 0,
         "failed": 0,
-        "prodSuccess": 0
+        "prodSuccess": 0,
+        "firstDeploys": 0
       },
       {
         "week": "2026-W36",
         "start": "2026-08-31",
         "deploys": 0,
         "failed": 0,
-        "prodSuccess": 0
+        "prodSuccess": 0,
+        "firstDeploys": 0
       },
       {
         "week": "2026-W37",
         "start": "2026-09-07",
         "deploys": 0,
         "failed": 0,
-        "prodSuccess": 0
+        "prodSuccess": 0,
+        "firstDeploys": 0
       },
       {
         "week": "2026-W38",
         "start": "2026-09-14",
         "deploys": 1,
         "failed": 0,
-        "prodSuccess": 0
+        "prodSuccess": 0,
+        "firstDeploys": 1
       },
       {
         "week": "2026-W39",
         "start": "2026-09-21",
         "deploys": 1,
         "failed": 0,
-        "prodSuccess": 1
+        "prodSuccess": 1,
+        "firstDeploys": 0
       },
       {
         "week": "2026-W40",
         "start": "2026-09-28",
         "deploys": 5,
         "failed": 2,
-        "prodSuccess": 1
+        "prodSuccess": 1,
+        "firstDeploys": 3
       },
       {
         "week": "2026-W41",
         "start": "2026-10-05",
         "deploys": 3,
         "failed": 1,
-        "prodSuccess": 1
+        "prodSuccess": 1,
+        "firstDeploys": 0
       }
     ],
     "teams": [
@@ -9061,7 +9235,8 @@
           0,
           0,
           0
-        ]
+        ],
+        "failingNow": []
       },
       {
         "name": "edp-hcp-dp-hcp_master",
@@ -9099,6 +9274,10 @@
           0,
           0,
           1
+        ],
+        "reached": "iac-apply-v",
+        "failingNow": [
+          "iac-apply-d"
         ]
       },
       {
@@ -9123,7 +9302,8 @@
           0,
           0,
           0
-        ]
+        ],
+        "failingNow": []
       },
       {
         "name": "edp-nxd-dp-template",
@@ -9155,6 +9335,9 @@
           0,
           1,
           0
+        ],
+        "failingNow": [
+          "iac-apply-d"
         ]
       },
       {
@@ -9195,7 +9378,9 @@
           1,
           2,
           2
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-ops-dp-legacy_cube",
@@ -9228,7 +9413,9 @@
           0,
           0,
           0
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-ops-dp-orphan_feed",
@@ -9260,7 +9447,9 @@
           0,
           1,
           0
-        ]
+        ],
+        "reached": "iac-apply-p",
+        "failingNow": []
       },
       {
         "name": "edp-patient-dp-crmsys",
@@ -9292,6 +9481,9 @@
           0,
           1,
           0
+        ],
+        "failingNow": [
+          "iac-apply-p"
         ]
       },
       {
@@ -9324,7 +9516,9 @@
           0,
           1,
           0
-        ]
+        ],
+        "reached": "iac-apply-d",
+        "failingNow": []
       },
       {
         "name": "edp-patient-dp-pj_app",
@@ -9348,7 +9542,41 @@
           0,
           0,
           0
-        ]
+        ],
+        "failingNow": []
+      }
+    ],
+    "broken": [
+      {
+        "repo": "edp-patient-dp-crmsys",
+        "urn": "nxd:dp-ops-crmsys",
+        "env": "iac-apply-p",
+        "since": "2026-10-01"
+      },
+      {
+        "repo": "edp-hcp-dp-hcp_master",
+        "urn": "nxd:dp-hcp-hcp-master",
+        "env": "iac-apply-d",
+        "since": "2026-10-06"
+      }
+    ],
+    "bypass": [
+      {
+        "repo": "edp-ops-dp-crmsys",
+        "urn": "nxd:dp-ops-crmsys",
+        "sha": "a3",
+        "at": "2026-10-05"
+      },
+      {
+        "repo": "edp-ops-dp-orphan_feed",
+        "sha": "f1",
+        "at": "2026-10-01"
+      },
+      {
+        "repo": "edp-ops-dp-crmsys",
+        "urn": "nxd:dp-ops-crmsys",
+        "sha": "a2",
+        "at": "2026-09-25"
       }
     ]
   }

@@ -17,6 +17,7 @@ from pipeline.contracts import (
     DQItem,
     FlagDefinition,
     GateRecord,
+    GithubDeploy,
     GithubSummary,
     Inbox,
     MetricDefinition,
@@ -38,7 +39,22 @@ from pipeline.dates import iso, week_friday
 from pipeline.dqreport import render as render_dq
 from pipeline.flags import apply_product_flags, product_signal
 from pipeline.delivery import compute_delivery
-from pipeline.github import GithubMatch, GithubSources, failed, in_window, last_prod_deploy, load_github, match_repos, prod_successes, recent
+from pipeline.github import (
+    RECENT,
+    GithubMatch,
+    GithubSources,
+    failed,
+    failing_streaks,
+    in_window,
+    last_prod_deploy,
+    load_github,
+    match_repos,
+    prod_successes,
+    reached,
+    recent,
+    weekly_counts,
+    weeks,
+)
 from pipeline.health import compute_health
 from pipeline.inject import inject_file
 from pipeline.metrics.registry_runner import compute_metrics
@@ -249,6 +265,7 @@ def _product_rows(ctx: MetricContext, ga_slips: dict, ng_slips: dict, flag_defs:
 def _github_summary(pc: ProductCtx, ctx: MetricContext) -> GithubSummary:
     repo, cfg, as_of = pc.github, ctx.platform_cfg, ctx.as_of
     deps = recent(repo, as_of)
+    upto = sorted((d for d in repo.deployments if d.day <= as_of), key=lambda d: d.created_at, reverse=True)
     return GithubSummary(
         repo=repo.name,
         url=repo.url,
@@ -256,6 +273,10 @@ def _github_summary(pc: ProductCtx, ctx: MetricContext) -> GithubSummary:
         prodDeploys30d=len([d for d in prod_successes(repo, cfg, as_of) if in_window(d, as_of)]),
         deploys30d=len(deps),
         failed30d=len(failed(deps)),
+        reached=reached(repo, cfg, as_of),
+        failingNow=[s.env for s in failing_streaks(repo, cfg, as_of)],
+        recent=[GithubDeploy(env=d.env, at=d.created_at.isoformat(timespec="seconds").replace("+00:00", "Z"), outcome=d.outcome) for d in upto[:RECENT]],
+        weekly=weekly_counts(upto, weeks(as_of)),
     )
 
 

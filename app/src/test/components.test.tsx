@@ -19,6 +19,11 @@ import showcase from '../../../tests/fixtures/showcase/2026-W47.json';
 import ReportingStrip, { CoverageNote } from '@/components/Coverage';
 import StatStrip, { TechnicalReadiness } from '@/components/StatStrip';
 import ProductView from '@/views/ProductView';
+import ExecView from '@/views/ExecView';
+import DefinitionsView from '@/views/DefinitionsView';
+import { DeliveryHealth } from '@/views/DeliveryView';
+import { PlatformMark } from '@/components/StageMark';
+import { failingProducts, hasGates, platformStage, platformStages } from '@/lib/platform';
 import type { Snapshot } from '@/types/snapshot';
 
 const s = golden as unknown as Snapshot;
@@ -328,7 +333,8 @@ describe('GitHub', () => {
     wrap(<ProductView urn="nxd:dp-ops-crmsys" />, gs);
     const block = screen.getByTestId('platform-github');
     expect(within(block).getByTestId('github-last-prod')).toHaveTextContent('Last production deploy');
-    expect(within(block).getByText(/2 production deploys, 4 in all environments, 1 failed/)).toBeInTheDocument();
+    expect(within(block).getByTestId('github-delivery')).toHaveTextContent('Last 30 days: 4 deployments, 1 failed (25%), 2 in production');
+    expect(within(block).getByTestId('delivery-recent').querySelectorAll('tbody tr').length).toBe(6);
     expect(within(block).getByTestId('github-link')).toHaveAttribute('href', 'https://github.example/example-org/edp-ops-dp-crmsys');
     cleanup();
     wrap(<ProductView urn="nxd:dp-hcp-hcp-master" />, gs);
@@ -337,5 +343,70 @@ describe('GitHub', () => {
     wrap(<ProductView urn="urn:dp:com:legacy-cube" />, gs); // not on NextData, but it has a repository
     expect(screen.getByTestId('platform-github')).toBeInTheDocument();
     expect(screen.queryByText('Runtime')).toBeNull();
+  });
+});
+
+/* The real register has no gate dates yet: the same GitHub week with every gate removed. */
+const ng = { ...gs, products: gs.products.map((p) => ({ ...p, gates: [] })) } as Snapshot;
+
+describe('Platform mode (no gate dates)', () => {
+  it('switches on only when no product has a gate', () => {
+    expect(hasGates(gs)).toBe(true);
+    expect(hasGates(ng)).toBe(false);
+  });
+  it('gives each product its furthest step on the promotion path, and what is failing now', () => {
+    const stage = (urn: string) => platformStage(ng, ng.products.find((p) => p.urn === urn)!);
+    expect(platformStages(ng).map((st) => st.label)).toEqual(['Not on GitHub', 'Repository', 'Dev', 'Validation', 'Production']);
+    expect(stage('nxd:dp-ops-crmsys').label).toBe('Production');
+    expect(stage('nxd:dp-hcp-hcp-master')).toMatchObject({ label: 'Validation', step: 2, steps: 3 });
+    expect(stage('nxd:dp-claims-rx-claims').label).toBe('Repository'); // a repository with no deployment
+    // the furthest along first: hcp_master's dev deploys fail; Rx claims is Failed in NextData
+    expect(failingProducts(ng).map((p) => p.name)).toEqual(['HCP master', 'Rx claims']);
+  });
+  it('draws one ring segment per step of the path', () => {
+    const { container } = render(<PlatformMark stage={platformStages(ng)[3]} />);
+    expect(container.querySelector('[data-quarters]')?.getAttribute('data-quarters')).toBe('2');
+  });
+  it('builds the overview from the platform: no quarter, trend or speed and adoption', () => {
+    wrap(<ExecView params={new URLSearchParams()} />, ng);
+    expect(screen.getByTestId('exec-view')).toHaveAttribute('data-mode', 'platform');
+    expect(screen.queryByTestId('quarter-verdict')).toBeNull();
+    expect(screen.queryByTestId('attention')).toBeNull();
+    expect(screen.getByTestId('delivery-summary')).toBeInTheDocument();
+    expect(screen.getAllByTestId('failing-item').map((a) => a.textContent)).toEqual(['HCP master', 'Rx claims']);
+    expect(screen.getByTestId('legend-count-iac-apply-p')).toHaveAttribute('data-count', '2');
+    expect(screen.getByTestId('legend-count-failing')).toHaveAttribute('data-count', '2');
+    expect(screen.getAllByTestId('cluster-bubble').every((b) => !['Ideation', 'Live'].includes(b.getAttribute('data-stage') ?? ''))).toBe(true);
+  });
+  it('shows delivery health from the extract', () => {
+    wrap(<DeliveryHealth detail />, ng);
+    expect(screen.getByTestId('del-broken-now')).toHaveTextContent('2');
+    expect(screen.getByTestId('del-broken-now')).toHaveTextContent('of 8 repository steps');
+    expect(screen.getByTestId('del-bypass-30d')).toHaveTextContent('3 of 3');
+    expect(screen.getByTestId('del-recovery')).toHaveTextContent('24 h');
+    expect(screen.getByTestId('del-onboarded')).toHaveTextContent('6');
+    expect(screen.getByTestId('del-broken-table')).toHaveAttribute('data-count', '2');
+  });
+  it('leads the product page with delivery, and drops the gates', () => {
+    wrap(<ProductView urn="nxd:dp-hcp-hcp-master" />, ng);
+    expect(screen.queryByText(/Stage history/)).toBeNull();
+    expect(screen.queryByText('Facts')).toBeNull();
+    expect(screen.getByTestId('delivery-failing')).toHaveTextContent('Failing now: Dev deploys failing');
+    expect(screen.getByRole('heading', { name: /Delivery/ })).toBeInTheDocument();
+    expect(screen.getByText('failing since 6 Oct')).toBeInTheDocument();
+    expect(screen.getByText(/^last success 20 Sep/)).toBeInTheDocument();
+  });
+  it('drops the gate columns from the product table and adds delivery', () => {
+    wrap(<ProductTable products={ng.products} />, ng);
+    const headers = screen.getAllByRole('columnheader').map((h) => h.textContent);
+    expect(headers.some((h) => h?.startsWith('Delivery'))).toBe(true);
+    for (const gone of ['Stage', 'Next gate', 'Data product owner', 'Flags']) expect(headers).not.toContain(gone);
+  });
+  it('defines the platform stages and delivery health instead of the gates', () => {
+    wrap(<DefinitionsView />, ng);
+    expect(screen.queryByText('Domain health')).toBeNull();
+    expect(screen.queryByText('Stages and the gates between them')).toBeNull();
+    expect(screen.getByTestId('pstage-def-iac-apply-v')).toHaveTextContent('Validation');
+    expect(screen.getByText('Delivery health')).toBeInTheDocument();
   });
 });
